@@ -1,1 +1,10 @@
 .idea
+node_modules
+.next
+tsconfig.tsbuildinfo
+.env
+.env.local
+.DS_Store
+*.log
+.vercel
+next-env.d.ts
