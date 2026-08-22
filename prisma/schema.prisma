@@ -1,0 +1,293 @@
+// MoveSharp Prisma schema.
+// Sourced from the locked data model. Do not drift without an owner sign-off.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// -----------------------------------------------------------------------------
+// Enums
+// -----------------------------------------------------------------------------
+
+enum UserRole {
+  player
+  manager
+  admin
+}
+
+enum MembershipRole {
+  player
+  manager
+}
+
+enum AgeBand {
+  U13_U15
+  U16_U18
+}
+
+enum Position {
+  goalkeeper
+  right_back
+  left_back
+  centre_back
+  defensive_mid
+  central_mid
+  attacking_mid
+  right_wing
+  left_wing
+  striker
+}
+
+// UK/EU 14 declared allergens.
+enum Allergen {
+  celery
+  cereals_gluten
+  crustaceans
+  eggs
+  fish
+  lupin
+  milk
+  molluscs
+  mustard
+  peanuts
+  sesame
+  soybeans
+  sulphites
+  tree_nuts
+}
+
+enum MetricUnit {
+  seconds
+  meters
+  centimeters
+  reps
+  kilograms
+  watts
+  custom
+}
+
+enum MetricDirection {
+  lower_better
+  higher_better
+}
+
+enum FuelTag {
+  before_training
+  after_training
+  match_day
+  school_gap
+  hydration
+}
+
+// -----------------------------------------------------------------------------
+// Identity
+// -----------------------------------------------------------------------------
+
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @unique
+  role      UserRole @default(player)
+  createdAt DateTime @default(now())
+
+  player       Player?
+  teamsCreated Team[]           @relation("TeamCreatedBy")
+  memberships  TeamMembership[]
+}
+
+model Player {
+  id          String     @id @default(uuid()) @db.Uuid
+  userId      String     @unique @db.Uuid
+  name        String
+  dateOfBirth DateTime   @db.Date
+  position    Position?
+  club        String?
+  avatarId    String?
+  // Convenience filter, NOT a substitute for reading ingredients — see locked-decisions.
+  allergies   Allergen[] @default([])
+  allergyNote String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  metrics  Metric[]
+  entries  MetricEntry[]
+  sessions Session[]
+}
+
+// -----------------------------------------------------------------------------
+// Team (schema-ready in v1; feature ships later)
+// -----------------------------------------------------------------------------
+
+model Team {
+  id              String   @id @default(uuid()) @db.Uuid
+  name            String
+  createdByUserId String   @db.Uuid
+  inviteCode      String   @unique
+  createdAt       DateTime @default(now())
+
+  createdBy   User             @relation("TeamCreatedBy", fields: [createdByUserId], references: [id])
+  memberships TeamMembership[]
+}
+
+model TeamMembership {
+  id       String         @id @default(uuid()) @db.Uuid
+  userId   String         @db.Uuid
+  teamId   String         @db.Uuid
+  role     MembershipRole @default(player)
+  joinedAt DateTime       @default(now())
+
+  // Per-field consent — a manager only sees data the player opted in on.
+  // Shape (defaults all false):
+  //   { sessionsVisible: boolean, readinessVisible: boolean, pbsVisible: boolean }
+  consent Json @default("{\"sessionsVisible\": false, \"readinessVisible\": false, \"pbsVisible\": false}")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, teamId])
+  @@index([teamId])
+}
+
+// -----------------------------------------------------------------------------
+// Metrics + Sessions
+// -----------------------------------------------------------------------------
+
+model Metric {
+  id        String          @id @default(uuid()) @db.Uuid
+  playerId  String          @db.Uuid
+  key       String
+  label     String
+  unit      MetricUnit
+  direction MetricDirection
+  isCustom  Boolean         @default(false)
+  createdAt DateTime        @default(now())
+
+  player  Player        @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  entries MetricEntry[]
+
+  @@unique([playerId, key])
+  @@index([playerId])
+}
+
+model MetricEntry {
+  id             String   @id @default(uuid()) @db.Uuid
+  metricId       String   @db.Uuid
+  playerId       String   @db.Uuid
+  value          Float
+  recordedAt     DateTime
+  // Shape (all optional):
+  //   { surface?: string, weather?: string, windAssist?: number,
+  //     footwear?: string, notes?: string }
+  conditions     Json?
+  sessionId      String?  @db.Uuid
+  isPersonalBest Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  metric  Metric   @relation(fields: [metricId], references: [id], onDelete: Cascade)
+  player  Player   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  session Session? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+
+  @@index([metricId, isPersonalBest])
+  @@index([playerId, recordedAt])
+}
+
+model Session {
+  id                String    @id @default(uuid()) @db.Uuid
+  playerId          String    @db.Uuid
+  programmeId       String?   @db.Uuid
+  sessionTemplateId String?   @db.Uuid
+  startedAt         DateTime
+  completedAt       DateTime?
+  // Shape (each 1-5):
+  //   { soreness: number, sleep: number, energy: number, mood: number }
+  // Kept separate from the session summary so Team consent can share one without the other.
+  readinessBefore   Json?
+  feltAfter         Int?
+  notes             String?
+
+  player          Player           @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  programme       Programme?       @relation(fields: [programmeId], references: [id], onDelete: SetNull)
+  sessionTemplate SessionTemplate? @relation(fields: [sessionTemplateId], references: [id], onDelete: SetNull)
+  entries         MetricEntry[]
+
+  @@index([playerId, startedAt])
+}
+
+// -----------------------------------------------------------------------------
+// Programmes / Session templates / Exercises
+// Stubs so Session can reference them today; full fields ship in build phase 6-7.
+// -----------------------------------------------------------------------------
+
+model Programme {
+  id          String    @id @default(uuid()) @db.Uuid
+  slug        String    @unique
+  name        String
+  description String?
+  ageBands    AgeBand[] @default([])
+  weeks       Int       @default(6)
+  createdAt   DateTime  @default(now())
+
+  templates SessionTemplate[]
+  sessions  Session[]
+}
+
+model SessionTemplate {
+  id          String  @id @default(uuid()) @db.Uuid
+  programmeId String? @db.Uuid
+  slug        String  @unique
+  name        String
+
+  programme Programme?            @relation(fields: [programmeId], references: [id], onDelete: SetNull)
+  items     SessionTemplateItem[]
+  sessions  Session[]
+}
+
+model Exercise {
+  id          String  @id @default(uuid()) @db.Uuid
+  slug        String  @unique
+  name        String
+  description String?
+  // MotionSpec drives the procedural Three.js animation — see locked-decisions.
+  motionSpec  Json?
+
+  templateItems SessionTemplateItem[]
+}
+
+model SessionTemplateItem {
+  id                String @id @default(uuid()) @db.Uuid
+  sessionTemplateId String @db.Uuid
+  exerciseId        String @db.Uuid
+  order             Int
+  prescription      Json?
+
+  sessionTemplate SessionTemplate @relation(fields: [sessionTemplateId], references: [id], onDelete: Cascade)
+  exercise        Exercise        @relation(fields: [exerciseId], references: [id], onDelete: Restrict)
+
+  @@unique([sessionTemplateId, order])
+}
+
+// -----------------------------------------------------------------------------
+// Fuel / recipes
+// -----------------------------------------------------------------------------
+
+model Recipe {
+  id           String     @id @default(uuid()) @db.Uuid
+  slug         String     @unique
+  name         String
+  servings     Int        @default(1)
+  // Shape: [{ name: string, quantity: string, note?: string }, ...]
+  ingredients  Json
+  // Reused enum with Player.allergies powers the hard-exclusion filter.
+  allergens    Allergen[] @default([])
+  fuelTags     FuelTag[]  @default([])
+  instructions String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
