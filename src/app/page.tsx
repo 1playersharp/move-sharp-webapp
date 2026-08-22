@@ -1,13 +1,22 @@
+import { redirect } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
 import { Header } from "@/components/ui/Header";
 import { Card, CardTitle, CardSubtitle } from "@/components/ui/Card";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Button } from "@/components/ui/Button";
+import { Landing } from "@/components/marketing/Landing";
+import { getAuthUser, getCurrentUser } from "@/lib/auth";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const authUser = await getAuthUser();
+  if (!authUser) return <Landing />;
+
+  const user = await getCurrentUser();
+  if (!user || !user.player) redirect("/onboarding");
+
   return (
     <AppShell>
-      <Header title="Ready, Test" subtitle="Check in, then get to work." />
+      <Header title={`Hi, ${user.player.name.split(" ")[0]}`} subtitle="Check in, then get to work." />
       <div className="space-y-4 px-5">
         <Card>
           <CardTitle>Today's readiness</CardTitle>
