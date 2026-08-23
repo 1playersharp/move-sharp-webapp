@@ -3,8 +3,12 @@ import { redirect } from "next/navigation";
 import type { Player, User } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { DEV_BYPASS, DEV_EMAIL, DEV_USER_ID, ensureDevPlayer } from "@/lib/dev-bypass";
 
 export async function getAuthUser() {
+  if (DEV_BYPASS) {
+    return { id: DEV_USER_ID, email: DEV_EMAIL } as { id: string; email: string };
+  }
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -17,6 +21,7 @@ export async function getAuthUser() {
 export async function getCurrentUser(): Promise<
   (User & { player: Player | null }) | null
 > {
+  if (DEV_BYPASS) return ensureDevPlayer();
   const authUser = await getAuthUser();
   if (!authUser) return null;
   return prisma.user.findUnique({
@@ -38,6 +43,7 @@ export async function requireAuthUser() {
 export async function requirePlayer(): Promise<
   User & { player: Player }
 > {
+  if (DEV_BYPASS) return ensureDevPlayer();
   const authUser = await requireAuthUser();
   const user = await prisma.user.findUnique({
     where: { id: authUser.id },

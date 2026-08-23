@@ -1,9 +1,17 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLIC_PREFIXES = ["/sign-in", "/sign-up", "/auth/"];
+const PUBLIC_PREFIXES = ["/sign-in", "/sign-up", "/auth/", "/sandbox/"];
+
+const DEV_BYPASS =
+  process.env.NODE_ENV !== "production" && process.env.MOVESHARP_DEV_BYPASS === "1";
 
 export async function updateSession(request: NextRequest) {
+  // Dev bypass: skip session refresh + all redirects so you can walk the
+  // app locally without Supabase configured. auth.ts injects a fixture
+  // player so page code never sees a null user.
+  if (DEV_BYPASS) return NextResponse.next({ request });
+
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient(

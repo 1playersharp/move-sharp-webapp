@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { requireAuthUser } from "@/lib/auth";
 import { PILOTS } from "@/lib/exercise/pilots";
 import { ExerciseCanvas } from "@/components/exercise/ExerciseCanvas";
 import { Card } from "@/components/ui/Card";
@@ -7,9 +6,10 @@ import { Header } from "@/components/ui/Header";
 
 export const metadata = { title: "Exercise sandbox · MoveSharp" };
 
+// Public preview — the sandbox is a dev/sign-off screen, not a real app
+// tab. Kept out of the nav; no auth required so an owner can view the
+// pilots without going through sign-up first.
 export default async function ExerciseSandboxPage() {
-  await requireAuthUser();
-
   return (
     <div className="mx-auto max-w-3xl px-5 pb-16">
       <Header
