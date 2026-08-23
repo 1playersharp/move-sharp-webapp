@@ -10,6 +10,11 @@ export const fiveTenFive: MotionSpec = {
   loop: true,
   repDurationSec: 4.0,
   restBetweenRepsSec: 0.8,
+  props: [
+    { kind: "cone", x: 1.9, z: 0 },
+    { kind: "cone", x: -1.9, z: 0 },
+    { kind: "cone", x: 0, z: 0 },
+  ],
   tracks: {
     pelvis: {
       position: [

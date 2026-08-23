@@ -3,23 +3,30 @@ import { cn } from "@/lib/cn";
 
 type Props = {
   mode: "programme" | "exercise";
+  className?: string;
 };
 
-// Small pill toggle matching the "Your band / All" style already on /train.
-export function ModeToggle({ mode }: Props) {
+// Full-width segmented control below the Header. Two equal-width buttons,
+// hard to miss on mobile.
+export function ModeToggle({ mode, className }: Props) {
   return (
     <div
-      className="flex gap-1 rounded-full bg-ink-800 p-0.5 text-[0.65rem]"
       role="tablist"
       aria-label="Train mode"
+      className={cn(
+        "grid grid-cols-2 gap-1 rounded-full bg-ink-800 p-1",
+        className,
+      )}
     >
       <Link
         href="/train"
         role="tab"
         aria-selected={mode === "programme"}
         className={cn(
-          "rounded-full px-3 py-1 font-display uppercase tracking-display transition-colors",
-          mode === "programme" ? "bg-mint text-ink-950" : "text-muted hover:text-white",
+          "flex items-center justify-center rounded-full py-2.5 text-sm font-display uppercase tracking-display transition-colors",
+          mode === "programme"
+            ? "bg-mint text-ink-950 shadow"
+            : "text-muted hover:text-white",
         )}
       >
         Programme
@@ -29,8 +36,10 @@ export function ModeToggle({ mode }: Props) {
         role="tab"
         aria-selected={mode === "exercise"}
         className={cn(
-          "rounded-full px-3 py-1 font-display uppercase tracking-display transition-colors",
-          mode === "exercise" ? "bg-mint text-ink-950" : "text-muted hover:text-white",
+          "flex items-center justify-center rounded-full py-2.5 text-sm font-display uppercase tracking-display transition-colors",
+          mode === "exercise"
+            ? "bg-mint text-ink-950 shadow"
+            : "text-muted hover:text-white",
         )}
       >
         Exercise

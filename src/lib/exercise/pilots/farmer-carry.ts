@@ -7,6 +7,10 @@ export const farmerCarry: MotionSpec = {
   name: "Farmer Carry",
   loop: true,
   repDurationSec: 1.4,
+  props: [
+    { kind: "held_weight", side: "L" },
+    { kind: "held_weight", side: "R" },
+  ],
   tracks: {
     // Small vertical rise-fall as weight shifts.
     pelvis: {

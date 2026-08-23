@@ -34,7 +34,54 @@ export type MotionSpec = {
   // for the "stick the landing" pause on a broad jump.
   restBetweenRepsSec?: number;
   tracks: Partial<Record<JointName, JointTrack>>;
+  // Static props added to the scene alongside the humanoid — a box to
+  // land on, cones for a shuttle drill, a dumbbell in the hand.
+  props?: SceneProp[];
 };
+
+// Scene props are pure data — scene.ts owns the Three.js knowledge of
+// how to build each kind. Keep this small; add kinds only when needed.
+export type SceneProp =
+  | {
+      kind: "box";
+      // Height of the top face above the floor (y=0). Also the physical box height.
+      height: number;
+      width?: number;
+      depth?: number;
+      x?: number;
+      z?: number;
+      color?: number;
+    }
+  | {
+      kind: "wall";
+      z: number; // Distance from origin along -Z (in front of humanoid rest facing).
+      width?: number;
+      height?: number;
+      color?: number;
+    }
+  | {
+      kind: "floor_marker";
+      z: number;
+      width?: number;
+      depth?: number;
+      color?: number;
+    }
+  | {
+      kind: "cone";
+      x: number;
+      z: number;
+      height?: number;
+      color?: number;
+    }
+  | {
+      kind: "held_weight";
+      side: "L" | "R";
+      size?: number;
+    }
+  | {
+      kind: "chest_weight";
+      size?: number;
+    };
 
 // Smoothstep — a cheap ease-in-out with no derivatives to think about.
 function smoothstep(t: number): number {

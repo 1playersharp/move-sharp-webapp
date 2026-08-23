@@ -6,6 +6,7 @@ import { requirePlayer } from "@/lib/auth";
 import { ageInYears, ageBandFromDOB } from "@/lib/age-band";
 import { POSITIONS } from "@/lib/constants/positions";
 import { signOut } from "@/app/(auth)/actions";
+import { ContextToggle } from "@/components/train/ContextToggle";
 
 const AGE_BAND_LABEL: Record<"U13_U15" | "U16_U18", string> = {
   U13_U15: "U13-U15",
@@ -31,6 +32,16 @@ export default async function YouPage() {
             {player.name} · Age {age} ({band}){positionLabel ? ` · ${positionLabel}` : ""}
             {player.club ? ` · ${player.club}` : ""}
           </CardSubtitle>
+        </Card>
+
+        <Card>
+          <CardTitle>Training context</CardTitle>
+          <CardSubtitle>
+            Home shows band + football + bag versions. Gym adds DBs and heavier lifts. You can switch any time.
+          </CardSubtitle>
+          <div className="mt-4">
+            <ContextToggle context={player.trainingContext} size="md" />
+          </div>
         </Card>
 
         <Card>

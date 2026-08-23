@@ -9,6 +9,7 @@ import { boxJump } from "./box-jump";
 import { snapDownLanding } from "./snap-down-landing";
 import { farmerCarry } from "./farmer-carry";
 import { tempoRun } from "./tempo-run";
+import { depthDrop } from "./depth-drop";
 
 // Phase 5 pilots kept for the sign-off sandbox — the original 4.
 export const PILOTS: MotionSpec[] = [gobletSquat, aSkip, broadJump, fiveTenFive];
@@ -26,6 +27,7 @@ export const MOTION_SPEC_BY_SLUG: Record<string, MotionSpec> = {
   "snap-down-landing": snapDownLanding,
   "farmer-carry": farmerCarry,
   "tempo-run": tempoRun,
+  "depth-drop": depthDrop,
 };
 
 export {
@@ -39,4 +41,5 @@ export {
   snapDownLanding,
   farmerCarry,
   tempoRun,
+  depthDrop,
 };

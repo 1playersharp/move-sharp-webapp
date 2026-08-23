@@ -5,7 +5,9 @@ import { Card, CardTitle } from "@/components/ui/Card";
 import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { QualityChip } from "@/components/train/QualityChip";
+import { ContextToggle } from "@/components/train/ContextToggle";
 import { startSession } from "@/app/actions/sessions";
+import { contextLabel, cueForContext, equipmentForContext } from "@/lib/training-context";
 
 const BAND_LABEL: Record<"U13_U15" | "U16_U18", string> = {
   U13_U15: "U13-15",
@@ -29,13 +31,12 @@ type Props = {
 };
 
 export default async function ProgrammeDetailPage({ params }: Props) {
-  await requirePlayer();
+  const user = await requirePlayer();
   const { slug } = await params;
 
   const programme = await prisma.programme.findUnique({ where: { slug } });
   if (!programme) notFound();
 
-  // Materialised sessions (if any) keyed by "w{week}d{day}".
   const templates = await prisma.sessionTemplate.findMany({
     where: { programmeId: programme.id },
     select: { id: true, week: true, day: true },
@@ -48,6 +49,14 @@ export default async function ProgrammeDetailPage({ params }: Props) {
   );
   const isMaterialised = templateByKey.size > 0;
 
+  const context = user.player.trainingContext;
+  const ctxLabel = contextLabel(context);
+  const equipment = equipmentForContext(
+    context,
+    programme.equipmentGym,
+    programme.equipmentHome,
+  );
+
   const bandLabel =
     programme.ageBands.length === 2
       ? "Both bands"
@@ -58,19 +67,24 @@ export default async function ProgrammeDetailPage({ params }: Props) {
   return (
     <AppShell>
       <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link href="/train" className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint">
-          ← Programmes
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
-          {programme.name}
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          {bandLabel} · {programme.weeks} weeks · {programme.sessionsPerWeek}×/wk
-        </p>
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {programme.qualities.map((q) => (
-            <QualityChip key={q} quality={q} />
-          ))}
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <Link href="/train" className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint">
+              ← Programmes
+            </Link>
+            <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
+              {programme.name}
+            </h1>
+            <p className="mt-1 text-sm text-muted">
+              {bandLabel} · {programme.weeks} weeks · {programme.sessionsPerWeek}×/wk
+            </p>
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {programme.qualities.map((q) => (
+                <QualityChip key={q} quality={q} />
+              ))}
+            </div>
+          </div>
+          <ContextToggle context={context} />
         </div>
       </div>
 
@@ -82,25 +96,10 @@ export default async function ProgrammeDetailPage({ params }: Props) {
           </Card>
         ) : null}
 
-        {programme.equipmentGym || programme.equipmentHome ? (
-          <Card>
-            <CardTitle>Equipment</CardTitle>
-            <dl className="mt-2 space-y-2 text-sm">
-              {programme.equipmentGym ? (
-                <div>
-                  <dt className="font-display uppercase tracking-display text-[0.65rem] text-muted">Gym</dt>
-                  <dd className="text-muted-strong">{programme.equipmentGym}</dd>
-                </div>
-              ) : null}
-              {programme.equipmentHome ? (
-                <div>
-                  <dt className="font-display uppercase tracking-display text-[0.65rem] text-muted">Home</dt>
-                  <dd className="text-muted-strong">{programme.equipmentHome}</dd>
-                </div>
-              ) : null}
-            </dl>
-          </Card>
-        ) : null}
+        <Card>
+          <CardTitle>Equipment · {ctxLabel}</CardTitle>
+          <p className="mt-2 text-sm text-muted-strong">{equipment}</p>
+        </Card>
 
         {!isMaterialised ? (
           <div className="rounded-md border border-yellow-500/20 bg-yellow-500/5 p-3 text-xs text-yellow-200">
@@ -130,6 +129,7 @@ export default async function ProgrammeDetailPage({ params }: Props) {
                       {wk.sessions.map((s, i) => {
                         const day = i + 1;
                         const templateId = templateByKey.get(templateKey(wk.week, day));
+                        const cue = cueForContext(context, s.gymCue ?? null, s.homeCue ?? null);
                         return (
                           <li key={i} className="border-l-2 border-white/5 pl-3">
                             <div className="flex items-start justify-between gap-3">
@@ -138,21 +138,13 @@ export default async function ProgrammeDetailPage({ params }: Props) {
                                   {s.name}
                                 </p>
                                 <p className="mt-0.5 text-xs text-muted-strong">{s.focus}</p>
-                                {(s.gymCue || s.homeCue) ? (
-                                  <dl className="mt-1.5 space-y-1 text-[0.7rem]">
-                                    {s.gymCue ? (
-                                      <div className="flex gap-2">
-                                        <dt className="w-10 shrink-0 font-display uppercase tracking-display text-mint-400">Gym</dt>
-                                        <dd className="text-muted">{s.gymCue}</dd>
-                                      </div>
-                                    ) : null}
-                                    {s.homeCue ? (
-                                      <div className="flex gap-2">
-                                        <dt className="w-10 shrink-0 font-display uppercase tracking-display text-mint-400">Home</dt>
-                                        <dd className="text-muted">{s.homeCue}</dd>
-                                      </div>
-                                    ) : null}
-                                  </dl>
+                                {cue ? (
+                                  <p className="mt-1.5 text-[0.7rem] text-muted">
+                                    <span className="font-display uppercase tracking-display text-mint-400">
+                                      {ctxLabel}
+                                    </span>{" "}
+                                    {cue}
+                                  </p>
                                 ) : null}
                               </div>
                               {templateId ? (

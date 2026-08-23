@@ -7,13 +7,15 @@ import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { categoryFromSlug, categoryMeta } from "@/lib/constants/exercise-categories";
 import { MOTION_SPEC_BY_SLUG } from "@/lib/exercise/pilots";
+import { ContextToggle } from "@/components/train/ContextToggle";
+import { equipmentForContext, contextLabel } from "@/lib/training-context";
 
 type Props = {
   params: Promise<{ category: string; slug: string }>;
 };
 
 export default async function ExerciseDetailPage({ params }: Props) {
-  await requirePlayer();
+  const user = await requirePlayer();
   const { category: categorySlug, slug } = await params;
 
   const category = categoryFromSlug(categorySlug);
@@ -24,19 +26,27 @@ export default async function ExerciseDetailPage({ params }: Props) {
 
   const meta = categoryMeta(category);
   const spec = MOTION_SPEC_BY_SLUG[exercise.slug] ?? null;
+  const context = user.player.trainingContext;
+  const equipment = equipmentForContext(context, exercise.equipmentGym, exercise.equipmentHome);
+  const ctxLabel = contextLabel(context);
 
   return (
     <AppShell>
       <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link
-          href={`/train/exercise/${meta.slug}`}
-          className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
-        >
-          ← {meta.label}
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-2xl leading-tight">
-          {exercise.name}
-        </h1>
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <Link
+              href={`/train/exercise/${meta.slug}`}
+              className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
+            >
+              ← {meta.label}
+            </Link>
+            <h1 className="mt-2 font-display uppercase tracking-display text-white text-2xl leading-tight">
+              {exercise.name}
+            </h1>
+          </div>
+          <ContextToggle context={context} />
+        </div>
       </div>
 
       <div className="space-y-4 px-5">
@@ -80,30 +90,17 @@ export default async function ExerciseDetailPage({ params }: Props) {
           </p>
         </Card>
 
+        <Card>
+          <CardTitle>
+            Equipment · {ctxLabel}
+          </CardTitle>
+          <p className="mt-2 text-sm text-muted-strong">{equipment}</p>
+        </Card>
+
         {exercise.description ? (
           <Card>
             <CardTitle>About</CardTitle>
             <p className="mt-2 text-sm text-muted-strong">{exercise.description}</p>
-          </Card>
-        ) : null}
-
-        {exercise.equipmentGym || exercise.equipmentHome ? (
-          <Card>
-            <CardTitle>Equipment</CardTitle>
-            <dl className="mt-2 space-y-2 text-sm">
-              {exercise.equipmentGym ? (
-                <div>
-                  <dt className="font-display uppercase tracking-display text-[0.65rem] text-muted">Gym</dt>
-                  <dd className="text-muted-strong">{exercise.equipmentGym}</dd>
-                </div>
-              ) : null}
-              {exercise.equipmentHome ? (
-                <div>
-                  <dt className="font-display uppercase tracking-display text-[0.65rem] text-muted">Home</dt>
-                  <dd className="text-muted-strong">{exercise.equipmentHome}</dd>
-                </div>
-              ) : null}
-            </dl>
           </Card>
         ) : null}
       </div>

@@ -13,6 +13,7 @@ export const gobletSquat: MotionSpec = {
   loop: true,
   repDurationSec: 3.2,
   restBetweenRepsSec: 0.15,
+  props: [{ kind: "chest_weight" }],
   tracks: {
     // Hold the "kettlebell" at chest throughout — constant arm pose.
     shoulderL: { rotationDeg: [{ t: 0, value: [20, 0, -25] }] },

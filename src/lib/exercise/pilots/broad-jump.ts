@@ -9,6 +9,7 @@ export const broadJump: MotionSpec = {
   loop: true,
   repDurationSec: 2.4,
   restBetweenRepsSec: 1.6,
+  props: [{ kind: "floor_marker", z: -0.85, width: 0.55, depth: 0.45 }],
   tracks: {
     pelvis: {
       position: [

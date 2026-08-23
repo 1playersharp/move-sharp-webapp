@@ -94,6 +94,13 @@ enum Quality {
   robustness
 }
 
+// Where the player is training right now — feeds equipment defaults + cue
+// selection across the whole app.
+enum TrainingContext {
+  home
+  gym
+}
+
 // Exercise taxonomy — different axis from Quality. Quality tags what a
 // programme develops; ExerciseCategory groups individual movements.
 enum ExerciseCategory {
@@ -121,16 +128,17 @@ model User {
 }
 
 model Player {
-  id          String     @id @default(uuid()) @db.Uuid
-  userId      String     @unique @db.Uuid
-  name        String
-  dateOfBirth DateTime   @db.Date
-  position    Position?
-  club        String?
-  avatarId    String?
+  id              String          @id @default(uuid()) @db.Uuid
+  userId          String          @unique @db.Uuid
+  name            String
+  dateOfBirth     DateTime        @db.Date
+  position        Position?
+  club            String?
+  avatarId        String?
   // Convenience filter, NOT a substitute for reading ingredients — see locked-decisions.
-  allergies   Allergen[] @default([])
-  allergyNote String?
+  allergies       Allergen[]      @default([])
+  allergyNote     String?
+  trainingContext TrainingContext @default(home)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

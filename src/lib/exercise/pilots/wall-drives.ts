@@ -7,6 +7,7 @@ export const wallDrives: MotionSpec = {
   name: "Wall Drives",
   loop: true,
   repDurationSec: 1.6,
+  props: [{ kind: "wall", z: -0.45, width: 2, height: 2.2 }],
   tracks: {
     // Body angled forward — pelvis rotated forward and pushed slightly.
     pelvis: {
