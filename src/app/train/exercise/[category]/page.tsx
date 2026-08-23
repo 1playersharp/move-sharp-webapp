@@ -20,7 +20,7 @@ export default async function CategoryExercisesPage({ params }: Props) {
   const ctxLabel = contextLabel(context);
 
   const exercises = await prisma.exercise.findMany({
-    where: { category },
+    where: { category, contexts: { has: context } },
     orderBy: [{ name: "asc" }],
   });
 

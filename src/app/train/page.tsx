@@ -9,7 +9,6 @@ import { ageBandFromDOB } from "@/lib/age-band";
 import { ProgrammeCard } from "@/components/train/ProgrammeCard";
 import { QualityFilterGrid } from "@/components/train/QualityFilterGrid";
 import { ModeToggle } from "@/components/train/ModeToggle";
-import { ContextToggle } from "@/components/train/ContextToggle";
 
 const VALID_QUALITIES = new Set<Quality>([
   "speed",
@@ -59,11 +58,7 @@ export default async function TrainPage({ searchParams }: Props) {
 
   return (
     <AppShell>
-      <Header
-        title="Train"
-        subtitle="Blocks scaled to your band."
-        right={<ContextToggle context={user.player.trainingContext} />}
-      />
+      <Header title="Train" subtitle="Blocks scaled to your band." />
       <div className="space-y-6 px-5">
         <ModeToggle mode="programme" />
 

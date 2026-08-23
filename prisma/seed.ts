@@ -1,11 +1,23 @@
 import { PrismaClient } from "@prisma/client";
 import { ALL_PROGRAMMES } from "./programmes";
-import { EXERCISES } from "./exercises";
+import { EXERCISES, ORPHANED_SLUGS } from "./exercises";
 import { FIRST_STEP_TEMPLATES } from "./session-templates/first-step-acceleration-u13";
 
 const prisma = new PrismaClient();
 
 async function main() {
+  // Drop exercises that were seeded under old (pre-split) slugs and no
+  // longer belong to the library. Errors if any SessionTemplateItem still
+  // references one — a signal to update the template seed first.
+  if (ORPHANED_SLUGS.length > 0) {
+    const result = await prisma.exercise.deleteMany({
+      where: { slug: { in: ORPHANED_SLUGS } },
+    });
+    if (result.count > 0) {
+      console.log(`Dropped ${result.count} orphan exercise(s): ${ORPHANED_SLUGS.join(", ")}`);
+    }
+  }
+
   console.log(`Seeding ${EXERCISES.length} exercises…`);
   for (const e of EXERCISES) {
     await prisma.exercise.upsert({
@@ -15,6 +27,7 @@ async function main() {
         name: e.name,
         description: e.description,
         category: e.category,
+        contexts: e.contexts,
         equipmentGym: e.equipmentGym,
         equipmentHome: e.equipmentHome,
         defaultPrescription: e.defaultPrescription,
@@ -24,6 +37,7 @@ async function main() {
         name: e.name,
         description: e.description,
         category: e.category,
+        contexts: e.contexts,
         equipmentGym: e.equipmentGym,
         equipmentHome: e.equipmentHome,
         defaultPrescription: e.defaultPrescription,

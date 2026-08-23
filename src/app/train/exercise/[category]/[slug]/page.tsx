@@ -8,7 +8,7 @@ import { prisma } from "@/lib/prisma";
 import { categoryFromSlug, categoryMeta } from "@/lib/constants/exercise-categories";
 import { MOTION_SPEC_BY_SLUG } from "@/lib/exercise/pilots";
 import { ContextToggle } from "@/components/train/ContextToggle";
-import { equipmentForContext, contextLabel } from "@/lib/training-context";
+import { equipmentForExercise, contextLabel } from "@/lib/training-context";
 
 type Props = {
   params: Promise<{ category: string; slug: string }>;
@@ -27,8 +27,13 @@ export default async function ExerciseDetailPage({ params }: Props) {
   const meta = categoryMeta(category);
   const spec = MOTION_SPEC_BY_SLUG[exercise.slug] ?? null;
   const context = user.player.trainingContext;
-  const equipment = equipmentForContext(context, exercise.equipmentGym, exercise.equipmentHome);
-  const ctxLabel = contextLabel(context);
+  const { equipment, usedContext } = equipmentForExercise(
+    context,
+    exercise.contexts,
+    exercise.equipmentGym,
+    exercise.equipmentHome,
+  );
+  const ctxLabel = contextLabel(usedContext);
 
   return (
     <AppShell>

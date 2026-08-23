@@ -9,9 +9,13 @@ import { prisma } from "@/lib/prisma";
 
 export default async function ExerciseCategoriesPage() {
   const user = await requirePlayer();
+  const context = user.player.trainingContext;
 
+  // Count only exercises available in the active context — the toggle
+  // choice ripples through the category counts too.
   const rawCounts = await prisma.exercise.groupBy({
     by: ["category"],
+    where: { contexts: { has: context } },
     _count: { _all: true },
   });
   const countByCategory = new Map(rawCounts.map((r) => [r.category, r._count._all] as const));
@@ -21,7 +25,7 @@ export default async function ExerciseCategoriesPage() {
       <Header
         title="Train"
         subtitle="Browse by exercise category."
-        right={<ContextToggle context={user.player.trainingContext} />}
+        right={<ContextToggle context={context} />}
       />
       <div className="space-y-6 px-5">
         <ModeToggle mode="exercise" />

@@ -26,3 +26,22 @@ export function cueForContext(
 export function contextLabel(context: TrainingContext): "Home" | "Gym" {
   return context === "gym" ? "Gym" : "Home";
 }
+
+// Detail-page variant that accounts for split exercises. If the player's
+// active context isn't in the exercise's contexts (someone navigated
+// direct to a gym-only exercise while set to Home), fall back to the
+// exercise's own primary context so the equipment shown is actually
+// relevant to what they're looking at.
+export function equipmentForExercise(
+  playerContext: TrainingContext,
+  contexts: TrainingContext[],
+  equipmentGym: string | null,
+  equipmentHome: string | null,
+): { equipment: string; usedContext: TrainingContext } {
+  const use = contexts.includes(playerContext) ? playerContext : (contexts[0] ?? playerContext);
+  const value = use === "gym" ? equipmentGym : equipmentHome;
+  return {
+    equipment: value ?? "Bodyweight",
+    usedContext: use,
+  };
+}

@@ -16,18 +16,27 @@ export const PILOTS: MotionSpec[] = [gobletSquat, aSkip, broadJump, fiveTenFive]
 
 // Full library-slug → MotionSpec map used by the exercise-mode detail
 // pages. Library exercises without an entry render a placeholder card.
+// Split exercises (e.g. box-jump gym + step-jump home) share the same
+// underlying spec — the visible box just represents whichever the player
+// actually has to hand.
 export const MOTION_SPEC_BY_SLUG: Record<string, MotionSpec> = {
-  "goblet-squat": gobletSquat,
   "a-skip": aSkip,
   "broad-jump-stick": broadJump,
   "shuttle-5-10-5": fiveTenFive,
   "pogo-hops": pogoHops,
   "wall-drives": wallDrives,
-  "box-jump": boxJump,
   "snap-down-landing": snapDownLanding,
-  "farmer-carry": farmerCarry,
   "tempo-run": tempoRun,
-  "depth-drop": depthDrop,
+
+  // Split slug pairs that share a spec.
+  "goblet-squat-gym": gobletSquat,
+  "goblet-squat-home": gobletSquat,
+  "box-jump-gym": boxJump,
+  "step-jump-home": boxJump,
+  "depth-drop-gym": depthDrop,
+  "depth-drop-home": depthDrop,
+  "farmer-carry-gym": farmerCarry,
+  "farmer-carry-home": farmerCarry,
 };
 
 export {

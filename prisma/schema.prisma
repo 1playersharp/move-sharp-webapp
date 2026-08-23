@@ -328,6 +328,10 @@ model Exercise {
   name                String
   description         String?
   category            ExerciseCategory  @default(contact_duel_strength)
+  // Which training contexts this exercise appears in. Bodyweight movements
+  // list both; equipment-specific splits list one (band-row = [home],
+  // db-row = [gym]).
+  contexts            TrainingContext[] @default([home, gym])
   equipmentGym        String?
   equipmentHome       String?
   // Starting-point prescription surfaced on the library detail page.
