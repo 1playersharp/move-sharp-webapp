@@ -1,11 +1,35 @@
 import { PrismaClient } from "@prisma/client";
 import { ALL_PROGRAMMES } from "./programmes";
+import { EXERCISES } from "./exercises";
+import { FIRST_STEP_TEMPLATES } from "./session-templates/first-step-acceleration-u13";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log(`Seeding ${ALL_PROGRAMMES.length} programmes…`);
+  console.log(`Seeding ${EXERCISES.length} exercises…`);
+  for (const e of EXERCISES) {
+    await prisma.exercise.upsert({
+      where: { slug: e.slug },
+      create: {
+        slug: e.slug,
+        name: e.name,
+        description: e.description,
+        category: e.category,
+        equipmentGym: e.equipmentGym,
+        equipmentHome: e.equipmentHome,
+      },
+      update: {
+        name: e.name,
+        description: e.description,
+        category: e.category,
+        equipmentGym: e.equipmentGym,
+        equipmentHome: e.equipmentHome,
+      },
+    });
+    console.log(`  ✓ ${e.slug}`);
+  }
 
+  console.log(`Seeding ${ALL_PROGRAMMES.length} programmes…`);
   for (const p of ALL_PROGRAMMES) {
     await prisma.programme.upsert({
       where: { slug: p.slug },
@@ -36,6 +60,64 @@ async function main() {
       },
     });
     console.log(`  ✓ ${p.slug}`);
+  }
+
+  console.log(`Materialising ${FIRST_STEP_TEMPLATES.length} sessions for First-Step Acceleration U13…`);
+  const firstStep = await prisma.programme.findUnique({
+    where: { slug: "first-step-acceleration-u13" },
+  });
+  if (!firstStep) throw new Error("First-Step programme not found — seed programmes first");
+
+  const exerciseIdBySlug = new Map(
+    (await prisma.exercise.findMany({ select: { id: true, slug: true } })).map(
+      (e) => [e.slug, e.id] as const,
+    ),
+  );
+
+  for (const t of FIRST_STEP_TEMPLATES) {
+    const template = await prisma.sessionTemplate.upsert({
+      where: { slug: t.slug },
+      create: {
+        slug: t.slug,
+        name: t.name,
+        programmeId: firstStep.id,
+        week: t.week,
+        day: t.day,
+        focus: t.focus,
+        gymCue: t.gymCue,
+        homeCue: t.homeCue,
+      },
+      update: {
+        name: t.name,
+        programmeId: firstStep.id,
+        week: t.week,
+        day: t.day,
+        focus: t.focus,
+        gymCue: t.gymCue,
+        homeCue: t.homeCue,
+      },
+    });
+
+    // Wipe and rewrite items — idempotent re-seed.
+    await prisma.sessionTemplateItem.deleteMany({
+      where: { sessionTemplateId: template.id },
+    });
+    for (const item of t.items) {
+      const exerciseId = exerciseIdBySlug.get(item.exerciseSlug);
+      if (!exerciseId) throw new Error(`Exercise not found: ${item.exerciseSlug}`);
+      await prisma.sessionTemplateItem.create({
+        data: {
+          sessionTemplateId: template.id,
+          exerciseId,
+          order: item.order,
+          prescription: {
+            display: item.prescription,
+            ...(item.notes ? { notes: item.notes } : {}),
+          },
+        },
+      });
+    }
+    console.log(`  ✓ ${t.slug}`);
   }
 
   console.log("Done.");

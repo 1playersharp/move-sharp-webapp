@@ -57,7 +57,18 @@ export default async function TrainPage({ searchParams }: Props) {
 
   return (
     <AppShell>
-      <Header title="Train" subtitle="Blocks scaled to your band." />
+      <Header
+        title="Train"
+        subtitle="Blocks scaled to your band."
+        right={
+          <Link
+            href="/train/library"
+            className="text-[0.65rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
+          >
+            Library →
+          </Link>
+        }
+      />
       <div className="space-y-6 px-5">
         <section className="space-y-3">
           <h2 className="section-title">Filter by quality</h2>

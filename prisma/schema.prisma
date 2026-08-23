@@ -221,6 +221,9 @@ model Session {
   readinessBefore   Json?
   feltAfter         Int?
   notes             String?
+  // Array of SessionTemplateItem ids the player ticked off. Lightweight logging
+  // in v1 — upgraded to per-set data if the depth is warranted later.
+  completedItemIds  String[]  @default([])
 
   player          Player           @relation(fields: [playerId], references: [id], onDelete: Cascade)
   programme       Programme?       @relation(fields: [programmeId], references: [id], onDelete: SetNull)
@@ -284,19 +287,34 @@ model SessionTemplate {
   programmeId String? @db.Uuid
   slug        String  @unique
   name        String
+  // Week within the programme (1-based). Optional for stand-alone templates.
+  week        Int?
+  // Day within the week (1-based).
+  day         Int?
+  // One-line description surfaced when the session is picked.
+  focus       String?
+  gymCue      String?
+  homeCue     String?
 
   programme Programme?            @relation(fields: [programmeId], references: [id], onDelete: SetNull)
   items     SessionTemplateItem[]
   sessions  Session[]
+
+  @@unique([programmeId, week, day])
 }
 
 model Exercise {
-  id          String  @id @default(uuid()) @db.Uuid
-  slug        String  @unique
-  name        String
-  description String?
+  id            String  @id @default(uuid()) @db.Uuid
+  slug          String  @unique
+  name          String
+  description   String?
+  // Broad bucket: strength | plyometric | speed | agility | mobility | conditioning
+  category      String  @default("general")
+  equipmentGym  String?
+  equipmentHome String?
   // MotionSpec drives the procedural Three.js animation — see locked-decisions.
-  motionSpec  Json?
+  // Left null on library exercises until the Phase 5 sign-off is complete.
+  motionSpec    Json?
 
   templateItems SessionTemplateItem[]
 }

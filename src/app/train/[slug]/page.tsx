@@ -5,6 +5,7 @@ import { Card, CardTitle } from "@/components/ui/Card";
 import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { QualityChip } from "@/components/train/QualityChip";
+import { startSession } from "@/app/actions/sessions";
 
 const BAND_LABEL: Record<"U13_U15" | "U16_U18", string> = {
   U13_U15: "U13-15",
@@ -33,6 +34,19 @@ export default async function ProgrammeDetailPage({ params }: Props) {
 
   const programme = await prisma.programme.findUnique({ where: { slug } });
   if (!programme) notFound();
+
+  // Materialised sessions (if any) keyed by "w{week}d{day}".
+  const templates = await prisma.sessionTemplate.findMany({
+    where: { programmeId: programme.id },
+    select: { id: true, week: true, day: true },
+  });
+  const templateKey = (week: number, day: number) => `w${week}d${day}`;
+  const templateByKey = new Map(
+    templates
+      .filter((t) => t.week != null && t.day != null)
+      .map((t) => [templateKey(t.week!, t.day!), t.id] as const),
+  );
+  const isMaterialised = templateByKey.size > 0;
 
   const bandLabel =
     programme.ageBands.length === 2
@@ -88,6 +102,12 @@ export default async function ProgrammeDetailPage({ params }: Props) {
           </Card>
         ) : null}
 
+        {!isMaterialised ? (
+          <div className="rounded-md border border-yellow-500/20 bg-yellow-500/5 p-3 text-xs text-yellow-200">
+            Preview only — session logging for this block ships in a later phase.
+          </div>
+        ) : null}
+
         <section className="space-y-3">
           <h2 className="section-title">Curriculum</h2>
           {curriculum.length === 0 ? (
@@ -107,30 +127,49 @@ export default async function ProgrammeDetailPage({ params }: Props) {
                       {wk.theme}
                     </h3>
                     <ul className="mt-3 space-y-3">
-                      {wk.sessions.map((s, i) => (
-                        <li key={i} className="border-l-2 border-white/5 pl-3">
-                          <p className="font-display uppercase tracking-display text-white text-sm">
-                            {s.name}
-                          </p>
-                          <p className="mt-0.5 text-xs text-muted-strong">{s.focus}</p>
-                          {(s.gymCue || s.homeCue) ? (
-                            <dl className="mt-1.5 space-y-1 text-[0.7rem]">
-                              {s.gymCue ? (
-                                <div className="flex gap-2">
-                                  <dt className="w-10 shrink-0 font-display uppercase tracking-display text-mint-400">Gym</dt>
-                                  <dd className="text-muted">{s.gymCue}</dd>
-                                </div>
+                      {wk.sessions.map((s, i) => {
+                        const day = i + 1;
+                        const templateId = templateByKey.get(templateKey(wk.week, day));
+                        return (
+                          <li key={i} className="border-l-2 border-white/5 pl-3">
+                            <div className="flex items-start justify-between gap-3">
+                              <div className="min-w-0 flex-1">
+                                <p className="font-display uppercase tracking-display text-white text-sm">
+                                  {s.name}
+                                </p>
+                                <p className="mt-0.5 text-xs text-muted-strong">{s.focus}</p>
+                                {(s.gymCue || s.homeCue) ? (
+                                  <dl className="mt-1.5 space-y-1 text-[0.7rem]">
+                                    {s.gymCue ? (
+                                      <div className="flex gap-2">
+                                        <dt className="w-10 shrink-0 font-display uppercase tracking-display text-mint-400">Gym</dt>
+                                        <dd className="text-muted">{s.gymCue}</dd>
+                                      </div>
+                                    ) : null}
+                                    {s.homeCue ? (
+                                      <div className="flex gap-2">
+                                        <dt className="w-10 shrink-0 font-display uppercase tracking-display text-mint-400">Home</dt>
+                                        <dd className="text-muted">{s.homeCue}</dd>
+                                      </div>
+                                    ) : null}
+                                  </dl>
+                                ) : null}
+                              </div>
+                              {templateId ? (
+                                <form action={startSession} className="shrink-0">
+                                  <input type="hidden" name="sessionTemplateId" value={templateId} />
+                                  <button
+                                    type="submit"
+                                    className="rounded-full bg-mint px-3 py-1 font-display uppercase tracking-display text-[0.65rem] text-ink-950 hover:bg-mint-400"
+                                  >
+                                    Start
+                                  </button>
+                                </form>
                               ) : null}
-                              {s.homeCue ? (
-                                <div className="flex gap-2">
-                                  <dt className="w-10 shrink-0 font-display uppercase tracking-display text-mint-400">Home</dt>
-                                  <dd className="text-muted">{s.homeCue}</dd>
-                                </div>
-                              ) : null}
-                            </dl>
-                          ) : null}
-                        </li>
-                      ))}
+                            </div>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </Card>
                 </li>
@@ -138,10 +177,6 @@ export default async function ProgrammeDetailPage({ params }: Props) {
             </ol>
           )}
         </section>
-
-        <p className="text-center text-xs text-muted">
-          Session logging ships in Phase 7 — for now this is a preview.
-        </p>
       </div>
     </AppShell>
   );
