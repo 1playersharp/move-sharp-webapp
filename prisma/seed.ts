@@ -17,6 +17,8 @@ async function main() {
         category: e.category,
         equipmentGym: e.equipmentGym,
         equipmentHome: e.equipmentHome,
+        defaultPrescription: e.defaultPrescription,
+        coachingCue: e.coachingCue,
       },
       update: {
         name: e.name,
@@ -24,6 +26,8 @@ async function main() {
         category: e.category,
         equipmentGym: e.equipmentGym,
         equipmentHome: e.equipmentHome,
+        defaultPrescription: e.defaultPrescription,
+        coachingCue: e.coachingCue,
       },
     });
     console.log(`  ✓ ${e.slug}`);

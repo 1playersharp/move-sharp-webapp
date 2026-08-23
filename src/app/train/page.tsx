@@ -8,6 +8,7 @@ import { prisma } from "@/lib/prisma";
 import { ageBandFromDOB } from "@/lib/age-band";
 import { ProgrammeCard } from "@/components/train/ProgrammeCard";
 import { QualityFilterGrid } from "@/components/train/QualityFilterGrid";
+import { ModeToggle } from "@/components/train/ModeToggle";
 
 const VALID_QUALITIES = new Set<Quality>([
   "speed",
@@ -60,14 +61,7 @@ export default async function TrainPage({ searchParams }: Props) {
       <Header
         title="Train"
         subtitle="Blocks scaled to your band."
-        right={
-          <Link
-            href="/train/library"
-            className="text-[0.65rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
-          >
-            Library →
-          </Link>
-        }
+        right={<ModeToggle mode="programme" />}
       />
       <div className="space-y-6 px-5">
         <section className="space-y-3">

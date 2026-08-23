@@ -94,6 +94,17 @@ enum Quality {
   robustness
 }
 
+// Exercise taxonomy — different axis from Quality. Quality tags what a
+// programme develops; ExerciseCategory groups individual movements.
+enum ExerciseCategory {
+  speed_acceleration
+  plyometric_elastic
+  decel_cod
+  core_antirotation
+  contact_duel_strength
+  robustness_resilience
+}
+
 // -----------------------------------------------------------------------------
 // Identity
 // -----------------------------------------------------------------------------
@@ -304,17 +315,23 @@ model SessionTemplate {
 }
 
 model Exercise {
-  id            String  @id @default(uuid()) @db.Uuid
-  slug          String  @unique
-  name          String
-  description   String?
-  // Broad bucket: strength | plyometric | speed | agility | mobility | conditioning
-  category      String  @default("general")
-  equipmentGym  String?
-  equipmentHome String?
+  id                  String            @id @default(uuid()) @db.Uuid
+  slug                String            @unique
+  name                String
+  description         String?
+  category            ExerciseCategory  @default(contact_duel_strength)
+  equipmentGym        String?
+  equipmentHome       String?
+  // Starting-point prescription surfaced on the library detail page.
+  // Programme sessions still carry their own specific prescription on the item.
+  defaultPrescription String?
+  // Short one-liner shown on the detail page — different from `description`
+  // which is longer form.
+  coachingCue         String?
   // MotionSpec drives the procedural Three.js animation — see locked-decisions.
-  // Left null on library exercises until the Phase 5 sign-off is complete.
-  motionSpec    Json?
+  // In-code today (src/lib/exercise/pilots/) keyed by library slug; this
+  // column is reserved for future DB-authored specs.
+  motionSpec          Json?
 
   templateItems SessionTemplateItem[]
 }
