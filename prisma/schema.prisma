@@ -340,6 +340,9 @@ model Exercise {
   // Short one-liner shown on the detail page — different from `description`
   // which is longer form.
   coachingCue         String?
+  // If set, ticking this item in a session prompts for a PB value that
+  // gets saved as a MetricEntry against the metric with this key.
+  pbMetricKey         String?
   // MotionSpec drives the procedural Three.js animation — see locked-decisions.
   // In-code today (src/lib/exercise/pilots/) keyed by library slug; this
   // column is reserved for future DB-authored specs.

@@ -32,6 +32,7 @@ async function main() {
         equipmentHome: e.equipmentHome,
         defaultPrescription: e.defaultPrescription,
         coachingCue: e.coachingCue,
+        pbMetricKey: e.pbMetricKey,
       },
       update: {
         name: e.name,
@@ -42,6 +43,7 @@ async function main() {
         equipmentHome: e.equipmentHome,
         defaultPrescription: e.defaultPrescription,
         coachingCue: e.coachingCue,
+        pbMetricKey: e.pbMetricKey,
       },
     });
     console.log(`  ✓ ${e.slug}`);

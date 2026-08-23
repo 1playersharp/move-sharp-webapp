@@ -11,6 +11,9 @@ type Item = {
   category: string;
   prescription: string;
   notes?: string;
+  pbMetricKey?: string | null;
+  pbMetricLabel?: string | null;
+  pbUnitHint?: string | null;
 };
 
 type Props = {
@@ -30,6 +33,7 @@ export function SessionLogger({ sessionId, items }: Props) {
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const [notes, setNotes] = useState("");
   const [feltAfter, setFeltAfter] = useState<number | null>(null);
+  const [pbValues, setPbValues] = useState<Record<string, string>>({});
   const [pending, startTransition] = useTransition();
 
   const toggle = (id: string) =>
@@ -45,6 +49,11 @@ export function SessionLogger({ sessionId, items }: Props) {
     for (const id of checked) fd.append("completedItemIds", id);
     if (feltAfter != null) fd.set("feltAfter", String(feltAfter));
     if (notes.trim()) fd.set("notes", notes.trim());
+    for (const [itemId, value] of Object.entries(pbValues)) {
+      if (checked.has(itemId) && value.trim()) {
+        fd.set(`pb_${itemId}`, value.trim());
+      }
+    }
     startTransition(() => {
       completeSession(sessionId, fd);
     });
@@ -64,45 +73,75 @@ export function SessionLogger({ sessionId, items }: Props) {
         <ul className="space-y-2">
           {items.map((item) => {
             const isDone = checked.has(item.id);
+            const showPb = isDone && item.pbMetricKey;
             return (
               <li key={item.id}>
-                <button
-                  type="button"
-                  onClick={() => toggle(item.id)}
+                <div
                   className={cn(
-                    "w-full rounded-card border p-4 text-left transition-colors",
+                    "rounded-card border transition-colors",
                     isDone
                       ? "border-mint bg-mint/10"
                       : "border-white/5 bg-ink-850 hover:border-mint/30",
                   )}
-                  aria-pressed={isDone}
                 >
-                  <div className="flex items-start gap-3">
-                    <span
-                      className={cn(
-                        "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border",
-                        isDone ? "border-mint bg-mint text-ink-950" : "border-white/20 bg-ink-800",
-                      )}
-                      aria-hidden="true"
-                    >
-                      {isDone ? "✓" : ""}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-baseline justify-between gap-2">
-                        <span className="font-display uppercase tracking-display text-white text-sm">
-                          {item.name}
-                        </span>
-                        <span className="text-[0.65rem] uppercase tracking-display text-muted">
-                          {item.category}
-                        </span>
+                  <button
+                    type="button"
+                    onClick={() => toggle(item.id)}
+                    className="w-full p-4 text-left"
+                    aria-pressed={isDone}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span
+                        className={cn(
+                          "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border",
+                          isDone ? "border-mint bg-mint text-ink-950" : "border-white/20 bg-ink-800",
+                        )}
+                        aria-hidden="true"
+                      >
+                        {isDone ? "✓" : ""}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-baseline justify-between gap-2">
+                          <span className="font-display uppercase tracking-display text-white text-sm">
+                            {item.name}
+                          </span>
+                          <span className="text-[0.65rem] uppercase tracking-display text-muted">
+                            {item.category}
+                          </span>
+                        </div>
+                        <p className="mt-0.5 text-xs text-muted-strong">{item.prescription}</p>
+                        {item.notes ? (
+                          <p className="mt-1 text-[0.7rem] italic text-muted">{item.notes}</p>
+                        ) : null}
                       </div>
-                      <p className="mt-0.5 text-xs text-muted-strong">{item.prescription}</p>
-                      {item.notes ? (
-                        <p className="mt-1 text-[0.7rem] italic text-muted">{item.notes}</p>
-                      ) : null}
                     </div>
-                  </div>
-                </button>
+                  </button>
+
+                  {showPb ? (
+                    <div className="border-t border-white/5 px-4 pb-3 pt-2">
+                      <label className="block text-[0.65rem] uppercase tracking-display font-display text-mint-400">
+                        Log a PB? · {item.pbMetricLabel}
+                      </label>
+                      <input
+                        type="number"
+                        inputMode="decimal"
+                        step="0.01"
+                        value={pbValues[item.id] ?? ""}
+                        onChange={(e) =>
+                          setPbValues((prev) => ({
+                            ...prev,
+                            [item.id]: e.target.value,
+                          }))
+                        }
+                        placeholder={item.pbUnitHint ?? "value"}
+                        className="mt-1 h-9 w-full rounded-md bg-ink-800 px-3 text-sm text-white placeholder:text-muted border border-white/10 focus:border-mint focus:outline-none focus:ring-2 focus:ring-mint/30"
+                      />
+                      <p className="mt-1 text-[0.65rem] text-muted">
+                        Optional — only fill if you timed or measured this rep.
+                      </p>
+                    </div>
+                  ) : null}
+                </div>
               </li>
             );
           })}

@@ -10,6 +10,9 @@ export type ExerciseSeed = {
   equipmentHome?: string;
   defaultPrescription: string;
   coachingCue: string;
+  // When set, session logging offers to log a PB value against this metric
+  // when the item is ticked complete.
+  pbMetricKey?: string;
 };
 
 // Genuinely-split library: movements that materially differ between gym
@@ -59,6 +62,7 @@ export const EXERCISES: ExerciseSeed[] = [
     equipmentHome: "Cones or markers on grass",
     defaultPrescription: "4 × flying 20m, 3 min rest",
     coachingCue: "Build into 20m. Fly the middle 20m. Float the last 10m.",
+    pbMetricKey: "flying-20m",
   },
   {
     slug: "tempo-run",
@@ -83,6 +87,7 @@ export const EXERCISES: ExerciseSeed[] = [
     contexts: ["home", "gym"],
     defaultPrescription: "4 × 3 broad jumps",
     coachingCue: "Arms load back, then forward. Stick the landing 2 seconds.",
+    pbMetricKey: "broad-jump",
   },
   {
     slug: "pogo-hops",
@@ -160,6 +165,7 @@ export const EXERCISES: ExerciseSeed[] = [
     equipmentHome: "Cones or markers",
     defaultPrescription: "4 × 5-10-5 max effort, 90s rest",
     coachingCue: "Wide plant, drop the hip, push through the outside foot.",
+    pbMetricKey: "shuttle-5-10-5",
   },
   {
     slug: "l-drill",
@@ -249,6 +255,7 @@ export const EXERCISES: ExerciseSeed[] = [
     contexts: ["home", "gym"],
     defaultPrescription: "3 × 30s per side",
     coachingCue: "Long straight line ankles to shoulder. Don't sag at the hip.",
+    pbMetricKey: "plank-hold",
   },
 
   // ================================================================
@@ -284,6 +291,7 @@ export const EXERCISES: ExerciseSeed[] = [
     contexts: ["home", "gym"],
     defaultPrescription: "3 × 8 clean reps",
     coachingCue: "Long body. Elbows back not out.",
+    pbMetricKey: "push-ups-max",
   },
 
   // Row — split.

@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requirePlayer } from "@/lib/auth";
 import { toUtcDay } from "@/lib/date";
+import { ensureMetric } from "@/lib/metrics";
+import { pbMetricByKey, isImprovement } from "@/lib/constants/pb-metrics";
 
 export async function startSession(formData: FormData) {
   const user = await requirePlayer();
@@ -67,6 +69,13 @@ export async function completeSession(sessionId: string, formData: FormData) {
   const notesRaw = String(formData.get("notes") ?? "").trim();
   const notes = notesRaw ? notesRaw.slice(0, 500) : null;
 
+  // Look up completed items' PB metric keys so we know which pb_<id>
+  // form fields to persist as MetricEntry rows.
+  const items = await prisma.sessionTemplateItem.findMany({
+    where: { id: { in: completedItemIds } },
+    include: { exercise: { select: { pbMetricKey: true } } },
+  });
+
   await prisma.session.update({
     where: { id: sessionId },
     data: {
@@ -77,8 +86,45 @@ export async function completeSession(sessionId: string, formData: FormData) {
     },
   });
 
+  for (const item of items) {
+    const key = item.exercise.pbMetricKey;
+    if (!key) continue;
+    const raw = String(formData.get(`pb_${item.id}`) ?? "").trim();
+    if (!raw) continue;
+    const value = Number(raw);
+    const def = pbMetricByKey(key);
+    if (!Number.isFinite(value) || value <= 0 || !def) continue;
+
+    const metric = await ensureMetric(user.player.id, key);
+    const currentPb = await prisma.metricEntry.findFirst({
+      where: { metricId: metric.id, isPersonalBest: true },
+    });
+    const isPb =
+      !currentPb || isImprovement(value, currentPb.value, def.direction);
+
+    await prisma.$transaction(async (tx) => {
+      if (isPb && currentPb) {
+        await tx.metricEntry.update({
+          where: { id: currentPb.id },
+          data: { isPersonalBest: false },
+        });
+      }
+      await tx.metricEntry.create({
+        data: {
+          metricId: metric.id,
+          playerId: user.player.id,
+          value,
+          recordedAt: new Date(),
+          sessionId,
+          isPersonalBest: isPb,
+        },
+      });
+    });
+  }
+
   revalidatePath("/");
   revalidatePath("/train");
+  revalidatePath("/progress");
   redirect("/?session=complete");
 }
 

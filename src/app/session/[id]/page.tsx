@@ -4,10 +4,23 @@ import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { AppShell } from "@/components/layout/AppShell";
 import { SessionLogger } from "@/components/session/SessionLogger";
+import { pbMetricByKey } from "@/lib/constants/pb-metrics";
 
 type Props = { params: Promise<{ id: string }> };
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function pbUnitPlaceholder(unit: string): string {
+  switch (unit) {
+    case "seconds": return "seconds (e.g. 2.85)";
+    case "meters": return "meters (e.g. 6.42)";
+    case "centimeters": return "cm (e.g. 62)";
+    case "reps": return "reps";
+    case "kilograms": return "kg";
+    case "watts": return "watts";
+    default: return "value";
+  }
+}
 
 export default async function SessionPage({ params }: Props) {
   const user = await requirePlayer();
@@ -61,12 +74,17 @@ export default async function SessionPage({ params }: Props) {
 
   const items = template.items.map((item) => {
     const prescription = (item.prescription as { display?: string; notes?: string } | null) ?? {};
+    const pbKey = item.exercise.pbMetricKey ?? null;
+    const pbDef = pbKey ? pbMetricByKey(pbKey) : null;
     return {
       id: item.id,
       name: item.exercise.name,
       category: item.exercise.category,
       prescription: prescription.display ?? "As prescribed",
       notes: prescription.notes,
+      pbMetricKey: pbKey,
+      pbMetricLabel: pbDef?.label ?? null,
+      pbUnitHint: pbDef ? pbUnitPlaceholder(pbDef.unit) : null,
     };
   });
 
