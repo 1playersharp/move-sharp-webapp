@@ -85,6 +85,15 @@ enum FuelTag {
   hydration
 }
 
+enum Quality {
+  speed
+  power
+  strength
+  agility
+  endurance
+  robustness
+}
+
 // -----------------------------------------------------------------------------
 // Identity
 // -----------------------------------------------------------------------------
@@ -248,13 +257,23 @@ model ReadinessEntry {
 // -----------------------------------------------------------------------------
 
 model Programme {
-  id          String    @id @default(uuid()) @db.Uuid
-  slug        String    @unique
-  name        String
-  description String?
-  ageBands    AgeBand[] @default([])
-  weeks       Int       @default(6)
-  createdAt   DateTime  @default(now())
+  id              String    @id @default(uuid()) @db.Uuid
+  slug            String    @unique
+  name            String
+  description     String?
+  // One or two sentences on WHY the programme exists — surfaced above the fold.
+  intent          String?
+  ageBands        AgeBand[] @default([])
+  qualities       Quality[] @default([])
+  weeks           Int       @default(6)
+  sessionsPerWeek Int       @default(3)
+  equipmentGym    String?
+  equipmentHome   String?
+  // Shape: [{ week: Int, theme: String, sessions: [{name, focus, gymCue?, homeCue?}] }]
+  // Phase 6 preview only; Phase 7 will materialise this into SessionTemplate rows.
+  curriculum      Json?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   templates SessionTemplate[]
   sessions  Session[]
