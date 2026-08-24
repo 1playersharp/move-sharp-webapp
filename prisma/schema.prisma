@@ -143,11 +143,12 @@ model Player {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  metrics   Metric[]
-  entries   MetricEntry[]
-  sessions  Session[]
-  readiness ReadinessEntry[]
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  metrics          Metric[]
+  entries          MetricEntry[]
+  sessions         Session[]
+  readiness        ReadinessEntry[]
+  customProgrammes Programme[]      @relation("PlayerCustomProgrammes")
 }
 
 // -----------------------------------------------------------------------------
@@ -279,26 +280,33 @@ model ReadinessEntry {
 // -----------------------------------------------------------------------------
 
 model Programme {
-  id              String    @id @default(uuid()) @db.Uuid
-  slug            String    @unique
-  name            String
-  description     String?
+  id                 String    @id @default(uuid()) @db.Uuid
+  slug               String    @unique
+  name               String
+  description        String?
   // One or two sentences on WHY the programme exists — surfaced above the fold.
-  intent          String?
-  ageBands        AgeBand[] @default([])
-  qualities       Quality[] @default([])
-  weeks           Int       @default(6)
-  sessionsPerWeek Int       @default(3)
-  equipmentGym    String?
-  equipmentHome   String?
+  intent             String?
+  ageBands           AgeBand[] @default([])
+  qualities          Quality[] @default([])
+  weeks              Int       @default(6)
+  sessionsPerWeek    Int       @default(3)
+  equipmentGym       String?
+  equipmentHome      String?
   // Shape: [{ week: Int, theme: String, sessions: [{name, focus, gymCue?, homeCue?}] }]
   // Phase 6 preview only; Phase 7 will materialise this into SessionTemplate rows.
-  curriculum      Json?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  curriculum         Json?
+  // Quiz-generated programmes flip isCustom + set createdForPlayerId. Seeded
+  // library programmes leave both alone (isCustom=false, no owner).
+  isCustom           Boolean   @default(false)
+  createdForPlayerId String?   @db.Uuid
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 
-  templates SessionTemplate[]
-  sessions  Session[]
+  createdForPlayer Player?           @relation("PlayerCustomProgrammes", fields: [createdForPlayerId], references: [id], onDelete: Cascade)
+  templates        SessionTemplate[]
+  sessions         Session[]
+
+  @@index([createdForPlayerId])
 }
 
 model SessionTemplate {

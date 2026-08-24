@@ -9,6 +9,7 @@ import { ageBandFromDOB } from "@/lib/age-band";
 import { ProgrammeCard } from "@/components/train/ProgrammeCard";
 import { QualityFilterGrid } from "@/components/train/QualityFilterGrid";
 import { ModeToggle } from "@/components/train/ModeToggle";
+import { YourProgrammesStrip } from "@/components/train/YourProgrammesStrip";
 
 const VALID_QUALITIES = new Set<Quality>([
   "speed",
@@ -36,14 +37,22 @@ export default async function TrainPage({ searchParams }: Props) {
 
   const bandFilter: AgeBand[] = showAll ? [] : [playerBand];
 
+  // Seeded library programmes only (custom ones live in the "Your
+  // programmes" strip so they don't get mixed into filter results).
   const programmes = await prisma.programme.findMany({
     where: {
+      isCustom: false,
       ...(activeQuality ? { qualities: { has: activeQuality } } : {}),
       ...(bandFilter.length > 0
         ? { ageBands: { hasSome: bandFilter } }
         : {}),
     },
     orderBy: [{ name: "asc" }],
+  });
+
+  const customProgrammes = await prisma.programme.findMany({
+    where: { createdForPlayerId: user.player.id },
+    orderBy: [{ createdAt: "desc" }],
   });
 
   const buildHref = (q: Quality | null) => {
@@ -61,6 +70,8 @@ export default async function TrainPage({ searchParams }: Props) {
       <Header title="Train" subtitle="Blocks scaled to your band." />
       <div className="space-y-6 px-5">
         <ModeToggle mode="programme" />
+
+        <YourProgrammesStrip programmes={customProgrammes} />
 
         <section className="space-y-3">
           <h2 className="section-title">Filter by quality</h2>
