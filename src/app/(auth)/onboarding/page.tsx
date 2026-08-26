@@ -63,6 +63,42 @@ export default async function OnboardingPage({ searchParams }: Props) {
 
         <fieldset className="space-y-3 rounded-xl border border-white/5 bg-ink-900/50 p-4">
           <legend className="px-1 font-display uppercase tracking-display text-xs text-muted">
+            Diet
+          </legend>
+          <p className="text-xs text-muted">
+            We use this to hide recipes you can't eat.
+          </p>
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { key: "omnivore", label: "Eats everything" },
+              { key: "pescatarian", label: "Pescatarian", note: "fish, no meat" },
+              { key: "vegetarian", label: "Vegetarian" },
+              { key: "vegan", label: "Vegan" },
+            ].map((d) => (
+              <label
+                key={d.key}
+                htmlFor={`diet_${d.key}`}
+                className="flex cursor-pointer items-start gap-2 rounded-md border border-white/5 bg-ink-900/60 p-3 hover:border-mint/30 has-[:checked]:border-mint has-[:checked]:bg-mint/10"
+              >
+                <input
+                  id={`diet_${d.key}`}
+                  name="dietPreference"
+                  type="radio"
+                  value={d.key}
+                  defaultChecked={d.key === "omnivore"}
+                  className="mt-0.5 h-4 w-4 accent-mint"
+                />
+                <span className="min-w-0">
+                  <span className="block text-sm text-white">{d.label}</span>
+                  {d.note ? <span className="block text-xs text-muted">{d.note}</span> : null}
+                </span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset className="space-y-3 rounded-xl border border-white/5 bg-ink-900/50 p-4">
+          <legend className="px-1 font-display uppercase tracking-display text-xs text-muted">
             Allergies
           </legend>
           <p className="text-xs text-muted">

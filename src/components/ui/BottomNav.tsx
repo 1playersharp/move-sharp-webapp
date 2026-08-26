@@ -14,6 +14,7 @@ type Tab = {
 const TABS: Tab[] = [
   { href: "/", label: "Home", icon: <IconHome /> },
   { href: "/train", label: "Train", icon: <IconTrain /> },
+  { href: "/quiz", label: "Quiz", icon: <IconQuiz /> },
   { href: "/progress", label: "Progress", icon: <IconProgress /> },
   { href: "/fuel", label: "Fuel", icon: <IconFuel /> },
   { href: "/you", label: "You", icon: <IconYou /> },
@@ -78,6 +79,15 @@ function IconTrain() {
   return (
     <svg viewBox="0 0 24 24" {...stroke} aria-hidden="true">
       <path d="M4 12h2l2-4 4 8 4-8 2 4h2" />
+    </svg>
+  );
+}
+
+function IconQuiz() {
+  return (
+    <svg viewBox="0 0 24 24" {...stroke} aria-hidden="true">
+      <path d="M9 9a3 3 0 1 1 4.5 2.6c-1 .6-1.5 1.2-1.5 2.4" />
+      <circle cx="12" cy="17.5" r="0.6" fill="currentColor" stroke="none" />
     </svg>
   );
 }

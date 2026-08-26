@@ -12,7 +12,7 @@ import {
 import { generateCustomProgramme } from "@/lib/quiz/generator";
 
 function fail(msg: string): never {
-  redirect(`/train/quiz?error=${encodeURIComponent(msg)}`);
+  redirect(`/quiz?error=${encodeURIComponent(msg)}`);
 }
 
 export async function submitQuiz(formData: FormData) {

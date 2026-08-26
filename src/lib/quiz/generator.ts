@@ -19,6 +19,7 @@ export type GeneratedCurriculumSession = {
   focus: string;
   gymCue?: string;
   homeCue?: string;
+  exerciseSlugs?: string[];
 };
 export type GeneratedCurriculumWeek = {
   week: number;
@@ -334,11 +335,17 @@ export function generateCustomProgramme(input: GeneratorInput): GeneratedProgram
       const sessionName = sessionNameFor(cat, slot, tw.intensity);
       const focus = focusFor(tw.intensity, cat, items);
 
+      const exerciseSlugs = primaryPicks.map((e) => e.slug);
+      if (alwaysMobility && mobility && !exerciseSlugs.includes(mobility.slug)) {
+        exerciseSlugs.push(mobility.slug);
+      }
+
       sessions.push({
         name: sessionName,
         focus,
         gymCue: context === "gym" ? cueBits[0] : undefined,
         homeCue: context === "home" ? cueBits[0] : undefined,
+        exerciseSlugs,
       });
 
       if (alwaysMobility && mobility) {

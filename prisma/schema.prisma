@@ -81,8 +81,32 @@ enum FuelTag {
   before_training
   after_training
   match_day
-  school_gap
+  pre_match
   hydration
+  // Retired: 'school_gap' — no longer used by the app, kept in the enum
+  // to avoid a fragile array-cast rebuild. Never write it from code.
+  school_gap
+}
+
+// A recipe's diet suitability lists every player-diet it fits. A vegan
+// dish fits vegan + vegetarian + pescatarian + omnivore; a fish dish
+// fits pescatarian + omnivore; a meat dish fits omnivore only. Player
+// picks one, we intersect.
+enum DietPreference {
+  omnivore
+  pescatarian
+  vegetarian
+  vegan
+}
+
+// Meal slots for the weekly planner. Kept simple: four familiar
+// time-of-day buckets, not the FuelTag rails (which are contextual —
+// pre-match, after-training — and a recipe can carry several).
+enum MealSlot {
+  breakfast
+  lunch
+  dinner
+  snack
 }
 
 enum Quality {
@@ -138,6 +162,7 @@ model Player {
   // Convenience filter, NOT a substitute for reading ingredients — see locked-decisions.
   allergies       Allergen[]      @default([])
   allergyNote     String?
+  dietPreference  DietPreference  @default(omnivore)
   trainingContext TrainingContext @default(home)
 
   createdAt DateTime @default(now())
@@ -149,6 +174,7 @@ model Player {
   sessions         Session[]
   readiness        ReadinessEntry[]
   customProgrammes Programme[]      @relation("PlayerCustomProgrammes")
+  mealPlan         MealPlanEntry[]
 }
 
 // -----------------------------------------------------------------------------
@@ -377,16 +403,43 @@ model SessionTemplateItem {
 // -----------------------------------------------------------------------------
 
 model Recipe {
-  id           String     @id @default(uuid()) @db.Uuid
-  slug         String     @unique
-  name         String
-  servings     Int        @default(1)
+  id              String           @id @default(uuid()) @db.Uuid
+  slug            String           @unique
+  name            String
+  servings        Int              @default(1)
   // Shape: [{ name: string, quantity: string, note?: string }, ...]
-  ingredients  Json
+  ingredients     Json
   // Reused enum with Player.allergies powers the hard-exclusion filter.
-  allergens    Allergen[] @default([])
-  fuelTags     FuelTag[]  @default([])
-  instructions String
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  allergens       Allergen[]       @default([])
+  // Every DietPreference this recipe is suitable for. A vegan dish lists
+  // all four; a meat dish lists only omnivore.
+  dietSuitability DietPreference[] @default([])
+  fuelTags        FuelTag[]        @default([])
+  // Per-serving macros — approximate, for at-a-glance fuel check.
+  carbsG          Int?
+  proteinG        Int?
+  instructions    String
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  plannedIn       MealPlanEntry[]
+}
+
+// Weekly meal planner — one row per (player, date, slot). No compound
+// unique so a slot can hold zero or one recipe; the server action does
+// upsert-by-(playerId,date,slot) manually to enforce one-per-slot.
+model MealPlanEntry {
+  id        String   @id @default(uuid()) @db.Uuid
+  playerId  String   @db.Uuid
+  date      DateTime @db.Date
+  slot      MealSlot
+  recipeId  String   @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@unique([playerId, date, slot])
+  @@index([playerId, date])
 }

@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { ALL_PROGRAMMES } from "./programmes";
 import { EXERCISES, ORPHANED_SLUGS } from "./exercises";
+import { RECIPES } from "./recipes";
 import { FIRST_STEP_TEMPLATES } from "./session-templates/first-step-acceleration-u13";
 
 const prisma = new PrismaClient();
@@ -138,6 +139,37 @@ async function main() {
       });
     }
     console.log(`  ✓ ${t.slug}`);
+  }
+
+  console.log(`Seeding ${RECIPES.length} recipes…`);
+  for (const r of RECIPES) {
+    await prisma.recipe.upsert({
+      where: { slug: r.slug },
+      create: {
+        slug: r.slug,
+        name: r.name,
+        servings: r.servings,
+        ingredients: r.ingredients,
+        allergens: r.allergens,
+        dietSuitability: r.dietSuitability,
+        fuelTags: r.fuelTags,
+        carbsG: r.carbsG,
+        proteinG: r.proteinG,
+        instructions: r.instructions,
+      },
+      update: {
+        name: r.name,
+        servings: r.servings,
+        ingredients: r.ingredients,
+        allergens: r.allergens,
+        dietSuitability: r.dietSuitability,
+        fuelTags: r.fuelTags,
+        carbsG: r.carbsG,
+        proteinG: r.proteinG,
+        instructions: r.instructions,
+      },
+    });
+    console.log(`  ✓ ${r.slug}`);
   }
 
   console.log("Done.");

@@ -10,6 +10,11 @@ import { ProgrammeCard } from "@/components/train/ProgrammeCard";
 import { QualityFilterGrid } from "@/components/train/QualityFilterGrid";
 import { ModeToggle } from "@/components/train/ModeToggle";
 import { YourProgrammesStrip } from "@/components/train/YourProgrammesStrip";
+import {
+  recommendedQualitiesFor,
+  formatQualityList,
+} from "@/lib/constants/position-qualities";
+import { POSITIONS } from "@/lib/constants/positions";
 
 const VALID_QUALITIES = new Set<Quality>([
   "speed",
@@ -29,6 +34,9 @@ export default async function TrainPage({ searchParams }: Props) {
   const { quality: qualityRaw, band: bandRaw } = await searchParams;
 
   const playerBand = ageBandFromDOB(user.player.dateOfBirth);
+  const recommendedQualities = recommendedQualitiesFor(user.player.position);
+  const positionLabel =
+    POSITIONS.find((p) => p.key === user.player.position)?.label ?? "your position";
   const showAll = bandRaw === "all";
   const activeQuality: Quality | null =
     qualityRaw && VALID_QUALITIES.has(qualityRaw as Quality)
@@ -74,8 +82,25 @@ export default async function TrainPage({ searchParams }: Props) {
         <YourProgrammesStrip programmes={customProgrammes} />
 
         <section className="space-y-3">
-          <h2 className="section-title">Filter by quality</h2>
-          <QualityFilterGrid active={activeQuality} buildHref={buildHref} />
+          <div className="flex items-baseline justify-between gap-2">
+            <h2 className="section-title">Filter by quality</h2>
+            {recommendedQualities.length > 0 ? (
+              <span className="flex items-center gap-1.5 text-[0.65rem] font-display uppercase tracking-display text-mint-400">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-mint" />
+                Recommended for {positionLabel}
+              </span>
+            ) : null}
+          </div>
+          <QualityFilterGrid
+            active={activeQuality}
+            buildHref={buildHref}
+            recommendedFor={recommendedQualities}
+          />
+          {recommendedQualities.length > 0 ? (
+            <p className="text-xs text-muted">
+              {formatQualityList(recommendedQualities)} lead the demands for {positionLabel.toLowerCase()} — the mint-dotted chips.
+            </p>
+          ) : null}
         </section>
 
         <section>

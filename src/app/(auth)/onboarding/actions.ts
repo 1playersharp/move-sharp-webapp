@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { Prisma, type Allergen, type Position } from "@prisma/client";
+import { Prisma, type Allergen, type DietPreference, type Position } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { requireAuthUser } from "@/lib/auth";
 import { isEligibleAge } from "@/lib/age-band";
@@ -47,6 +47,12 @@ export async function completeOnboarding(formData: FormData) {
   // Defensive filter in case the client posts an unknown enum value.
   const safeAllergies = allergies.filter((a) => ALLERGEN_KEYS.has(a));
 
+  const dietRaw = String(formData.get("dietPreference") ?? "").trim();
+  const DIET_KEYS = new Set<DietPreference>(["omnivore", "pescatarian", "vegetarian", "vegan"]);
+  const dietPreference: DietPreference = DIET_KEYS.has(dietRaw as DietPreference)
+    ? (dietRaw as DietPreference)
+    : "omnivore";
+
   const email = authUser.email ?? null;
   if (!email) fail("Your account has no email address on file.");
 
@@ -67,6 +73,7 @@ export async function completeOnboarding(formData: FormData) {
           club,
           allergies: safeAllergies,
           allergyNote,
+          dietPreference,
         },
         update: {
           name,
@@ -75,6 +82,7 @@ export async function completeOnboarding(formData: FormData) {
           club,
           allergies: safeAllergies,
           allergyNote,
+          dietPreference,
         },
       });
     });

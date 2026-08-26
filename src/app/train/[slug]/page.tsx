@@ -6,7 +6,9 @@ import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { QualityChip } from "@/components/train/QualityChip";
 import { startSession } from "@/app/actions/sessions";
-import { contextLabel, cueForContext, equipmentForContext } from "@/lib/training-context";
+import { DeleteProgrammeConfirm } from "@/components/train/DeleteProgrammeConfirm";
+import { contextLabel, equipmentForContext } from "@/lib/training-context";
+import { inferSessionExerciseSlugs } from "@/lib/programmes/session-exercises";
 
 const BAND_LABEL: Record<"U13_U15" | "U16_U18", string> = {
   U13_U15: "U13-15",
@@ -18,6 +20,7 @@ type CurriculumSession = {
   focus: string;
   gymCue?: string;
   homeCue?: string;
+  exerciseSlugs?: string[];
 };
 type CurriculumWeek = {
   week: number;
@@ -62,6 +65,36 @@ export default async function ProgrammeDetailPage({ params }: Props) {
       : programme.ageBands.map((b) => BAND_LABEL[b as "U13_U15" | "U16_U18"]).join(" · ");
 
   const curriculum = (programme.curriculum ?? []) as unknown as CurriculumWeek[];
+
+  // Pull every exercise slug referenced anywhere in the curriculum in
+  // one query, then look up by slug in the render loop. Seeded sessions
+  // don't carry exerciseSlugs, so we infer from name+focus text and
+  // filter to the player's context.
+  const sessionSlugs = new Map<string, string[]>();
+  const referencedSlugs = new Set<string>();
+  for (const wk of curriculum) {
+    for (let i = 0; i < wk.sessions.length; i++) {
+      const s = wk.sessions[i];
+      const slugs =
+        s.exerciseSlugs && s.exerciseSlugs.length > 0
+          ? s.exerciseSlugs
+          : inferSessionExerciseSlugs(s, context);
+      sessionSlugs.set(`w${wk.week}s${i}`, slugs);
+      slugs.forEach((slug) => referencedSlugs.add(slug));
+    }
+  }
+  const bankExercises = referencedSlugs.size
+    ? await prisma.exercise.findMany({
+        where: { slug: { in: Array.from(referencedSlugs) } },
+        select: {
+          slug: true,
+          name: true,
+          category: true,
+          defaultPrescription: true,
+        },
+      })
+    : [];
+  const bankBySlug = new Map(bankExercises.map((e) => [e.slug, e]));
 
   return (
     <AppShell>
@@ -123,7 +156,6 @@ export default async function ProgrammeDetailPage({ params }: Props) {
                       {wk.sessions.map((s, i) => {
                         const day = i + 1;
                         const templateId = templateByKey.get(templateKey(wk.week, day));
-                        const cue = cueForContext(context, s.gymCue ?? null, s.homeCue ?? null);
                         return (
                           <li key={i} className="border-l-2 border-white/5 pl-3">
                             <div className="flex items-start justify-between gap-3">
@@ -131,15 +163,38 @@ export default async function ProgrammeDetailPage({ params }: Props) {
                                 <p className="font-display uppercase tracking-display text-white text-sm">
                                   {s.name}
                                 </p>
-                                <p className="mt-0.5 text-xs text-muted-strong">{s.focus}</p>
-                                {cue ? (
-                                  <p className="mt-1.5 text-[0.7rem] text-muted">
-                                    <span className="font-display uppercase tracking-display text-mint-400">
-                                      {ctxLabel}
-                                    </span>{" "}
-                                    {cue}
-                                  </p>
-                                ) : null}
+                                {(() => {
+                                  const slugs = sessionSlugs.get(`w${wk.week}s${i}`) ?? [];
+                                  const rows = slugs
+                                    .map((slug) => bankBySlug.get(slug))
+                                    .filter((ex): ex is NonNullable<typeof ex> => Boolean(ex));
+                                  if (rows.length === 0) return null;
+                                  return (
+                                    <ul className="mt-3 divide-y divide-white/5 overflow-hidden rounded-md border border-white/10 bg-ink-900/40">
+                                      {rows.map((ex) => (
+                                        <li key={ex.slug}>
+                                          <Link
+                                            href={`/train/exercise/${ex.category}/${ex.slug}`}
+                                            className="group flex items-center justify-between gap-3 px-3 py-2 transition-colors hover:bg-mint/5"
+                                          >
+                                            <span className="min-w-0 flex-1 truncate text-[0.8rem] text-white group-hover:text-mint">
+                                              {ex.name}
+                                            </span>
+                                            <span className="shrink-0 font-display uppercase tracking-display text-[0.65rem] tabular-nums text-mint-400">
+                                              {ex.defaultPrescription}
+                                            </span>
+                                            <span
+                                              aria-hidden="true"
+                                              className="shrink-0 text-muted group-hover:text-mint"
+                                            >
+                                              ›
+                                            </span>
+                                          </Link>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  );
+                                })()}
                               </div>
                               {templateId ? (
                                 <form action={startSession} className="shrink-0">
@@ -163,6 +218,16 @@ export default async function ProgrammeDetailPage({ params }: Props) {
             </ol>
           )}
         </section>
+
+        {programme.isCustom && programme.createdForPlayerId === user.player.id ? (
+          <section className="pt-4">
+            <DeleteProgrammeConfirm
+              id={programme.id}
+              programmeName={programme.name}
+              variant="full"
+            />
+          </section>
+        ) : null}
       </div>
     </AppShell>
   );

@@ -21,9 +21,14 @@ const QUALITIES_LIST = ALL_QUALITIES.filter((q) => {
 type Props = {
   active?: Quality | null;
   buildHref: (quality: Quality | null) => string;
+  // Optional set of qualities recommended for the player's position —
+  // rendered with a mint tint + a small dot marker so they're easy to
+  // spot without competing with the active state.
+  recommendedFor?: Quality[];
 };
 
-export function QualityFilterGrid({ active, buildHref }: Props) {
+export function QualityFilterGrid({ active, buildHref, recommendedFor }: Props) {
+  const recommended = new Set(recommendedFor ?? []);
   return (
     <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
       <Link
@@ -39,17 +44,26 @@ export function QualityFilterGrid({ active, buildHref }: Props) {
       </Link>
       {QUALITIES_LIST.map((q) => {
         const isActive = active === q.key;
+        const isRecommended = recommended.has(q.key);
         return (
           <Link
             key={q.key}
             href={buildHref(q.key)}
             className={cn(
-              "flex flex-col items-center rounded-md border px-2 py-2 text-center",
+              "relative flex flex-col items-center rounded-md border px-2 py-2 text-center",
               isActive
                 ? "border-mint bg-mint/15 text-mint-400"
+                : isRecommended
+                ? "border-mint/40 bg-mint/5 text-white hover:border-mint"
                 : "border-white/5 bg-ink-850 text-muted hover:border-mint/30",
             )}
           >
+            {isRecommended && !isActive ? (
+              <span
+                aria-label="Recommended"
+                className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-mint"
+              />
+            ) : null}
             <span className="font-display uppercase tracking-display text-[0.7rem]">
               {q.label}
             </span>

@@ -5,6 +5,9 @@ export type ProgrammeSession = {
   focus: string;
   gymCue?: string;
   homeCue?: string;
+  // Slugs into the Exercise bank. Renders as a linked list on the
+  // programme detail page. Every slug must exist in prisma/exercises.ts.
+  exerciseSlugs?: string[];
 };
 
 export type ProgrammeWeek = {

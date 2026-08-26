@@ -1,0 +1,125 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { MealSlot } from "@prisma/client";
+import { AppShell } from "@/components/layout/AppShell";
+import { Header } from "@/components/ui/Header";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { requirePlayer } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { pinRecipeToPlan } from "@/app/actions/mealPlan";
+import { SLOT_LABEL, monthDay } from "@/lib/fuel/planner";
+import { FUEL_TAG_LABEL } from "@/lib/fuel/rails";
+
+const VALID_SLOTS = new Set<MealSlot>(["breakfast", "lunch", "dinner", "snack"]);
+
+type Props = {
+  searchParams: Promise<{ date?: string; slot?: string }>;
+};
+
+export default async function AddToPlannerPage({ searchParams }: Props) {
+  const user = await requirePlayer();
+  const { date: dateRaw, slot: slotRaw } = await searchParams;
+
+  if (!dateRaw || !/^\d{4}-\d{2}-\d{2}$/.test(dateRaw)) notFound();
+  if (!slotRaw || !VALID_SLOTS.has(slotRaw as MealSlot)) notFound();
+  const slot = slotRaw as MealSlot;
+
+  // Apply the same allergy + diet hard-exclusion as /fuel/recipes so
+  // players can't pin something their profile says they can't eat.
+  const recipes = await prisma.recipe.findMany({
+    where: {
+      ...(user.player.allergies.length
+        ? { NOT: { allergens: { hasSome: user.player.allergies } } }
+        : {}),
+      dietSuitability: { has: user.player.dietPreference },
+    },
+    select: {
+      id: true,
+      slug: true,
+      name: true,
+      fuelTags: true,
+      carbsG: true,
+      proteinG: true,
+    },
+    orderBy: { name: "asc" },
+  });
+
+  const dateLabel = monthDay(new Date(`${dateRaw}T00:00:00.000Z`));
+
+  return (
+    <AppShell>
+      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
+        <Link
+          href="/fuel/planner"
+          className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
+        >
+          ← Planner
+        </Link>
+        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
+          Pin a recipe
+        </h1>
+        <p className="mt-1 text-sm text-muted">
+          {SLOT_LABEL[slot]} · {dateLabel}
+        </p>
+      </div>
+
+      <div className="space-y-3 px-5 pb-6">
+        {recipes.length === 0 ? (
+          <EmptyState
+            title="No recipes match your filters"
+            body="Try loosening your allergy or diet settings first."
+          />
+        ) : (
+          <ul className="space-y-2">
+            {recipes.map((r) => (
+              <li key={r.id}>
+                <form action={pinRecipeToPlan}>
+                  <input type="hidden" name="date" value={dateRaw} />
+                  <input type="hidden" name="slot" value={slot} />
+                  <input type="hidden" name="recipeId" value={r.id} />
+                  <button
+                    type="submit"
+                    className="group flex w-full items-start justify-between gap-3 rounded-card border border-white/5 bg-ink-850 p-3 text-left shadow-card hover:border-mint"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <p className="font-display uppercase tracking-display text-white text-sm leading-tight group-hover:text-mint">
+                        {r.name}
+                      </p>
+                      <p className="mt-1 text-[0.7rem] text-muted">
+                        {r.carbsG != null ? `${r.carbsG}g C` : null}
+                        {r.carbsG != null && r.proteinG != null ? " · " : null}
+                        {r.proteinG != null ? `${r.proteinG}g P` : null}
+                      </p>
+                      {r.fuelTags.length > 0 ? (
+                        <div className="mt-1.5 flex flex-wrap gap-1">
+                          {r.fuelTags.map((t) => {
+                            const label = FUEL_TAG_LABEL[t];
+                            if (!label) return null;
+                            return (
+                              <span
+                                key={t}
+                                className="rounded-full bg-mint/10 px-1.5 py-0.5 font-display uppercase tracking-display text-[0.55rem] text-mint-400"
+                              >
+                                {label}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      ) : null}
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="shrink-0 rounded-full bg-mint/20 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-mint-400 group-hover:bg-mint group-hover:text-ink-950"
+                    >
+                      + Pin
+                    </span>
+                  </button>
+                </form>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </AppShell>
+  );
+}

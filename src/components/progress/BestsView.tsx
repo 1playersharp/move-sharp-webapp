@@ -31,7 +31,13 @@ function relativeDate(d: Date): string {
 
 export function BestsView({ summaries }: Props) {
   const grouped = groupedByType(summaries);
-  const orderedGroups: PbMetric["group"][] = ["sprint", "jump", "agility", "strength_endurance"];
+  const orderedGroups: PbMetric["group"][] = [
+    "sprint",
+    "jump",
+    "agility",
+    "strength",
+    "strength_endurance",
+  ];
 
   return (
     <div className="space-y-6">

@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
+import { Header } from "@/components/ui/Header";
 import { Button } from "@/components/ui/Button";
 import { ErrorText } from "@/components/ui/Field";
 import { requirePlayer } from "@/lib/auth";
@@ -34,17 +34,10 @@ export default async function QuizPage({ searchParams }: Props) {
 
   return (
     <AppShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link href="/train" className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint">
-          ← Train
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
-          Build your own
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          Ten quick questions. We build the 6-week block from your answers.
-        </p>
-      </div>
+      <Header
+        title="Build your own"
+        subtitle="Ten quick questions. We build the 6-week block from your answers."
+      />
 
       <form action={submitQuiz} className="space-y-6 px-5 pb-16">
         {error ? <ErrorText>{error}</ErrorText> : null}
