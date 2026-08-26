@@ -29,3 +29,27 @@
     @apply font-display uppercase tracking-display text-white text-xl;
   }
 }
+
+/* Landing-page stagger. Each element starts translated + hidden and
+   fades up on load; combined with an inline animation-delay per row
+   this produces the top-to-bottom cascade the marketing screen uses. */
+@keyframes ms-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.ms-fade-up {
+  opacity: 0;
+  animation: ms-fade-up 500ms ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ms-fade-up {
+    animation: none;
+    opacity: 1;
+  }
+}
