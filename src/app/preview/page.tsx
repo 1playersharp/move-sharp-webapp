@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { WordMark } from "@/components/ui/Header";
 import { Button } from "@/components/ui/Button";
+import { MarketingFooter } from "@/components/marketing/MarketingFooter";
 import { PREVIEW_SESSION } from "@/lib/preview/session";
 
 export const metadata = {
@@ -171,6 +172,7 @@ export default function PreviewPage() {
           </div>
         </div>
       </main>
+      <MarketingFooter />
     </div>
   );
 }

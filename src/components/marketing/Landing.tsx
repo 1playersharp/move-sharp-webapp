@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { WordMark } from "@/components/ui/Header";
 import { Button } from "@/components/ui/Button";
+import { MarketingNav } from "./MarketingNav";
+import { MarketingFooter } from "./MarketingFooter";
 import heroImage from "@/images/victor-freitas-qZ-U9z4TQ6A-unsplash.jpg";
 
 // Four feature labels double as anchor links to the sections below.
@@ -17,12 +19,13 @@ const FEATURES: Array<{ label: string; href: string }> = [
 export function Landing() {
   return (
     <>
+      <MarketingNav />
       {/* Hero — full-bleed photograph with left-to-right scrim so the
           content column on the left stays legible while the training
           shot reads on the right. Left-aligned throughout. */}
       <section
         aria-labelledby="hero-heading"
-        className="relative isolate flex min-h-[100dvh] flex-col overflow-hidden"
+        className="relative isolate flex min-h-[calc(100dvh-4rem)] flex-col overflow-hidden"
       >
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
           <Image
@@ -181,12 +184,16 @@ export function Landing() {
             </a>
           </div>
         </div>
+        {/* Sentinel — MarketingNav watches this element to know when
+            the hero has scrolled out and it's time to reveal the CTA. */}
+        <div id="hero-sentinel" aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-px" />
       </section>
 
       <WhatsInsideSection />
       <WhoItsForSection />
       <ForParentsBriefSection />
       <HowItWorksSection />
+      <MarketingFooter />
     </>
   );
 }

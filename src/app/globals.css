@@ -30,6 +30,13 @@
   }
 }
 
+/* Anchored marketing sections — the sticky MarketingNav is ~4rem tall,
+   so give any section with an id enough scroll-margin that a hash jump
+   doesn't tuck the heading under the nav. */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
 /* Landing-page stagger. Each element starts translated + hidden and
    fades up on load; combined with an inline animation-delay per row
    this produces the top-to-bottom cascade the marketing screen uses. */

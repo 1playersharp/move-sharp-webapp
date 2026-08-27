@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { WordMark } from "@/components/ui/Header";
 import { Button } from "@/components/ui/Button";
+import { MarketingFooter } from "@/components/marketing/MarketingFooter";
 
 export const metadata = {
   title: "For parents · MoveSharp",
@@ -216,6 +217,7 @@ export default function ForParentsPage() {
           </Link>
         </div>
       </main>
+      <MarketingFooter />
     </div>
   );
 }
