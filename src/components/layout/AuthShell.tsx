@@ -1,7 +1,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { WordMark } from "@/components/ui/Header";
-import heroImage from "@/images/gabin-vallet-J154nEkpzlQ-unsplash.jpg";
+import heroImage from "@/images/victor-freitas-qZ-U9z4TQ6A-unsplash.jpg";
 
 type Variant =
   // Default — clean form, no atmosphere. Used by /onboarding.
