@@ -1,8 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { AgeBand, Quality } from "@prisma/client";
 import { AppShell } from "@/components/layout/AppShell";
 import { Header } from "@/components/ui/Header";
 import { EmptyState } from "@/components/ui/EmptyState";
+import trainHeaderImage from "@/images/brett-jordan-U2q73PfHFpM-unsplash.jpg";
 import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ageBandFromDOB } from "@/lib/age-band";
@@ -75,8 +77,31 @@ export default async function TrainPage({ searchParams }: Props) {
 
   return (
     <AppShell>
-      <Header title="Train" subtitle="Blocks scaled to your band." />
-      <div className="space-y-6 px-5">
+      {/* Photographic header strip — image dimmed with a dark gradient
+          wash so the title stays legible, mint accent line separates
+          it from the content below. */}
+      <div className="relative overflow-hidden">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          <Image
+            src={trainHeaderImage}
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 576px"
+            className="object-cover object-center opacity-40"
+            placeholder="blur"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink-950/70 via-ink-950/60 to-ink-950" />
+        </div>
+        <div className="relative">
+          <Header title="Train" subtitle="Blocks scaled to your band." />
+        </div>
+        <div
+          aria-hidden="true"
+          className="relative h-px w-full bg-gradient-to-r from-transparent via-mint/40 to-transparent"
+        />
+      </div>
+      <div className="space-y-6 px-5 pt-6">
         <ModeToggle mode="programme" />
 
         <YourProgrammesStrip programmes={customProgrammes} />

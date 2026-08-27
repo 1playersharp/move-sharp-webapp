@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { WordMark } from "@/components/ui/Header";
 import { Button } from "@/components/ui/Button";
+import heroImage from "@/images/gabin-vallet-J154nEkpzlQ-unsplash.jpg";
 
 // Feature strip — 4 short pills that peek at what's inside so the
 // reader learns what the app actually does before they sign up.
@@ -14,12 +16,26 @@ const FEATURES: Array<{ label: string; icon: React.ReactNode }> = [
 export function Landing() {
   return (
     <div className="relative mx-auto flex min-h-dvh max-w-md flex-col overflow-hidden px-6 pt-[max(3rem,env(safe-area-inset-top))] pb-8">
-      {/* Mint radial glow behind the hero — pure CSS, no assets, sits
-          under everything and never intercepts pointer events. */}
+      {/* Layered atmosphere behind the hero: full-bleed training
+          photograph → dark gradient wash for text contrast → mint
+          radial glow on top for brand warmth. All pointer-events-none
+          and aria-hidden so they never intercept input or read to AT. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <Image
+          src={heroImage}
+          alt=""
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, 448px"
+          className="object-cover object-center opacity-30"
+          placeholder="blur"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink-950/70 via-ink-950/85 to-ink-950" />
+      </div>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 -top-24 h-[420px]
-                   bg-[radial-gradient(circle_at_50%_30%,rgba(74,222,168,0.18),transparent_60%)]"
+                   bg-[radial-gradient(circle_at_50%_30%,rgba(74,222,168,0.22),transparent_60%)]"
       />
 
       <div className="ms-fade-up relative mb-10" style={{ animationDelay: "0ms" }}>
