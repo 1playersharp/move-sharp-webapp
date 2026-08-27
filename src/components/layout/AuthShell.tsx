@@ -31,10 +31,10 @@ export function AuthShell({
             fill
             priority
             sizes="(max-width: 768px) 100vw, 448px"
-            className="object-cover object-center opacity-30"
+            className="object-cover object-center opacity-70"
             placeholder="blur"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink-950/70 via-ink-950/85 to-ink-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink-950/30 via-ink-950/70 to-ink-950" />
         </div>
       ) : null}
       {variant === "hero" || variant === "glow" ? (

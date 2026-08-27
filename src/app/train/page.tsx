@@ -88,10 +88,10 @@ export default async function TrainPage({ searchParams }: Props) {
             fill
             priority
             sizes="(max-width: 768px) 100vw, 576px"
-            className="object-cover object-center opacity-40"
+            className="object-cover object-center opacity-75"
             placeholder="blur"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink-950/70 via-ink-950/60 to-ink-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink-950/30 via-ink-950/55 to-ink-950" />
         </div>
         <div className="relative">
           <Header title="Train" subtitle="Blocks scaled to your band." />
