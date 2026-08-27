@@ -15,7 +15,10 @@ const FEATURES: Array<{ label: string; icon: React.ReactNode }> = [
 
 export function Landing() {
   return (
-    <div className="relative isolate mx-auto flex min-h-dvh max-w-md flex-col overflow-hidden px-6 pt-[max(3rem,env(safe-area-inset-top))] pb-8">
+    // Outer wrapper spans the full viewport so background image and
+    // gradient stretch edge-to-edge on desktop. Inner column keeps
+    // max-w-md so the hero content stays phone-width and readable.
+    <div className="relative isolate flex min-h-dvh flex-col overflow-hidden">
       {/* Layered atmosphere behind the hero: full-bleed training
           photograph → dark gradient wash for text contrast → mint
           radial glow on top for brand warmth. All pointer-events-none
@@ -26,19 +29,24 @@ export function Landing() {
           alt=""
           fill
           priority
-          sizes="(max-width: 768px) 100vw, 448px"
-          className="object-cover object-center opacity-70"
+          sizes="100vw"
+          className="object-cover object-center opacity-45"
           placeholder="blur"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink-950/30 via-ink-950/70 to-ink-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink-950/50 via-ink-950/80 to-ink-950" />
+        {/* Extra centred vignette behind the content column on desktop —
+            narrow, so photograph shows on the sides. */}
+        <div className="absolute inset-y-0 left-1/2 hidden w-[32rem] -translate-x-1/2 bg-gradient-to-r from-transparent via-ink-950/40 to-transparent sm:block" />
       </div>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 -top-24 h-[420px]
-                   bg-[radial-gradient(circle_at_50%_30%,rgba(74,222,168,0.22),transparent_60%)]"
+                   bg-[radial-gradient(circle_at_50%_30%,rgba(74,222,168,0.18),transparent_60%)]"
       />
 
-      <div className="ms-fade-up relative mb-10" style={{ animationDelay: "0ms" }}>
+      <div className="relative mx-auto flex w-full max-w-md flex-1 flex-col px-6 pt-[max(3rem,env(safe-area-inset-top))] pb-8">
+
+      <div className="ms-fade-up mb-10" style={{ animationDelay: "0ms" }}>
         <WordMark className="text-3xl" />
       </div>
 
@@ -94,6 +102,7 @@ export function Landing() {
         <p className="pt-2 text-center text-[0.7rem] text-muted/70">
           Private by default. Coaches only see what you share.
         </p>
+      </div>
       </div>
     </div>
   );
