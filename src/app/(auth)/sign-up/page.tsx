@@ -13,7 +13,7 @@ export default async function SignUpPage({ searchParams }: Props) {
 
   if (pending === "1") {
     return (
-      <AuthShell>
+      <AuthShell variant="hero">
         <div className="space-y-4">
           <h1 className="section-title">Check your email</h1>
           <p className="text-sm text-muted">
@@ -30,7 +30,7 @@ export default async function SignUpPage({ searchParams }: Props) {
   }
 
   return (
-    <AuthShell>
+    <AuthShell variant="hero">
       <div className="space-y-6">
         <div>
           <h1 className="section-title">Create account</h1>
