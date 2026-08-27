@@ -22,7 +22,7 @@ export function AuthShell({
   variant?: Variant;
 }) {
   return (
-    <div className="relative mx-auto flex min-h-dvh max-w-sm flex-col overflow-hidden px-6 pt-[max(3rem,env(safe-area-inset-top))] pb-8">
+    <div className="relative isolate mx-auto flex min-h-dvh max-w-sm flex-col overflow-hidden px-6 pt-[max(3rem,env(safe-area-inset-top))] pb-8">
       {variant === "hero" ? (
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
           <Image

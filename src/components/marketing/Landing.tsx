@@ -15,7 +15,7 @@ const FEATURES: Array<{ label: string; icon: React.ReactNode }> = [
 
 export function Landing() {
   return (
-    <div className="relative mx-auto flex min-h-dvh max-w-md flex-col overflow-hidden px-6 pt-[max(3rem,env(safe-area-inset-top))] pb-8">
+    <div className="relative isolate mx-auto flex min-h-dvh max-w-md flex-col overflow-hidden px-6 pt-[max(3rem,env(safe-area-inset-top))] pb-8">
       {/* Layered atmosphere behind the hero: full-bleed training
           photograph → dark gradient wash for text contrast → mint
           radial glow on top for brand warmth. All pointer-events-none
