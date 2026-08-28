@@ -168,13 +168,36 @@ model Player {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   metrics          Metric[]
   entries          MetricEntry[]
   sessions         Session[]
   readiness        ReadinessEntry[]
-  customProgrammes Programme[]      @relation("PlayerCustomProgrammes")
+  customProgrammes Programme[]       @relation("PlayerCustomProgrammes")
   mealPlan         MealPlanEntry[]
+  recoveryConsent  RecoveryConsent[]
+}
+
+// Audit trail for the Returning-from-injury disclaimer. Every time a
+// player enters an injury-return session and ticks the "cleared by a
+// qualified professional" box, we write a row here. Also lets the
+// interstitial skip re-prompting within a short window so a mid-
+// session refresh doesn't force a re-ack.
+model RecoveryConsent {
+  id          String   @id @default(uuid()) @db.Uuid
+  playerId    String   @db.Uuid
+  // Snapshot at the moment of ack — computed from Player.dateOfBirth
+  // then, not on read, in case DOB is later corrected.
+  isUnder16   Boolean
+  // Slug of the specific injury-return session the ack was for. Null
+  // if the player ack'd at the section level (currently unused, kept
+  // for forward-compat).
+  sessionSlug String?
+  createdAt   DateTime @default(now())
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@index([playerId, createdAt])
 }
 
 // -----------------------------------------------------------------------------

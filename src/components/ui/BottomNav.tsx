@@ -17,6 +17,7 @@ const TABS: Tab[] = [
   { href: "/quiz", label: "Quiz", icon: <IconQuiz /> },
   { href: "/progress", label: "Progress", icon: <IconProgress /> },
   { href: "/fuel", label: "Fuel", icon: <IconFuel /> },
+  { href: "/recovery", label: "Recovery", icon: <IconRecovery /> },
   { href: "/you", label: "You", icon: <IconYou /> },
 ];
 
@@ -107,6 +108,17 @@ function IconFuel() {
   return (
     <svg viewBox="0 0 24 24" {...stroke} aria-hidden="true">
       <path d="M12 3s5 5.5 5 10a5 5 0 1 1-10 0c0-4.5 5-10 5-10Z" />
+    </svg>
+  );
+}
+
+function IconRecovery() {
+  // Cross-in-shield motif: recovery + safety, not medical-red-cross.
+  return (
+    <svg viewBox="0 0 24 24" {...stroke} aria-hidden="true">
+      <path d="M12 3l7 3v5c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z" />
+      <path d="M12 9v6" />
+      <path d="M9 12h6" />
     </svg>
   );
 }
