@@ -199,6 +199,7 @@ export function Landing() {
 
       <WhatsInsideSection />
       <WhoItsForSection />
+      <ForCoachesSection />
       <ForParentsBriefSection />
       <HowItWorksSection />
       <MarketingFooter />
@@ -336,6 +337,97 @@ function WhoItsForSection() {
 // first, so it lives above the fold on scroll not below.
 // -----------------------------------------------------------------------
 
+// -----------------------------------------------------------------------
+// For coaches — the second audience. Every claim below maps to something
+// that actually ships today (team creation + 6-char invite codes, the
+// roster, the per-player view, per-field consent defaulting to nothing
+// shared, and the under-16 parent acknowledgement on join). Nothing
+// aspirational, no club names, no usage numbers.
+// -----------------------------------------------------------------------
+
+const COACH_POINTS = [
+  {
+    heading: "A squad in minutes",
+    body:
+      "Create a team and share a six-character code. Players join from their own accounts — you never key in their data, and you're never holding their password.",
+  },
+  {
+    heading: "See what they actually did",
+    body:
+      "Sessions logged, readiness check-ins and personal bests, per player, for anyone who's turned that field on. Their own history — not a ranking against teammates.",
+  },
+  {
+    heading: "Consent is theirs, field by field",
+    body:
+      "Each player decides separately whether you see sessions, readiness or personal bests. It starts at nothing shared, and they can switch any of it back off without asking you.",
+  },
+  {
+    heading: "Safeguarding isn't an afterthought",
+    body:
+      "Under-16s need a parent's acknowledgement before they can join a team. No public leaderboards, no player-to-player comparison, no messaging.",
+  },
+];
+
+function ForCoachesSection() {
+  return (
+    <section
+      id="for-coaches"
+      aria-labelledby="coaches-heading"
+      className="bg-ink-950 py-16 sm:py-24"
+    >
+      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+        <div className="max-w-2xl">
+          <p className="font-display uppercase tracking-display text-mint-400 text-xs">
+            For coaches
+          </p>
+          <h2
+            id="coaches-heading"
+            className="mt-3 font-display uppercase tracking-display text-white text-3xl leading-[1.1] sm:text-4xl"
+          >
+            You see what they choose to show you.
+          </h2>
+          <p className="mt-3 text-base text-white/70">
+            MoveSharp gives you a real picture of what your squad does between
+            sessions — built so the players stay in control of it. That
+            constraint is the point, not a limitation.
+          </p>
+        </div>
+
+        <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {COACH_POINTS.map((c) => (
+            <li
+              key={c.heading}
+              className="rounded-card border border-white/10 bg-ink-850 p-6 shadow-card"
+            >
+              <h3 className="font-display uppercase tracking-display text-mint-400 text-sm">
+                {c.heading}
+              </h3>
+              <p className="mt-3 text-sm text-white/85 leading-relaxed">
+                {c.body}
+              </p>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-8 flex flex-col items-start gap-4 rounded-card border border-mint/30 bg-mint/5 p-6 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="font-display uppercase tracking-display text-white text-lg">
+              Coaching a squad?
+            </p>
+            <p className="mt-1 text-sm text-white/80">
+              Coach accounts are separate from player accounts — you don't
+              train through the app.
+            </p>
+          </div>
+          <Link href="/sign-up/manager" className="shrink-0">
+            <Button size="lg">Create a coach account</Button>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 const PARENT_POINTS = [
   {
     heading: "What we don't collect",
@@ -364,7 +456,9 @@ function ForParentsBriefSection() {
     <section
       id="for-parents"
       aria-labelledby="parents-heading"
-      className="bg-ink-950 py-16 sm:py-24"
+      // border-t separates this from the coaches section above, which
+      // shares the same ink-950 background.
+      className="border-t border-white/5 bg-ink-950 py-16 sm:py-24"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <div className="max-w-2xl">

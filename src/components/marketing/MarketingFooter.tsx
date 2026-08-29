@@ -28,6 +28,7 @@ export function MarketingFooter() {
             <ul className="mt-3 space-y-2 text-white/75">
               <li><Link href="/preview" className="hover:text-mint focus-visible:text-mint focus-visible:outline-none">See a session</Link></li>
               <li><Link href="/for-parents" className="hover:text-mint focus-visible:text-mint focus-visible:outline-none">For parents</Link></li>
+              <li><Link href="/sign-up/manager" className="hover:text-mint focus-visible:text-mint focus-visible:outline-none">For coaches</Link></li>
               <li><Link href="/sign-in" className="hover:text-mint focus-visible:text-mint focus-visible:outline-none">Sign in</Link></li>
             </ul>
           </div>
