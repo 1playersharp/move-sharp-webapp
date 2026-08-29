@@ -198,7 +198,7 @@ export function Landing() {
       </section>
 
       <WhatsInsideSection />
-      <WhoItsForSection />
+      <WhatYoullWorkOnSection />
       <ForCoachesSection />
       <ForParentsBriefSection />
       <HowItWorksSection />
@@ -281,48 +281,67 @@ function WhatsInsideSection() {
 }
 
 // -----------------------------------------------------------------------
-// Who it's for — direct statements to the target user, no stock
-// inspirational language.
+// What you'll work on — the three things the app actually trains, in
+// the player's language. No stock inspirational copy.
 // -----------------------------------------------------------------------
 
-const WHO_STATEMENTS = [
-  "The player who is good on the ball but gets outmuscled.",
-  "The late developer who is behind physically and knows it.",
-  "The player told to “fill out” or “get stronger” with no idea how.",
+// Reframed from "Who it's for" (which described the player's deficits
+// back at them) to what they'll actually do about it. Same three
+// situations, now stated as work rather than as a diagnosis — better for
+// a 13-18 audience, and it says what the product does.
+const WORK_ON = [
+  {
+    title: "Be stronger on the ball",
+    body:
+      "Bracing, arm-fend, body position in duels. Technique you can learn at any size.",
+  },
+  {
+    title: "Build physicality, late developer or not",
+    body:
+      "You can't rush growing. You can get quicker off the mark and harder to shift while you wait.",
+  },
+  {
+    title: "Learn how to actually get stronger",
+    body:
+      "Not “go to the gym” and hope. A six-week block with the sets, reps and cues written down — at home with a band, or in a gym.",
+  },
 ];
 
-function WhoItsForSection() {
+function WhatYoullWorkOnSection() {
   return (
     <section
-      id="who-its-for"
-      aria-labelledby="who-heading"
+      id="what-youll-work-on"
+      aria-labelledby="work-on-heading"
       className="border-y border-white/5 bg-ink-900 py-16 sm:py-24"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <div className="max-w-2xl">
           <p className="font-display uppercase tracking-display text-mint-400 text-xs">
-            Who it's for
+            What you'll work on
           </p>
           <h2
-            id="who-heading"
+            id="work-on-heading"
             className="mt-3 font-display uppercase tracking-display text-white text-3xl leading-[1.1] sm:text-4xl"
           >
-            If any of these sound like you.
+            Three things you can change.
           </h2>
         </div>
-        <ul className="mt-10 space-y-4 sm:space-y-6">
-          {WHO_STATEMENTS.map((s, i) => (
+        <ul className="mt-10 space-y-6 sm:space-y-8">
+          {WORK_ON.map((w, i) => (
             <li
-              key={i}
-              className="flex items-start gap-4 border-l-2 border-mint/60 pl-4 sm:pl-6"
+              key={w.title}
+              className="border-l-2 border-mint/60 pl-4 sm:pl-6"
             >
-              <span
-                aria-hidden="true"
-                className="mt-1 font-display uppercase tracking-display text-mint-400 text-[0.7rem] tabular-nums"
-              >
-                0{i + 1}
-              </span>
-              <p className="text-lg text-white sm:text-xl">{s}</p>
+              <p className="font-display uppercase tracking-display text-white text-lg sm:text-xl">
+                <span className="text-mint-400 tabular-nums">
+                  0{i + 1}
+                </span>
+                <span aria-hidden="true" className="text-mint-400"> — </span>
+                {w.title}
+              </p>
+              <p className="mt-1.5 max-w-2xl text-base text-white/80">
+                {w.body}
+              </p>
             </li>
           ))}
         </ul>
