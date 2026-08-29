@@ -16,6 +16,7 @@ import { WordMark } from "@/components/ui/Header";
 
 const LINKS = [
   { label: "What's inside", href: "#whats-inside" },
+  { label: "For coaches", href: "#for-coaches" },
   { label: "For parents", href: "#for-parents" },
   { label: "How it works", href: "#how-it-works" },
 ];
