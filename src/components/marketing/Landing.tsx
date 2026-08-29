@@ -498,7 +498,7 @@ function HowItWorksSection() {
               Ready to level up your physical output?
             </p>
             <p className="mt-1 text-sm text-white/80">
-              Free to try. Cancel any time, one click.
+              Free while we're in early access.
             </p>
           </div>
           <Link href="/sign-up" className="shrink-0">
