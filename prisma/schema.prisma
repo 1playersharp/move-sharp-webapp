@@ -227,7 +227,12 @@ model Team {
   inviteCode      String   @unique
   createdAt       DateTime @default(now())
 
-  createdBy   User             @relation("TeamCreatedBy", fields: [createdByUserId], references: [id])
+  // Cascade so a coach who deletes their account removes their teams
+  // cleanly — otherwise the FK blocks the delete. Team → memberships
+  // and Team → joinConsent already cascade, so player memberships and
+  // the join audit history for the deleted teams go with them.
+  // Coach-side delete confirmation shows the impact before it runs.
+  createdBy   User             @relation("TeamCreatedBy", fields: [createdByUserId], references: [id], onDelete: Cascade)
   memberships TeamMembership[]
   joinConsent JoinConsent[]
 }

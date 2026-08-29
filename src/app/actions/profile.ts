@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { Prisma, type Allergen, type DietPreference, type Position, type TrainingContext } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { requirePlayer } from "@/lib/auth";
+import { requirePlayer, requireManager } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { isEligibleAge } from "@/lib/age-band";
 import { ALLERGENS } from "@/lib/constants/allergens";
@@ -113,6 +113,24 @@ export async function deleteAccount(formData: FormData) {
   const user = await requirePlayer();
   const confirm = String(formData.get("confirm") ?? "").trim().toLowerCase();
   if (confirm !== "delete") redirect("/you/delete?error=confirm");
+
+  await prisma.user.delete({ where: { id: user.id } });
+
+  const supabase = await createSupabaseServerClient();
+  await supabase.auth.signOut();
+
+  redirect("/?deleted=1");
+}
+
+// Coach-side delete. Same typed-confirm pattern; the cascade migration
+// on Team.createdBy means deleting the User also drops every team the
+// coach owned (Team → memberships → JoinConsent all cascade). The
+// /coach/delete page shows the coach the impact before it runs so they
+// can weigh the tradeoff.
+export async function deleteCoachAccount(formData: FormData) {
+  const user = await requireManager();
+  const confirm = String(formData.get("confirm") ?? "").trim().toLowerCase();
+  if (confirm !== "delete") redirect("/coach/delete?error=confirm");
 
   await prisma.user.delete({ where: { id: user.id } });
 
