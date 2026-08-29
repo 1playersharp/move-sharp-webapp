@@ -1,7 +1,20 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLIC_PREFIXES = ["/sign-in", "/sign-up", "/auth/", "/sandbox/"];
+// Anything reachable by anonymous visitors — landing lives at "/"
+// (handled separately as isRoot below), and these prefixes cover the
+// auth flow and the two marketing surfaces linked from the landing
+// hero ("See a session" and the "For parents" full page). /join/ is
+// deliberately NOT here — invite redemption requires an account, so
+// the auth wall on the way is correct.
+const PUBLIC_PREFIXES = [
+  "/sign-in",
+  "/sign-up",
+  "/auth/",
+  "/sandbox/",
+  "/preview",
+  "/for-parents",
+];
 
 const DEV_BYPASS =
   process.env.NODE_ENV !== "production" && process.env.MOVESHARP_DEV_BYPASS === "1";
