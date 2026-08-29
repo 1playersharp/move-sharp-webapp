@@ -15,6 +15,9 @@ export default async function OnboardingPage({ searchParams }: Props) {
   await requireAuthUser();
   const user = await getCurrentUser();
   if (user?.player) redirect("/");
+  // If this account was created via the manager sign-up path, route
+  // them to the manager onboarding form instead.
+  if (user?.manager) redirect("/coach");
 
   const { error } = await searchParams;
 

@@ -147,8 +147,23 @@ model User {
   createdAt DateTime @default(now())
 
   player       Player?
+  manager      Manager?
   teamsCreated Team[]           @relation("TeamCreatedBy")
   memberships  TeamMembership[]
+}
+
+// Manager (coach) profile — parallel to Player. A User is either a
+// player or a manager, never both. The auth helper enforces that.
+model Manager {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @unique @db.Uuid
+  name      String
+  club      String?
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Player {

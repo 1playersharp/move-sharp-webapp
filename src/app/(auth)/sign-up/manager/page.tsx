@@ -2,44 +2,50 @@ import Link from "next/link";
 import { AuthShell } from "@/components/layout/AuthShell";
 import { Button } from "@/components/ui/Button";
 import { Field, Input, Label, ErrorText, HelpText } from "@/components/ui/Field";
-import { signUpWithPassword } from "../actions";
+import { signUpAsManager } from "../../actions";
 
 type Props = {
   searchParams: Promise<{ error?: string; pending?: string }>;
 };
 
-export default async function SignUpPage({ searchParams }: Props) {
+export default async function ManagerSignUpPage({ searchParams }: Props) {
   const { error, pending } = await searchParams;
 
   if (pending === "1") {
     return (
-      <AuthShell variant="hero">
+      <AuthShell>
         <div className="space-y-4">
           <h1 className="section-title">Check your email</h1>
           <p className="text-sm text-muted">
-            We've sent a confirmation link to the email you signed up with. Open it to finish
-            creating your account, then you'll be asked a few questions about your training.
+            We've sent a confirmation link to the email you signed up with. Open it
+            to finish creating your coach account, then we'll ask a few things
+            about you and your club.
           </p>
-          <HelpText>
-            Didn't get it? Check your junk folder, or{" "}
-            <Link href="/sign-up" className="text-mint-400 hover:text-mint">try again</Link>.
-          </HelpText>
         </div>
       </AuthShell>
     );
   }
 
   return (
-    <AuthShell variant="hero">
+    <AuthShell>
       <div className="space-y-6">
         <div>
-          <h1 className="section-title">Create account</h1>
-          <p className="mt-1 text-sm text-muted">Only takes a minute.</p>
+          <p className="font-display uppercase tracking-display text-mint-400 text-xs">
+            Coach sign-up
+          </p>
+          <h1 className="section-title mt-2">Create a coach account.</h1>
+          <p className="mt-1 text-sm text-muted">
+            For managers and coaches only. Players sign up on the{" "}
+            <Link href="/sign-up" className="text-mint-400 hover:text-mint">
+              player page
+            </Link>
+            .
+          </p>
         </div>
 
         {error ? <ErrorText>{error}</ErrorText> : null}
 
-        <form action={signUpWithPassword} className="space-y-4">
+        <form action={signUpAsManager} className="space-y-4">
           <Field>
             <Label htmlFor="email">Email</Label>
             <Input id="email" name="email" type="email" autoComplete="email" required />
@@ -56,27 +62,21 @@ export default async function SignUpPage({ searchParams }: Props) {
             />
             <HelpText>At least 8 characters.</HelpText>
           </Field>
-          <Button type="submit" className="w-full">Create account</Button>
+          <Button type="submit" className="w-full">Create coach account</Button>
         </form>
 
-        <div className="space-y-2 rounded-xl border border-white/5 bg-ink-900/50 p-3">
+        <div className="rounded-xl border border-white/5 bg-ink-900/50 p-3">
           <p className="text-xs text-muted">
-            MoveSharp is for 13–18-year-old players. We ask a few onboarding questions
-            (name, date of birth, position, allergies) so training and food suggestions
-            are safe for you. Your data stays private — a manager can only see what you
-            choose to share.
+            Coach accounts see the players on their team who have opted in to
+            share sessions, readiness or personal bests — one field at a time,
+            player-controlled. You never see anything a player hasn't turned
+            on.
           </p>
         </div>
 
         <HelpText className="text-center">
-          Already have an account?{" "}
+          Already have a coach account?{" "}
           <Link href="/sign-in" className="text-mint-400 hover:text-mint">Sign in</Link>
-        </HelpText>
-        <HelpText className="text-center">
-          Coach or manager?{" "}
-          <Link href="/sign-up/manager" className="text-mint-400 hover:text-mint">
-            Create a coach account
-          </Link>
         </HelpText>
       </div>
     </AuthShell>

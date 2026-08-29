@@ -15,7 +15,10 @@ export default async function HomePage() {
   if (!authUser) return <Landing />;
 
   const user = await getCurrentUser();
-  if (!user || !user.player) redirect("/onboarding");
+  if (!user) redirect("/onboarding");
+  // Managers landing on the player home get routed to their surface.
+  if (user.manager) redirect("/coach");
+  if (!user.player) redirect("/onboarding");
 
   const playerId = user.player.id;
   const today = toUtcDay(new Date());

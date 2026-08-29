@@ -86,6 +86,40 @@ export async function sendMagicLink(formData: FormData) {
   redirect(toRedirectUrl("/sign-in", { method: "magic", sent: "1" }));
 }
 
+// Manager sign-up — same auth flow as signUpWithPassword, but the
+// email confirmation link routes back to /onboarding/manager instead
+// of /onboarding. Also stashes intent="manager" in Supabase user
+// metadata as a defence-in-depth check the onboarding page uses.
+export async function signUpAsManager(formData: FormData) {
+  const email = String(formData.get("email") ?? "").trim();
+  const password = String(formData.get("password") ?? "");
+
+  if (!email || password.length < 8) {
+    redirect(
+      toRedirectUrl("/sign-up/manager", {
+        error: "Enter an email and a password of at least 8 characters.",
+      }),
+    );
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const origin = await siteOrigin();
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: `${origin}/auth/callback?next=/onboarding/manager`,
+      data: { intent: "manager" },
+    },
+  });
+
+  if (error) {
+    redirect(toRedirectUrl("/sign-up/manager", { error: error.message }));
+  }
+
+  redirect(toRedirectUrl("/sign-up/manager", { pending: "1" }));
+}
+
 export async function signOut() {
   const supabase = await createSupabaseServerClient();
   await supabase.auth.signOut();
