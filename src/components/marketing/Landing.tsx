@@ -65,19 +65,20 @@ export function Landing() {
               screen with the image showing behind through the scrim. */}
           <div className="flex flex-1 flex-col justify-center">
             <div className="max-w-xl space-y-6">
+              {/* One text node, deliberately. This headline used to be
+                  split into a <span class="block"> per sentence to get a
+                  staggered reveal. JSX strips the whitespace between
+                  sibling elements, so the heading's actual text run was
+                  "Faster.Stronger.Harder to move." — no spaces at all.
+                  Splitting a sentence across elements is the bug; the
+                  sentence now stays intact and wraps on its own, which
+                  also gives correct line breaks at every width. */}
               <h1
                 id="hero-heading"
-                className="font-display uppercase tracking-display text-white text-5xl leading-[1.02] sm:text-6xl"
+                className="ms-fade-up text-balance font-display uppercase tracking-display text-white text-5xl leading-[1.02] sm:text-6xl"
+                style={{ animationDelay: "120ms" }}
               >
-                <span className="ms-fade-up block" style={{ animationDelay: "120ms" }}>
-                  Faster.
-                </span>
-                <span className="ms-fade-up block" style={{ animationDelay: "240ms" }}>
-                  Stronger.
-                </span>
-                <span className="ms-fade-up block" style={{ animationDelay: "360ms" }}>
-                  Harder to move.
-                </span>
+                Faster. Stronger. Harder to move.
               </h1>
 
               <p
