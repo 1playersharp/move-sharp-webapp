@@ -32,12 +32,28 @@ export function MarketingNav({ sentinelSelector = "#hero-sentinel" }: Props) {
   useEffect(() => {
     const el = document.querySelector(sentinelSelector);
     if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setHeroPastFold(!entry.isIntersecting);
-      },
-      { rootMargin: "-4rem 0px 0px 0px" },
-    );
+
+    // rootMargin follows CSS margin shorthand but only accepts px and %.
+    // Any other unit (rem, em, bare numbers) makes the constructor throw
+    // a SyntaxError. This previously used "-4rem", which threw during
+    // hydration and took the whole tree down with it.
+    //
+    // The try/catch is the belt to that braces: this is a cosmetic
+    // scroll effect, and it must never be able to blank the page. If the
+    // observer can't be built, heroPastFold simply stays false and the
+    // nav CTA stays hidden — everything else renders normally.
+    let observer: IntersectionObserver;
+    try {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          setHeroPastFold(!entry.isIntersecting);
+        },
+        { rootMargin: "-64px 0px 0px 0px" },
+      );
+    } catch {
+      return;
+    }
+
     observer.observe(el);
     return () => observer.disconnect();
   }, [sentinelSelector]);

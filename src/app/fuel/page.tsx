@@ -28,8 +28,6 @@ export default async function FuelPage() {
       name: true,
       servings: true,
       fuelTags: true,
-      carbsG: true,
-      proteinG: true,
     },
     orderBy: { name: "asc" },
   });

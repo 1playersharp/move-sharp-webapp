@@ -4,6 +4,7 @@ import { WordMark } from "@/components/ui/Header";
 import { Button } from "@/components/ui/Button";
 import { MarketingNav } from "./MarketingNav";
 import { MarketingFooter } from "./MarketingFooter";
+import { DecorativeBoundary } from "@/components/ui/DecorativeBoundary";
 import heroImage from "@/images/victor-freitas-qZ-U9z4TQ6A-unsplash.jpg";
 
 // Four feature labels double as anchor links to the sections below.
@@ -19,7 +20,13 @@ const FEATURES: Array<{ label: string; href: string }> = [
 export function Landing() {
   return (
     <>
-      <MarketingNav />
+      {/* The sticky nav is the only client component on this page and the
+          only thing here that runs an effect. It's wrapped so a failure
+          costs the nav bar and nothing else — the hero below carries its
+          own CTAs and sign-in link, so the page stays fully usable. */}
+      <DecorativeBoundary label="MarketingNav">
+        <MarketingNav />
+      </DecorativeBoundary>
       {/* Hero — full-bleed photograph with left-to-right scrim so the
           content column on the left stays legible while the training
           shot reads on the right. Left-aligned throughout. */}
@@ -58,19 +65,20 @@ export function Landing() {
               screen with the image showing behind through the scrim. */}
           <div className="flex flex-1 flex-col justify-center">
             <div className="max-w-xl space-y-6">
+              {/* One text node, deliberately. This headline used to be
+                  split into a <span class="block"> per sentence to get a
+                  staggered reveal. JSX strips the whitespace between
+                  sibling elements, so the heading's actual text run was
+                  "Faster.Stronger.Harder to move." — no spaces at all.
+                  Splitting a sentence across elements is the bug; the
+                  sentence now stays intact and wraps on its own, which
+                  also gives correct line breaks at every width. */}
               <h1
                 id="hero-heading"
-                className="font-display uppercase tracking-display text-white text-5xl leading-[1.02] sm:text-6xl"
+                className="ms-fade-up text-balance font-display uppercase tracking-display text-white text-5xl leading-[1.02] sm:text-6xl"
+                style={{ animationDelay: "120ms" }}
               >
-                <span className="ms-fade-up block" style={{ animationDelay: "120ms" }}>
-                  Faster.
-                </span>
-                <span className="ms-fade-up block" style={{ animationDelay: "240ms" }}>
-                  Stronger.
-                </span>
-                <span className="ms-fade-up block" style={{ animationDelay: "360ms" }}>
-                  Harder to move.
-                </span>
+                Faster. Stronger. Harder to move.
               </h1>
 
               <p
@@ -218,7 +226,7 @@ const INSIDE_CARDS = [
   {
     title: "Fuel",
     body:
-      "What to eat before training, after training and on match day. A recipe library filtered by your allergies and diet, macro totals per serving, and a weekly meal planner you can pin recipes to.",
+      "What to eat before training, after training and on match day. Recipes filtered by your allergies and dietary preference, tagged by purpose — recovery, iron-rich, match fuel — with timing guidance and a weekly planner. Household measures, no numbers to count.",
   },
   {
     title: "3D coach",
@@ -490,7 +498,7 @@ function HowItWorksSection() {
               Ready to level up your physical output?
             </p>
             <p className="mt-1 text-sm text-white/80">
-              Free to try. Cancel any time, one click.
+              Free while we're in early access.
             </p>
           </div>
           <Link href="/sign-up" className="shrink-0">

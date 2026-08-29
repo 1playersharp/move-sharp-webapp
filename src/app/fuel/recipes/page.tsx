@@ -85,8 +85,6 @@ export default async function RecipesListPage({ searchParams }: Props) {
       name: true,
       servings: true,
       fuelTags: true,
-      carbsG: true,
-      proteinG: true,
     },
     orderBy: { name: "asc" },
   });

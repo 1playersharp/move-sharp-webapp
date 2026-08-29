@@ -38,8 +38,6 @@ export default async function AddToPlannerPage({ searchParams }: Props) {
       slug: true,
       name: true,
       fuelTags: true,
-      carbsG: true,
-      proteinG: true,
     },
     orderBy: { name: "asc" },
   });
@@ -84,11 +82,6 @@ export default async function AddToPlannerPage({ searchParams }: Props) {
                     <div className="min-w-0 flex-1">
                       <p className="font-display uppercase tracking-display text-white text-sm leading-tight group-hover:text-mint">
                         {r.name}
-                      </p>
-                      <p className="mt-1 text-[0.7rem] text-muted">
-                        {r.carbsG != null ? `${r.carbsG}g C` : null}
-                        {r.carbsG != null && r.proteinG != null ? " · " : null}
-                        {r.proteinG != null ? `${r.proteinG}g P` : null}
                       </p>
                       {r.fuelTags.length > 0 ? (
                         <div className="mt-1.5 flex flex-wrap gap-1">

@@ -2,11 +2,12 @@ import Link from "next/link";
 import type { Recipe } from "@prisma/client";
 import { FUEL_TAG_LABEL } from "@/lib/fuel/rails";
 
+// Deliberately does NOT accept carbsG/proteinG. MoveSharp shows no
+// calorie or macronutrient figures anywhere — see /for-parents. Keeping
+// them out of the prop type means a future change can't reintroduce
+// them here without a type error.
 type Props = {
-  recipe: Pick<
-    Recipe,
-    "slug" | "name" | "servings" | "fuelTags" | "carbsG" | "proteinG"
-  >;
+  recipe: Pick<Recipe, "slug" | "name" | "servings" | "fuelTags">;
 };
 
 export function RecipeCard({ recipe }: Props) {
@@ -21,22 +22,6 @@ export function RecipeCard({ recipe }: Props) {
       <p className="mt-1 text-xs text-muted">
         Serves {recipe.servings}
       </p>
-      {recipe.carbsG != null || recipe.proteinG != null ? (
-        <div className="mt-2 flex gap-3 text-[0.7rem]">
-          {recipe.carbsG != null ? (
-            <span className="text-mint-400">
-              <span className="font-display uppercase tracking-display">Carbs</span>{" "}
-              <span className="text-white">{recipe.carbsG}g</span>
-            </span>
-          ) : null}
-          {recipe.proteinG != null ? (
-            <span className="text-mint-400">
-              <span className="font-display uppercase tracking-display">Protein</span>{" "}
-              <span className="text-white">{recipe.proteinG}g</span>
-            </span>
-          ) : null}
-        </div>
-      ) : null}
       {recipe.fuelTags.length > 0 ? (
         <div className="mt-2 flex flex-wrap gap-1">
           {recipe.fuelTags.map((t) => (

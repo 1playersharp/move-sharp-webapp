@@ -58,33 +58,6 @@ export default async function RecipeDetailPage({ params }: Props) {
       </div>
 
       <div className="space-y-4 px-5 pb-6">
-        {recipe.carbsG != null || recipe.proteinG != null ? (
-          <div className="grid grid-cols-2 gap-2">
-            {recipe.carbsG != null ? (
-              <div className="rounded-card border border-white/5 bg-ink-850 p-3 text-center">
-                <p className="font-display uppercase tracking-display text-[0.65rem] text-mint-400">
-                  Carbs
-                </p>
-                <p className="mt-1 font-display uppercase tracking-display text-white text-2xl">
-                  {recipe.carbsG}g
-                </p>
-                <p className="text-[0.65rem] text-muted">per serving</p>
-              </div>
-            ) : null}
-            {recipe.proteinG != null ? (
-              <div className="rounded-card border border-white/5 bg-ink-850 p-3 text-center">
-                <p className="font-display uppercase tracking-display text-[0.65rem] text-mint-400">
-                  Protein
-                </p>
-                <p className="mt-1 font-display uppercase tracking-display text-white text-2xl">
-                  {recipe.proteinG}g
-                </p>
-                <p className="text-[0.65rem] text-muted">per serving</p>
-              </div>
-            ) : null}
-          </div>
-        ) : null}
-
         <Card>
           <CardTitle>Ingredients</CardTitle>
           <ul className="mt-3 space-y-2">
