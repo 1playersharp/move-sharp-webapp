@@ -25,7 +25,15 @@ export async function updateSession(request: NextRequest) {
   // player so page code never sees a null user.
   if (DEV_BYPASS) return NextResponse.next({ request });
 
-  let response = NextResponse.next({ request });
+  // Construct the response ONCE and mutate cookies on the same object
+  // throughout. Recreating NextResponse inside the setAll callback
+  // (the older Supabase-recommended pattern) drops the Next-Router-
+  // State-Tree context on client-side RSC prefetch requests, which
+  // surfaces on Vercel as
+  //   "The router state header was sent but could not be parsed"
+  //   → 500: This page couldn't load
+  // during any in-app navigation.
+  const response = NextResponse.next({ request });
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -36,11 +44,13 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-          response = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options),
-          );
+          // Update the request so downstream sees the refreshed session
+          // and the response so the browser stores the new cookies.
+          // No re-instantiation.
+          cookiesToSet.forEach(({ name, value, options }) => {
+            request.cookies.set(name, value);
+            response.cookies.set(name, value, options);
+          });
         },
       },
     },
