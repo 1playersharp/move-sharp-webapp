@@ -4,6 +4,7 @@ import { WordMark } from "@/components/ui/Header";
 import { Button } from "@/components/ui/Button";
 import { MarketingNav } from "./MarketingNav";
 import { MarketingFooter } from "./MarketingFooter";
+import { DecorativeBoundary } from "@/components/ui/DecorativeBoundary";
 import heroImage from "@/images/victor-freitas-qZ-U9z4TQ6A-unsplash.jpg";
 
 // Four feature labels double as anchor links to the sections below.
@@ -19,7 +20,13 @@ const FEATURES: Array<{ label: string; href: string }> = [
 export function Landing() {
   return (
     <>
-      <MarketingNav />
+      {/* The sticky nav is the only client component on this page and the
+          only thing here that runs an effect. It's wrapped so a failure
+          costs the nav bar and nothing else — the hero below carries its
+          own CTAs and sign-in link, so the page stays fully usable. */}
+      <DecorativeBoundary label="MarketingNav">
+        <MarketingNav />
+      </DecorativeBoundary>
       {/* Hero — full-bleed photograph with left-to-right scrim so the
           content column on the left stays legible while the training
           shot reads on the right. Left-aligned throughout. */}
