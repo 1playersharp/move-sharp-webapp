@@ -160,6 +160,52 @@ export async function joinTeamByCode(formData: FormData) {
   redirect("/you/teams?joined=1");
 }
 
+// Player-side: update the per-field consent flags on a membership
+// the player owns. The three fields are the only ones a manager can
+// ever see; everything else stays private regardless.
+export async function updateMembershipConsent(formData: FormData) {
+  const user = await requirePlayer();
+  const teamId = String(formData.get("teamId") ?? "");
+  if (!teamId) redirect("/you/teams");
+
+  const membership = await prisma.teamMembership.findUnique({
+    where: { userId_teamId: { userId: user.id, teamId } },
+    select: { id: true, role: true },
+  });
+  if (!membership || membership.role !== "player") {
+    redirect("/you/teams");
+  }
+
+  const consent = {
+    sessionsVisible: formData.get("sessionsVisible") === "on",
+    readinessVisible: formData.get("readinessVisible") === "on",
+    pbsVisible: formData.get("pbsVisible") === "on",
+  };
+
+  await prisma.teamMembership.update({
+    where: { id: membership.id },
+    data: { consent },
+  });
+
+  revalidatePath("/you/teams");
+  redirect("/you/teams?saved=1");
+}
+
+// Player leaves a team they're in. Deletes the membership row;
+// manager keeps the team.
+export async function leaveTeam(formData: FormData) {
+  const user = await requirePlayer();
+  const teamId = String(formData.get("teamId") ?? "");
+  if (!teamId) redirect("/you/teams");
+
+  await prisma.teamMembership.deleteMany({
+    where: { userId: user.id, teamId, role: "player" },
+  });
+
+  revalidatePath("/you/teams");
+  redirect("/you/teams?left=1");
+}
+
 // Try up to 3 times to generate a code not already used.
 async function tryUniqueCode(): Promise<string | null> {
   for (let i = 0; i < 3; i++) {

@@ -3,6 +3,7 @@ import { AppShell } from "@/components/layout/AppShell";
 import { Header } from "@/components/ui/Header";
 import { Button } from "@/components/ui/Button";
 import { requirePlayer } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import { ageInYears, ageBandFromDOB } from "@/lib/age-band";
 import { POSITIONS } from "@/lib/constants/positions";
 import { signOut } from "@/app/(auth)/actions";
@@ -33,6 +34,9 @@ export default async function YouPage({ searchParams }: Props) {
     player.position ? POSITIONS.find((p) => p.key === player.position)?.label : null;
   const age = ageInYears(player.dateOfBirth);
   const band = AGE_BAND_LABEL[ageBandFromDOB(player.dateOfBirth)];
+  const teamCount = await prisma.teamMembership.count({
+    where: { userId: user.id, role: "player" },
+  });
 
   const savedLabel: Record<string, string> = {
     profile: "Profile saved.",
@@ -106,28 +110,29 @@ export default async function YouPage({ searchParams }: Props) {
           }
         />
 
-        {/* Team placeholder. Locked decision: card, not a bottom-nav
-            tab. When the feature ships, per-field consent flags on
-            TeamMembership control what a manager can see. */}
-        <section className="rounded-card border border-mint/25 bg-mint/5 p-5 shadow-card">
+        {/* Team card. Locked decision: card, not a bottom-nav tab.
+            Per-field consent flags on TeamMembership control what a
+            manager can see. */}
+        <Link
+          href="/you/teams"
+          className="group block rounded-card border border-mint/25 bg-mint/5 p-5 shadow-card hover:border-mint/60"
+        >
           <div className="flex items-baseline justify-between gap-2">
             <h2 className="font-display uppercase tracking-display text-white text-base">
-              Team
+              Teams
             </h2>
-            <span className="rounded-full bg-mint/20 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-mint-400">
-              Coming soon
+            <span className="font-display uppercase tracking-display text-[0.65rem] text-mint-400">
+              {teamCount === 0
+                ? "None joined"
+                : `${teamCount} team${teamCount === 1 ? "" : "s"}`}
             </span>
           </div>
           <p className="mt-2 text-sm text-white/85">
-            Share readiness, sessions, or PBs with a manager — on your
-            terms, one field at a time.
+            {teamCount === 0
+              ? "Got an invite code from a coach? Redeem it and choose what they see."
+              : "Manage what each coach can see — one field at a time."}
           </p>
-          <p className="mt-2 text-xs text-muted-strong">
-            When Team ships, you'll be able to accept an invite from a
-            coach and choose exactly what they see. Nothing shares
-            without you agreeing to it.
-          </p>
-        </section>
+        </Link>
 
         <div className="pt-2">
           <form action={signOut}>
