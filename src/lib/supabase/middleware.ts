@@ -14,6 +14,8 @@ const PUBLIC_PREFIXES = [
   "/sandbox/",
   "/preview",
   "/for-parents",
+  // Diagnostic only — reports DB reachability, never any data.
+  "/api/health",
 ];
 
 const DEV_BYPASS =
