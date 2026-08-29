@@ -191,6 +191,7 @@ model Player {
   customProgrammes Programme[]       @relation("PlayerCustomProgrammes")
   mealPlan         MealPlanEntry[]
   recoveryConsent  RecoveryConsent[]
+  joinConsent      JoinConsent[]
 }
 
 // Audit trail for the Returning-from-injury disclaimer. Every time a
@@ -228,6 +229,26 @@ model Team {
 
   createdBy   User             @relation("TeamCreatedBy", fields: [createdByUserId], references: [id])
   memberships TeamMembership[]
+  joinConsent JoinConsent[]
+}
+
+// Safeguarding audit trail — written the moment a player redeems a
+// team invite. isUnder16 is snapshotted from DOB at the time so a
+// later DOB correction can't retroactively strip an ack; parentAck
+// is true only when the under-16 friction gate was actually shown.
+model JoinConsent {
+  id        String   @id @default(uuid()) @db.Uuid
+  playerId  String   @db.Uuid
+  teamId    String   @db.Uuid
+  isUnder16 Boolean
+  parentAck Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@index([playerId, createdAt])
+  @@index([teamId, createdAt])
 }
 
 model TeamMembership {

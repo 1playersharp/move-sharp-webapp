@@ -4,7 +4,8 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { requireManager } from "@/lib/auth";
+import { requirePlayer, requireManager } from "@/lib/auth";
+import { ageInYears } from "@/lib/age-band";
 import { generateInviteCode } from "@/lib/team/invite-code";
 
 function fail(path: string, msg: string): never {
@@ -97,6 +98,66 @@ export async function removeMember(formData: FormData) {
   await prisma.teamMembership.delete({ where: { id: membershipId } });
   revalidatePath(`/coach/teams/${teamId}`);
   redirect(`/coach/teams/${teamId}?removed=1`);
+}
+
+// Player-side: redeem an invite code and join the team. Consent
+// flags default to all false — the player controls what the manager
+// sees on the /you/teams surface. Under-16s must have gone through
+// the parent-ack flow on the interstitial; the parent_ack form
+// field re-asserts it server-side so a crafted request can't
+// bypass the friction.
+export async function joinTeamByCode(formData: FormData) {
+  const user = await requirePlayer();
+
+  const code = String(formData.get("code") ?? "").trim().toUpperCase();
+  const parentAckRaw = String(formData.get("parentAck") ?? "");
+
+  if (!code) redirect("/you/teams?error=code");
+
+  const team = await prisma.team.findUnique({
+    where: { inviteCode: code },
+    select: { id: true },
+  });
+  if (!team) redirect(`/join/${encodeURIComponent(code)}?error=notfound`);
+
+  const existing = await prisma.teamMembership.findUnique({
+    where: { userId_teamId: { userId: user.id, teamId: team.id } },
+    select: { id: true },
+  });
+  if (existing) {
+    redirect(`/you/teams?joined=already`);
+  }
+
+  const isUnder16 = ageInYears(user.player.dateOfBirth) < 16;
+  if (isUnder16 && parentAckRaw !== "on") {
+    // Interstitial should have gated this. If a crafted request skipped
+    // it, bounce back to the join screen so the ack is shown.
+    redirect(`/join/${encodeURIComponent(code)}?error=parent`);
+  }
+
+  await prisma.$transaction([
+    prisma.teamMembership.create({
+      data: {
+        userId: user.id,
+        teamId: team.id,
+        role: "player",
+        // Consent defaults come from the schema (all false). The player
+        // opts in per-field on /you/teams after joining.
+      },
+    }),
+    prisma.joinConsent.create({
+      data: {
+        playerId: user.player.id,
+        teamId: team.id,
+        isUnder16,
+        parentAck: isUnder16,
+      },
+    }),
+  ]);
+
+  revalidatePath("/you");
+  revalidatePath("/you/teams");
+  redirect("/you/teams?joined=1");
 }
 
 // Try up to 3 times to generate a code not already used.
