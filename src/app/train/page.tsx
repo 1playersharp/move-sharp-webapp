@@ -5,6 +5,8 @@ import { AppShell } from "@/components/layout/AppShell";
 import { Header } from "@/components/ui/Header";
 import { EmptyState } from "@/components/ui/EmptyState";
 import trainHeaderImage from "@/images/brett-jordan-U2q73PfHFpM-unsplash.jpg";
+import { getPlayerHeaderData } from "@/lib/player-header";
+import { PlayerHeader } from "@/components/player/PlayerHeader";
 import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ageBandFromDOB } from "@/lib/age-band";
@@ -60,6 +62,8 @@ export default async function TrainPage({ searchParams }: Props) {
     orderBy: [{ name: "asc" }],
   });
 
+  const headerData = await getPlayerHeaderData(user.player);
+
   const customProgrammes = await prisma.programme.findMany({
     where: { createdForPlayerId: user.player.id },
     orderBy: [{ createdAt: "desc" }],
@@ -102,6 +106,16 @@ export default async function TrainPage({ searchParams }: Props) {
         />
       </div>
       <div className="space-y-6 px-5 pt-6">
+        {/* Compact variant only — continuity away from the dashboard.
+            Mounted per-page rather than in AppShell so it can never
+            appear during a live session. */}
+        <PlayerHeader
+          variant="compact"
+          firstName={headerData.firstName}
+          avatarId={headerData.avatarId}
+          trainingContext={headerData.trainingContext}
+          programme={headerData.programme}
+        />
         <ModeToggle mode="programme" />
 
         <YourProgrammesStrip programmes={customProgrammes} />
