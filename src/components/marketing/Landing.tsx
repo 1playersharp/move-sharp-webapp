@@ -226,7 +226,7 @@ const INSIDE_CARDS = [
   {
     title: "Fuel",
     body:
-      "What to eat before training, after training and on match day. A recipe library filtered by your allergies and diet, macro totals per serving, and a weekly meal planner you can pin recipes to.",
+      "What to eat before training, after training and on match day. Recipes filtered by your allergies and dietary preference, tagged by purpose — recovery, iron-rich, match fuel — with timing guidance and a weekly planner. Household measures, no numbers to count.",
   },
   {
     title: "3D coach",

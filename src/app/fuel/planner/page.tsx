@@ -28,7 +28,7 @@ export default async function PlannerPage() {
     },
     include: {
       recipe: {
-        select: { slug: true, name: true, carbsG: true, proteinG: true },
+        select: { slug: true, name: true },
       },
     },
     orderBy: [{ date: "asc" }, { slot: "asc" }],
@@ -104,13 +104,6 @@ export default async function PlannerPage() {
                                   >
                                     {entry.recipe.name}
                                   </Link>
-                                  {entry.recipe.carbsG != null || entry.recipe.proteinG != null ? (
-                                    <p className="mt-0.5 text-[0.7rem] text-muted">
-                                      {entry.recipe.carbsG != null ? `${entry.recipe.carbsG}g carbs` : null}
-                                      {entry.recipe.carbsG != null && entry.recipe.proteinG != null ? " · " : null}
-                                      {entry.recipe.proteinG != null ? `${entry.recipe.proteinG}g protein` : null}
-                                    </p>
-                                  ) : null}
                                 </div>
                               ) : (
                                 <p className="mt-1 text-xs text-muted-strong italic">
