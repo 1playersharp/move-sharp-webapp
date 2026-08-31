@@ -8,6 +8,7 @@ import { QualityChip } from "@/components/train/QualityChip";
 import { startSession } from "@/app/actions/sessions";
 import { DeleteProgrammeConfirm } from "@/components/train/DeleteProgrammeConfirm";
 import { contextLabel, equipmentForContext } from "@/lib/training-context";
+import { categoryMeta } from "@/lib/constants/exercise-categories";
 
 const BAND_LABEL: Record<"U13_U15" | "U16_U18", string> = {
   U13_U15: "U13-15",
@@ -176,7 +177,7 @@ export default async function ProgrammeDetailPage({ params }: Props) {
                                       {rows.map((ex) => (
                                         <li key={ex.slug}>
                                           <Link
-                                            href={`/train/exercise/${ex.category}/${ex.slug}`}
+                                            href={`/train/exercise/${categoryMeta(ex.category).slug}/${ex.slug}`}
                                             className="group flex items-center justify-between gap-3 px-3 py-2 transition-colors hover:bg-mint/5"
                                           >
                                             <span className="min-w-0 flex-1 truncate text-[0.8rem] text-white group-hover:text-mint">
