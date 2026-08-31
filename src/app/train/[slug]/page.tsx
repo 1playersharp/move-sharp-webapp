@@ -8,7 +8,6 @@ import { QualityChip } from "@/components/train/QualityChip";
 import { startSession } from "@/app/actions/sessions";
 import { DeleteProgrammeConfirm } from "@/components/train/DeleteProgrammeConfirm";
 import { contextLabel, equipmentForContext } from "@/lib/training-context";
-import { inferSessionExerciseSlugs } from "@/lib/programmes/session-exercises";
 
 const BAND_LABEL: Record<"U13_U15" | "U16_U18", string> = {
   U13_U15: "U13-15",
@@ -66,19 +65,14 @@ export default async function ProgrammeDetailPage({ params }: Props) {
 
   const curriculum = (programme.curriculum ?? []) as unknown as CurriculumWeek[];
 
-  // Pull every exercise slug referenced anywhere in the curriculum in
-  // one query, then look up by slug in the render loop. Seeded sessions
-  // don't carry exerciseSlugs, so we infer from name+focus text and
-  // filter to the player's context.
+  // Pull every exercise slug referenced anywhere in the curriculum in one
+  // query, then look up by slug in the render loop. Sessions carry their
+  // exercise list explicitly (prisma/programmes), so nothing is inferred.
   const sessionSlugs = new Map<string, string[]>();
   const referencedSlugs = new Set<string>();
   for (const wk of curriculum) {
     for (let i = 0; i < wk.sessions.length; i++) {
-      const s = wk.sessions[i];
-      const slugs =
-        s.exerciseSlugs && s.exerciseSlugs.length > 0
-          ? s.exerciseSlugs
-          : inferSessionExerciseSlugs(s, context);
+      const slugs = wk.sessions[i].exerciseSlugs ?? [];
       sessionSlugs.set(`w${wk.week}s${i}`, slugs);
       slugs.forEach((slug) => referencedSlugs.add(slug));
     }
@@ -91,10 +85,18 @@ export default async function ProgrammeDetailPage({ params }: Props) {
           name: true,
           category: true,
           defaultPrescription: true,
+          contexts: true,
         },
       })
     : [];
-  const bankBySlug = new Map(bankExercises.map((e) => [e.slug, e]));
+  // Gym/home twins are both listed on the session; the player only sees the
+  // one matching their context. Filtering on the exercise's own contexts
+  // keeps this data-driven rather than a hardcoded list of twin slugs.
+  const bankBySlug = new Map(
+    bankExercises
+      .filter((e) => e.contexts.includes(context))
+      .map((e) => [e.slug, e]),
+  );
 
   return (
     <AppShell>

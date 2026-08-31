@@ -3,6 +3,7 @@ import { ALL_PROGRAMMES } from "./programmes";
 import { EXERCISES, ORPHANED_SLUGS } from "./exercises";
 import { RECIPES } from "./recipes";
 import { FIRST_STEP_TEMPLATES } from "./session-templates/first-step-acceleration-u13";
+import { generateTemplates, templateKey } from "./session-templates/generate";
 
 const prisma = new PrismaClient();
 
@@ -83,25 +84,43 @@ async function main() {
     console.log(`  ✓ ${p.slug}`);
   }
 
-  console.log(`Materialising ${FIRST_STEP_TEMPLATES.length} sessions for First-Step Acceleration U13…`);
-  const firstStep = await prisma.programme.findUnique({
-    where: { slug: "first-step-acceleration-u13" },
-  });
-  if (!firstStep) throw new Error("First-Step programme not found — seed programmes first");
-
   const exerciseIdBySlug = new Map(
     (await prisma.exercise.findMany({ select: { id: true, slug: true } })).map(
       (e) => [e.slug, e.id] as const,
     ),
   );
+  const programmeIdBySlug = new Map(
+    (await prisma.programme.findMany({ select: { id: true, slug: true } })).map(
+      (p) => [p.slug, p.id] as const,
+    ),
+  );
 
-  for (const t of FIRST_STEP_TEMPLATES) {
+  // The curated First-Step templates carry bespoke per-item prescriptions, so
+  // they override the generated ones for those sessions.
+  const curated = new Map(
+    FIRST_STEP_TEMPLATES.map((t) => [
+      templateKey("first-step-acceleration-u13", t.week, t.day),
+      t,
+    ]),
+  );
+
+  const templates = generateTemplates({
+    programmes: ALL_PROGRAMMES,
+    exercises: EXERCISES,
+    overrides: curated,
+  });
+
+  console.log(`Materialising ${templates.length} session templates…`);
+  for (const t of templates) {
+    const programmeId = programmeIdBySlug.get(t.programmeSlug);
+    if (!programmeId) throw new Error(`Programme not found: ${t.programmeSlug}`);
+
     const template = await prisma.sessionTemplate.upsert({
       where: { slug: t.slug },
       create: {
         slug: t.slug,
         name: t.name,
-        programmeId: firstStep.id,
+        programmeId,
         week: t.week,
         day: t.day,
         focus: t.focus,
@@ -110,7 +129,7 @@ async function main() {
       },
       update: {
         name: t.name,
-        programmeId: firstStep.id,
+        programmeId,
         week: t.week,
         day: t.day,
         focus: t.focus,
@@ -138,8 +157,8 @@ async function main() {
         },
       });
     }
-    console.log(`  ✓ ${t.slug}`);
   }
+  console.log(`  ✓ ${templates.length} templates`);
 
   console.log(`Seeding ${RECIPES.length} recipes…`);
   for (const r of RECIPES) {
