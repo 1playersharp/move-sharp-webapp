@@ -8,18 +8,6 @@ import { generateTemplates, templateKey } from "./session-templates/generate";
 const prisma = new PrismaClient();
 
 async function main() {
-  // Drop exercises that were seeded under old (pre-split) slugs and no
-  // longer belong to the library. Errors if any SessionTemplateItem still
-  // references one — a signal to update the template seed first.
-  if (ORPHANED_SLUGS.length > 0) {
-    const result = await prisma.exercise.deleteMany({
-      where: { slug: { in: ORPHANED_SLUGS } },
-    });
-    if (result.count > 0) {
-      console.log(`Dropped ${result.count} orphan exercise(s): ${ORPHANED_SLUGS.join(", ")}`);
-    }
-  }
-
   console.log(`Seeding ${EXERCISES.length} exercises…`);
   for (const e of EXERCISES) {
     await prisma.exercise.upsert({
@@ -159,6 +147,20 @@ async function main() {
     }
   }
   console.log(`  ✓ ${templates.length} templates`);
+
+  // Drop exercises that no longer belong to the library. This runs *after*
+  // templates are materialised: the rewrite above is what releases the last
+  // SessionTemplateItem references to a removed slug. A foreign-key error
+  // here therefore means a curated template still names the exercise, which
+  // is a real problem worth failing the seed over.
+  if (ORPHANED_SLUGS.length > 0) {
+    const result = await prisma.exercise.deleteMany({
+      where: { slug: { in: ORPHANED_SLUGS } },
+    });
+    if (result.count > 0) {
+      console.log(`Dropped ${result.count} orphan exercise(s): ${ORPHANED_SLUGS.join(", ")}`);
+    }
+  }
 
   console.log(`Seeding ${RECIPES.length} recipes…`);
   for (const r of RECIPES) {

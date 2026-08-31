@@ -26,7 +26,6 @@ const TWINS: string[][] = [
   ["goblet-squat-gym", "goblet-squat-home"],
   ["split-squat-gym", "split-squat-home"],
   ["db-row", "band-row"],
-  ["db-rdl", "band-hinge"],
   ["db-press", "band-press"],
   ["woodchop-gym", "woodchop-home"],
   ["barbell-back-squat", "bodyweight-squat"],
@@ -79,7 +78,7 @@ const STRONG: Array<[string, RegExp[]]> = [
   ["push-up", [/push-?ups?/i]],
   ["db-row", [/db rows?/i, /dumbbell rows?/i, /explosive rows?/i, /\brows?\b/i, /pull-apart/i]],
   ["db-rdl", [/\brdls?\b/i, /sl rdl/i, /single-leg hinge/i, /hip hinge/i, /\bhinge\b/i]],
-  ["band-hinge", [/kettlebell swings?/i, /kb swings?/i, /band-resisted hip drives?/i, /band deadlifts?/i]],
+  ["standing-pistol", [/kettlebell swings?/i, /kb swings?/i, /band-resisted hip drives?/i, /band deadlifts?/i, /pistol squats?/i]],
   ["db-press", [/db press/i, /dumbbell press/i, /overhead press/i, /db snatch/i]],
   ["bench-press", [/bench press/i]],
   ["trap-bar-deadlift", [/trap.?bar/i, /(?<!band |romanian |db )deadlifts?/i]],
@@ -115,7 +114,7 @@ const WEAK: Array<[string, RegExp[]]> = [
 // and the specific match wins.
 const FAMILIES: string[][] = [
   ["goblet-squat-gym", "goblet-squat-home", "barbell-back-squat", "bodyweight-squat", "split-squat-gym", "split-squat-home"],
-  ["db-rdl", "band-hinge", "trap-bar-deadlift"],
+  ["db-rdl", "trap-bar-deadlift"],
   ["db-row", "band-row", "chin-up"],
   ["db-press", "band-press", "bench-press", "push-up"],
   ["sit-up", "weighted-sit-up", "deadbug", "plank", "side-plank"],

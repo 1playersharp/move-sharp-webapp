@@ -160,7 +160,7 @@ export const U16_18_PROGRAMMES: ProgrammeSeed[] = [
         sessions: [
           { name: "Strength Day A", focus: "4x5 heavy goblet squat, 4x5 DB press. Own the load.", homeCue: "Loaded bag squat + band press.", exerciseSlugs: ["goblet-squat-gym", "goblet-squat-home", "db-press", "band-press"] },
           { name: "Power Day", focus: "4x3 jump squat with light DBs, 3x3 broad jump. Every rep max intent.", homeCue: "Bag jump squats, then broad jumps.", exerciseSlugs: ["broad-jump-stick", "goblet-squat-gym", "goblet-squat-home"] },
-          { name: "Strength Day B", focus: "4x5 DB row, 4x5 DB RDL.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "band-hinge"] },
+          { name: "Strength Day B", focus: "4x5 DB row, 4x5 DB RDL.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "standing-pistol"] },
         ],
       },
       {
@@ -169,7 +169,7 @@ export const U16_18_PROGRAMMES: ProgrammeSeed[] = [
         sessions: [
           { name: "Strength Day A", focus: "5x4 goblet squat, 4x5 DB press.", exerciseSlugs: ["goblet-squat-gym", "goblet-squat-home", "db-press", "band-press"] },
           { name: "Power Day", focus: "4x3 DB snatch each side, 4x3 broad jump.", homeCue: "Bag high pull + jump squat.", exerciseSlugs: ["broad-jump-stick", "goblet-squat-gym", "goblet-squat-home", "db-press", "band-press"] },
-          { name: "Strength Day B", focus: "5x4 row, 5x4 RDL.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "band-hinge"] },
+          { name: "Strength Day B", focus: "5x4 row, 5x4 RDL.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "standing-pistol"] },
         ],
       },
       {
@@ -178,7 +178,7 @@ export const U16_18_PROGRAMMES: ProgrammeSeed[] = [
         sessions: [
           { name: "Strength Day A", focus: "5x3 heavy goblet squat, 4x4 press.", exerciseSlugs: ["goblet-squat-gym", "goblet-squat-home", "db-press", "band-press"] },
           { name: "Power Day", focus: "5x3 jump squat light DBs, 4x2 broad jump for max distance.", exerciseSlugs: ["broad-jump-stick", "goblet-squat-gym", "goblet-squat-home"] },
-          { name: "Strength Day B", focus: "5x3 row heavy, 5x4 RDL.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "band-hinge"] },
+          { name: "Strength Day B", focus: "5x3 row heavy, 5x4 RDL.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "standing-pistol"] },
         ],
       },
       {
@@ -384,7 +384,7 @@ export const U16_18_PROGRAMMES: ProgrammeSeed[] = [
         theme: "Feet in the sequence",
         sessions: [
           { name: "Step-Behind Throws", focus: "4x4 per side rotational throw with step-behind footwork.", exerciseSlugs: ["rotational-med-ball-throw"] },
-          { name: "Kettlebell Swing", focus: "4x6 KB swing OR heavy DB swing. Explosive hip drive.", homeCue: "Band-resisted hip drives.", exerciseSlugs: ["db-rdl", "band-hinge"] },
+          { name: "Kettlebell Swing", focus: "4x6 KB swing OR heavy DB swing. Explosive hip drive.", homeCue: "Band-resisted hip drives.", exerciseSlugs: ["db-rdl", "standing-pistol"] },
           { name: "Core + Mobility", focus: "T-spine, adductors.", exerciseSlugs: ["mobility-flow", "deadbug"] },
         ],
       },

@@ -159,7 +159,7 @@ export const U13_15_PROGRAMMES: ProgrammeSeed[] = [
         theme: "Meet the patterns",
         sessions: [
           { name: "Squat + Push", focus: "3x6 goblet squat, 3x8 push-up. Slow tempo.", gymCue: "Goblet with a DB or KB.", homeCue: "Hold the loaded bag at chest.", exerciseSlugs: ["goblet-squat-gym", "goblet-squat-home", "push-up"] },
-          { name: "Hinge + Pull", focus: "3x6 DB RDL, 3x8 rows.", gymCue: "DBs in each hand.", homeCue: "Band deadlift, band row.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "band-hinge"] },
+          { name: "Hinge + Pull", focus: "3x6 DB RDL, 3x8 rows.", gymCue: "DBs in each hand.", homeCue: "Band deadlift, band row.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "standing-pistol"] },
           { name: "Carry Day", focus: "3x30m farmer carries. Long spine, tall walk.", homeCue: "Loaded bag in each hand or one heavy.", exerciseSlugs: ["farmer-carry-gym", "farmer-carry-home"] },
         ],
       },
@@ -168,7 +168,7 @@ export const U13_15_PROGRAMMES: ProgrammeSeed[] = [
         theme: "Groove — slow it down",
         sessions: [
           { name: "Squat + Push", focus: "3x6 squat 3-1-1 tempo, 3x8 push-up.", exerciseSlugs: ["push-up", "goblet-squat-gym", "goblet-squat-home"] },
-          { name: "Hinge + Pull", focus: "3x6 RDL 3-1-1, 3x8 rows.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "band-hinge"] },
+          { name: "Hinge + Pull", focus: "3x6 RDL 3-1-1, 3x8 rows.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "standing-pistol"] },
           { name: "Carry Day", focus: "3x30m farmer + 3x20m suitcase carry per side.", exerciseSlugs: ["farmer-carry-gym", "farmer-carry-home"] },
         ],
       },
@@ -177,7 +177,7 @@ export const U13_15_PROGRAMMES: ProgrammeSeed[] = [
         theme: "Add split-stance",
         sessions: [
           { name: "Split Squat + Push", focus: "3x6 per leg split squat, 3x8 push-up variation.", exerciseSlugs: ["push-up", "split-squat-gym", "split-squat-home"] },
-          { name: "Single-Leg Hinge + Pull", focus: "3x6 SL RDL per side, 3x8 rows.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "band-hinge"] },
+          { name: "Single-Leg Hinge + Pull", focus: "3x6 SL RDL per side, 3x8 rows.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "standing-pistol"] },
           { name: "Carry Day", focus: "3x30m mixed carries.", exerciseSlugs: ["farmer-carry-gym", "farmer-carry-home"] },
         ],
       },
@@ -186,7 +186,7 @@ export const U13_15_PROGRAMMES: ProgrammeSeed[] = [
         theme: "Deload — quality reps",
         sessions: [
           { name: "Full Body A", focus: "2x6 goblet squat, 2x8 push-up, 2x6 rows. Light.", exerciseSlugs: ["goblet-squat-gym", "goblet-squat-home", "push-up", "db-row", "band-row"] },
-          { name: "Full Body B", focus: "2x6 RDL, 2x6 split squat, 2x20m carry.", exerciseSlugs: ["farmer-carry-gym", "farmer-carry-home", "db-rdl", "band-hinge", "split-squat-gym", "split-squat-home"] },
+          { name: "Full Body B", focus: "2x6 RDL, 2x6 split squat, 2x20m carry.", exerciseSlugs: ["farmer-carry-gym", "farmer-carry-home", "db-rdl", "standing-pistol", "split-squat-gym", "split-squat-home"] },
           { name: "Mobility + Recovery", focus: "Hips, T-spine, shoulders.", exerciseSlugs: ["mobility-flow"] },
         ],
       },
@@ -195,7 +195,7 @@ export const U13_15_PROGRAMMES: ProgrammeSeed[] = [
         theme: "Intent — add speed to the up",
         sessions: [
           { name: "Squat + Push Intent", focus: "3x5 goblet squat with fast up. Explode.", exerciseSlugs: ["goblet-squat-gym", "goblet-squat-home"] },
-          { name: "Hinge + Pull Intent", focus: "3x5 RDL, 3x6 rows with pull-and-hold.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "band-hinge"] },
+          { name: "Hinge + Pull Intent", focus: "3x5 RDL, 3x6 rows with pull-and-hold.", exerciseSlugs: ["db-row", "band-row", "db-rdl", "standing-pistol"] },
           { name: "Carry + Push", focus: "3x30m farmer, 3x6 push-up cluster.", exerciseSlugs: ["farmer-carry-gym", "farmer-carry-home", "push-up"] },
         ],
       },
