@@ -15,7 +15,7 @@ export const wallDrives: MotionSpec = {
     },
     // Torso leans forward the whole time.
     spine: {
-      rotationDeg: [{ t: 0, value: [25, 0, 0] }],
+      rotationDeg: [{ t: 0, value: [-25, 0, 0] }],
     },
     // Arms out in front — pressing into "wall".
     shoulderL: {

@@ -19,7 +19,7 @@ export const tempoRun: MotionSpec = {
       ],
     },
     spine: {
-      rotationDeg: [{ t: 0, value: [8, 0, 0] }],
+      rotationDeg: [{ t: 0, value: [-8, 0, 0] }],
     },
 
     // Left knee drives up on first half of rep, then recovers.

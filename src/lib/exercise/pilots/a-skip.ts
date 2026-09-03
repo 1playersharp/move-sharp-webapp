@@ -101,11 +101,11 @@ export const aSkip: MotionSpec = {
     // Tiny torso counter-rotation so it doesn't look robotic.
     spine: {
       rotationDeg: [
-        { t: 0, value: [8, 0, 0], ease: "smooth" },
-        { t: 0.25, value: [10, -6, 0], ease: "smooth" },
-        { t: 0.5, value: [8, 0, 0], ease: "smooth" },
-        { t: 0.75, value: [10, 6, 0], ease: "smooth" },
-        { t: 1, value: [8, 0, 0], ease: "smooth" },
+        { t: 0, value: [-8, 0, 0], ease: "smooth" },
+        { t: 0.25, value: [-10, -6, 0], ease: "smooth" },
+        { t: 0.5, value: [-8, 0, 0], ease: "smooth" },
+        { t: 0.75, value: [-10, 6, 0], ease: "smooth" },
+        { t: 1, value: [-8, 0, 0], ease: "smooth" },
       ],
     },
   },

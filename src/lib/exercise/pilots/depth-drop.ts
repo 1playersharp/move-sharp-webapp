@@ -23,10 +23,10 @@ export const depthDrop: MotionSpec = {
     },
     spine: {
       rotationDeg: [
-        { t: 0, value: [3, 0, 0], ease: "smooth" },
-        { t: 0.35, value: [8, 0, 0], ease: "smooth" },
-        { t: 0.5, value: [22, 0, 0], ease: "smooth" },
-        { t: 1, value: [18, 0, 0], ease: "smooth" },
+        { t: 0, value: [-3, 0, 0], ease: "smooth" },
+        { t: 0.35, value: [-8, 0, 0], ease: "smooth" },
+        { t: 0.5, value: [-22, 0, 0], ease: "smooth" },
+        { t: 1, value: [-18, 0, 0], ease: "smooth" },
       ],
     },
     hipL: {

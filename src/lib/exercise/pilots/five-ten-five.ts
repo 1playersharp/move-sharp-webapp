@@ -34,14 +34,14 @@ export const fiveTenFive: MotionSpec = {
     // Rest of body Ys along.
     spine: {
       rotationDeg: [
-        { t: 0, value: [10, -90, 0], ease: "smooth" }, // face +X, torso lean
-        { t: 0.2, value: [15, -90, 0], ease: "smooth" },
-        { t: 0.28, value: [25, -75, -15], ease: "smooth" }, // plant, lean into cut
-        { t: 0.35, value: [12, 90, 0], ease: "smooth" }, // face -X, accelerating
-        { t: 0.65, value: [15, 90, 0], ease: "smooth" },
-        { t: 0.75, value: [25, 75, 15], ease: "smooth" }, // plant
-        { t: 0.85, value: [12, -90, 0], ease: "smooth" }, // face +X back to centre
-        { t: 1, value: [10, -90, 0], ease: "smooth" },
+        { t: 0, value: [-10, -90, 0], ease: "smooth" }, // face +X, torso lean
+        { t: 0.2, value: [-15, -90, 0], ease: "smooth" },
+        { t: 0.28, value: [-25, -75, -15], ease: "smooth" }, // plant, lean into cut
+        { t: 0.35, value: [-12, 90, 0], ease: "smooth" }, // face -X, accelerating
+        { t: 0.65, value: [-15, 90, 0], ease: "smooth" },
+        { t: 0.75, value: [-25, 75, 15], ease: "smooth" }, // plant
+        { t: 0.85, value: [-12, -90, 0], ease: "smooth" }, // face +X back to centre
+        { t: 1, value: [-10, -90, 0], ease: "smooth" },
       ],
     },
 

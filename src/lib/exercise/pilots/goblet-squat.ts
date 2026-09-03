@@ -32,7 +32,7 @@ export const gobletSquat: MotionSpec = {
     spine: {
       rotationDeg: [
         { t: 0, value: [0, 0, 0], ease: "smooth" },
-        { t: 0.5, value: [22, 0, 0], ease: "smooth" },
+        { t: 0.5, value: [-22, 0, 0], ease: "smooth" },
         { t: 1, value: [0, 0, 0], ease: "smooth" },
       ],
     },

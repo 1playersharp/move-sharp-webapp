@@ -10,9 +10,24 @@ import { snapDownLanding } from "./snap-down-landing";
 import { farmerCarry } from "./farmer-carry";
 import { tempoRun } from "./tempo-run";
 import { depthDrop } from "./depth-drop";
+import { sidePlank, deadbug, pallofPressGym, pallofPressHome } from "./core";
+import {
+  pushUp, dbRow, bandRow, dbRdl, dbPress, bandPress, splitSquatGym, splitSquatHome,
+} from "./strength";
+import { rotationalThrow, woodchopGym, woodchopHome, mobilityFlow } from "./rotational";
+import {
+  hip9090, halfKneelingHipFlexor, gluteBridge, bandedClam, kneeToWallAnkle,
+  calfRaise, openBookRotation, catCow, wallAngel, footDoming, chinTuckNeck, birdDog,
+} from "./mobility";
 
 // Phase 5 pilots kept for the sign-off sandbox — the original 4.
 export const PILOTS: MotionSpec[] = [gobletSquat, aSkip, broadJump, fiveTenFive];
+
+// Cone-and-path field drills (L-drill, T-drill, shuttles, sprint and jump
+// tests) are authored in ./field-drills.ts and ./jump-tests.ts but are
+// deliberately NOT mapped yet — parked until the avatar covers the gym and
+// core movements. Re-map the slugs here to bring them back; note the spine
+// lean sign in path-drill.ts needs the fix described in that file first.
 
 // Full library-slug → MotionSpec map used by the exercise-mode detail
 // pages. Library exercises without an entry render a placeholder card.
@@ -27,6 +42,38 @@ export const MOTION_SPEC_BY_SLUG: Record<string, MotionSpec> = {
   "wall-drives": wallDrives,
   "snap-down-landing": snapDownLanding,
   "tempo-run": tempoRun,
+  "push-up": pushUp,
+  deadbug: deadbug,
+  "side-plank": sidePlank,
+  "rotational-med-ball-throw": rotationalThrow,
+  "mobility-flow": mobilityFlow,
+
+  // Movement-prep mobility drills.
+  "hip-90-90": hip9090,
+  "half-kneeling-hip-flexor": halfKneelingHipFlexor,
+  "glute-bridge": gluteBridge,
+  "banded-clam": bandedClam,
+  "knee-to-wall-ankle": kneeToWallAnkle,
+  "calf-raise": calfRaise,
+  "open-book-rotation": openBookRotation,
+  "cat-cow": catCow,
+  "wall-angel": wallAngel,
+  "foot-doming": footDoming,
+  "chin-tuck-neck": chinTuckNeck,
+  "bird-dog": birdDog,
+
+  // Gym/home pairs — same movement, different kit, range and tempo.
+  "db-row": dbRow,
+  "band-row": bandRow,
+  "db-rdl": dbRdl,
+  "db-press": dbPress,
+  "band-press": bandPress,
+  "split-squat-gym": splitSquatGym,
+  "split-squat-home": splitSquatHome,
+  "pallof-press-gym": pallofPressGym,
+  "pallof-press-home": pallofPressHome,
+  "woodchop-gym": woodchopGym,
+  "woodchop-home": woodchopHome,
 
   // Split slug pairs that share a spec.
   "goblet-squat-gym": gobletSquat,
@@ -40,6 +87,34 @@ export const MOTION_SPEC_BY_SLUG: Record<string, MotionSpec> = {
 };
 
 export {
+  sidePlank,
+  deadbug,
+  pallofPressGym,
+  pallofPressHome,
+  pushUp,
+  dbRow,
+  bandRow,
+  dbRdl,
+  dbPress,
+  bandPress,
+  splitSquatGym,
+  splitSquatHome,
+  rotationalThrow,
+  woodchopGym,
+  woodchopHome,
+  mobilityFlow,
+  hip9090,
+  halfKneelingHipFlexor,
+  gluteBridge,
+  bandedClam,
+  kneeToWallAnkle,
+  calfRaise,
+  openBookRotation,
+  catCow,
+  wallAngel,
+  footDoming,
+  chinTuckNeck,
+  birdDog,
   gobletSquat,
   aSkip,
   broadJump,

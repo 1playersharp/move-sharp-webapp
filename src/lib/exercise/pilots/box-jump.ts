@@ -23,11 +23,11 @@ export const boxJump: MotionSpec = {
     spine: {
       rotationDeg: [
         { t: 0, value: [0, 0, 0], ease: "smooth" },
-        { t: 0.2, value: [30, 0, 0], ease: "smooth" },
-        { t: 0.4, value: [-5, 0, 0], ease: "smooth" },
-        { t: 0.55, value: [15, 0, 0], ease: "smooth" },
-        { t: 0.75, value: [20, 0, 0], ease: "smooth" },
-        { t: 1, value: [3, 0, 0], ease: "smooth" },
+        { t: 0.2, value: [-30, 0, 0], ease: "smooth" },
+        { t: 0.4, value: [5, 0, 0], ease: "smooth" },
+        { t: 0.55, value: [-15, 0, 0], ease: "smooth" },
+        { t: 0.75, value: [-20, 0, 0], ease: "smooth" },
+        { t: 1, value: [-3, 0, 0], ease: "smooth" },
       ],
     },
     hipL: {

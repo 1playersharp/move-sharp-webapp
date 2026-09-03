@@ -24,11 +24,11 @@ export const broadJump: MotionSpec = {
     spine: {
       rotationDeg: [
         { t: 0, value: [0, 0, 0], ease: "smooth" },
-        { t: 0.15, value: [25, 0, 0], ease: "smooth" }, // hinge forward on gather
-        { t: 0.3, value: [-8, 0, 0], ease: "smooth" }, // extend on launch
-        { t: 0.5, value: [15, 0, 0], ease: "smooth" }, // pull knees up
-        { t: 0.7, value: [22, 0, 0], ease: "smooth" }, // absorb
-        { t: 1, value: [12, 0, 0], ease: "smooth" }, // stick
+        { t: 0.15, value: [-25, 0, 0], ease: "smooth" }, // hinge forward on gather
+        { t: 0.3, value: [8, 0, 0], ease: "smooth" }, // extend on launch
+        { t: 0.5, value: [-15, 0, 0], ease: "smooth" }, // pull knees up
+        { t: 0.7, value: [-22, 0, 0], ease: "smooth" }, // absorb
+        { t: 1, value: [-12, 0, 0], ease: "smooth" }, // stick
       ],
     },
     hipL: {

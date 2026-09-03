@@ -81,6 +81,16 @@ export type SceneProp =
   | {
       kind: "chest_weight";
       size?: number;
+    }
+  | {
+      // A resistance band from a fixed anchor to the hands. Redrawn each
+      // frame, so it stretches as the player moves away from the anchor.
+      kind: "band";
+      /** Anchor point in world space — a fence post, a door, a rack. */
+      anchor: Vec3;
+      /** Which hand holds it; "both" runs a single band to a midpoint. */
+      grip?: "L" | "R" | "both";
+      color?: number;
     };
 
 // Smoothstep — a cheap ease-in-out with no derivatives to think about.
