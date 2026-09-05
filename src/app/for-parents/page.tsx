@@ -135,7 +135,7 @@ const SECTIONS = [
           Questions? Concerns? Reach out at{" "}
           <a
             href="mailto:hello@movesharp.app"
-            className="text-mint-400 underline underline-offset-4 hover:text-mint focus-visible:text-mint"
+            className="text-brand-400 underline underline-offset-4 hover:text-brand focus-visible:text-brand"
           >
             hello@movesharp.app
           </a>
@@ -156,7 +156,7 @@ export default function ForParentsPage() {
           </Link>
           <Link
             href="/sign-in"
-            className="text-sm text-mint-400 underline-offset-4 hover:text-mint hover:underline focus-visible:text-mint focus-visible:underline"
+            className="text-sm text-brand-400 underline-offset-4 hover:text-brand hover:underline focus-visible:text-brand focus-visible:underline"
           >
             Sign in
           </Link>
@@ -167,11 +167,11 @@ export default function ForParentsPage() {
         <div className="mb-10">
           <Link
             href="/#for-parents"
-            className="text-xs font-display uppercase tracking-display text-mint-400 hover:text-mint focus-visible:text-mint"
+            className="text-xs font-display uppercase tracking-display text-brand-400 hover:text-brand focus-visible:text-brand"
           >
             ← Back
           </Link>
-          <p className="mt-4 font-display uppercase tracking-display text-mint-400 text-xs">
+          <p className="mt-4 font-display uppercase tracking-display text-brand-400 text-xs">
             For parents
           </p>
           <h1 className="mt-2 font-display uppercase tracking-display text-white text-4xl leading-[1.05] sm:text-5xl">

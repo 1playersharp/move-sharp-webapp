@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn";
 // Player.avatarId (the column already existed; nothing rendered it
 // until now).
 //
-// Each preset is a flat geometric mark in the existing mint/ink palette
+// Each preset is a flat geometric mark in the existing brand/ink palette
 // — no new colours, no image assets to ship. Unknown or missing
 // avatarId falls back to the player's initial, so the card never
 // renders empty.
@@ -78,7 +78,7 @@ export function PlayerAvatar({ avatarId, firstName, size, className }: Props) {
       style={{ width: size, height: size }}
       className={cn(
         "inline-flex shrink-0 items-center justify-center rounded-full",
-        "border border-mint/30 bg-mint/10 text-mint",
+        "border border-brand/30 bg-brand/10 text-brand",
         className,
       )}
     >

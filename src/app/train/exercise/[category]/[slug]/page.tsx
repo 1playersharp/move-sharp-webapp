@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
+import { Header } from "@/components/ui/Header";
 import { Card, CardTitle } from "@/components/ui/Card";
-import { ExerciseCanvas } from "@/components/exercise/ExerciseCanvas";
+import { ExerciseDemo } from "@/components/exercise/ExerciseDemo";
 import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { categoryFromSlug, categoryMeta } from "@/lib/constants/exercise-categories";
@@ -37,46 +37,14 @@ export default async function ExerciseDetailPage({ params }: Props) {
 
   return (
     <AppShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <Link
-              href={`/train/exercise/${meta.slug}`}
-              className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
-            >
-              ← {meta.label}
-            </Link>
-            <h1 className="mt-2 font-display uppercase tracking-display text-white text-2xl leading-tight">
-              {exercise.name}
-            </h1>
-          </div>
-          <ContextToggle context={context} />
-        </div>
-      </div>
+      <Header
+        back={{ href: `/train/exercise/${meta.slug}`, label: meta.label }}
+        title={exercise.name}
+        right={<ContextToggle context={context} />}
+      />
 
-      <div className="space-y-4 px-5">
-        {spec ? (
-          <ExerciseCanvas
-            spec={spec}
-            className="aspect-square w-full overflow-hidden rounded-card bg-ink-900"
-          />
-        ) : (
-          <div
-            className="flex aspect-square w-full items-center justify-center rounded-card border border-dashed border-white/10 bg-ink-900/50 text-center"
-            aria-label="3D demo placeholder"
-            role="img"
-          >
-            <div className="max-w-[70%]">
-              <p className="font-display uppercase tracking-display text-white text-sm">
-                3D demo coming soon
-              </p>
-              <p className="mt-1 text-xs text-muted">
-                Animation is authored per exercise. The 4-pilot sign-off gates
-                further specs.
-              </p>
-            </div>
-          </div>
-        )}
+      <div className="space-y-4 shell-gutter">
+        <ExerciseDemo slug={exercise.slug} name={exercise.name} spec={spec} />
 
         {exercise.coachingCue ? (
           <Card>

@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
+import { Header } from "@/components/ui/Header";
 import { Card, CardTitle } from "@/components/ui/Card";
 import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -32,32 +32,24 @@ export default async function RecipeDetailPage({ params }: Props) {
 
   return (
     <AppShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link
-          href="/fuel/recipes"
-          className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
-        >
-          ← Recipes
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
-          {recipe.name}
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          Serves {recipe.servings}
-        </p>
+      <Header
+        back={{ href: "/fuel/recipes", label: "Recipes" }}
+        title={recipe.name}
+        subtitle={`Serves ${recipe.servings}`}
+      >
         <div className="mt-3 flex flex-wrap gap-1.5">
           {recipe.fuelTags.map((t) => (
             <span
               key={t}
-              className="rounded-full bg-mint/10 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-mint-400"
+              className="rounded-full bg-ink-800 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-muted"
             >
               {FUEL_TAG_LABEL[t]}
             </span>
           ))}
         </div>
-      </div>
+      </Header>
 
-      <div className="space-y-4 px-5 pb-6">
+      <div className="space-y-4 shell-gutter pb-6">
         <Card>
           <CardTitle>Ingredients</CardTitle>
           <ul className="mt-3 space-y-2">
@@ -89,7 +81,7 @@ export default async function RecipeDetailPage({ params }: Props) {
               {recipe.allergens.map((a) => (
                 <span
                   key={a}
-                  className="rounded-full border border-yellow-500/30 bg-yellow-500/5 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-yellow-200"
+                  className="rounded-full border border-caution-500/30 bg-caution-500/5 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-caution-200"
                 >
                   {ALLERGEN_LABEL[a]}
                 </span>

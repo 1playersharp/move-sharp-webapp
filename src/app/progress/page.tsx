@@ -102,13 +102,13 @@ export default async function ProgressPage({ searchParams }: Props) {
         right={
           <Link
             href="/progress/log"
-            className="rounded-full bg-mint px-3 py-1 font-display uppercase tracking-display text-[0.65rem] text-ink-950 hover:bg-mint-400"
+            className="rounded-full bg-brand px-3 py-1 font-display uppercase tracking-display text-[0.65rem] text-ink-950 hover:bg-brand-400"
           >
             + Log PB
           </Link>
         }
       />
-      <div className="space-y-6 px-5">
+      <div className="space-y-6 shell-gutter">
         <ProgressTabs active={active} />
         {body}
       </div>

@@ -16,7 +16,7 @@ export function ProgrammeCard({ programme }: { programme: Programme }) {
   return (
     <Link
       href={`/train/${programme.slug}`}
-      className="group block rounded-card border border-white/5 bg-ink-850 p-4 shadow-card transition-colors hover:border-mint/30"
+      className="group block rounded-card border border-white/5 bg-ink-850 p-4 shadow-card transition-colors hover:border-brand/30"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">

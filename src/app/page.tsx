@@ -50,7 +50,7 @@ export default async function HomePage() {
       {/* The full card carries identity, so it replaces the old
           "Hi, {name}" Header rather than sitting under it — no duplicate
           name, and it keeps the vertical budget on a 375px phone. */}
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))]">
+      <div className="shell-gutter pt-[max(1rem,env(safe-area-inset-top))]">
         <PlayerHeader
           variant="full"
           firstName={headerData.firstName}
@@ -61,7 +61,7 @@ export default async function HomePage() {
           startAction={startSession}
         />
       </div>
-      <div className="mt-6 space-y-6 px-5">
+      <div className="mt-6 space-y-6 shell-gutter">
         <ReadinessCard today={todayReadiness} />
         <TrainingLoadCard countsByDay={countsByDay} />
         <QualityGrid />

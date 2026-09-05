@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BackButton } from "@/components/ui/BackButton";
 import { AuthShell } from "@/components/layout/AuthShell";
 import { Button } from "@/components/ui/Button";
 import { Field, Input, Label, ErrorText, HelpText } from "@/components/ui/Field";
@@ -30,13 +31,13 @@ export default async function ManagerSignUpPage({ searchParams }: Props) {
     <AuthShell>
       <div className="space-y-6">
         <div>
-          <p className="font-display uppercase tracking-display text-mint-400 text-xs">
+          <p className="font-display uppercase tracking-display text-brand-400 text-xs">
             Coach sign-up
           </p>
           <h1 className="section-title mt-2">Create a coach account.</h1>
           <p className="mt-1 text-sm text-muted">
             For managers and coaches only. Players sign up on the{" "}
-            <Link href="/sign-up" className="text-mint-400 hover:text-mint">
+            <Link href="/sign-up" className="text-brand-400 hover:text-brand">
               player page
             </Link>
             .
@@ -63,6 +64,7 @@ export default async function ManagerSignUpPage({ searchParams }: Props) {
             <HelpText>At least 8 characters.</HelpText>
           </Field>
           <Button type="submit" className="w-full">Create coach account</Button>
+            <BackButton />
         </form>
 
         <div className="rounded-xl border border-white/5 bg-ink-900/50 p-3">
@@ -76,7 +78,7 @@ export default async function ManagerSignUpPage({ searchParams }: Props) {
 
         <HelpText className="text-center">
           Already have a coach account?{" "}
-          <Link href="/sign-in" className="text-mint-400 hover:text-mint">Sign in</Link>
+          <Link href="/sign-in" className="text-brand-400 hover:text-brand">Sign in</Link>
         </HelpText>
       </div>
     </AuthShell>

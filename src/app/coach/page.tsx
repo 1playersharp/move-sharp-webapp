@@ -24,10 +24,10 @@ export default async function CoachHomePage() {
         subtitle={user.manager.club ?? "Coach"}
       />
 
-      <div className="space-y-6 px-5 pb-6">
+      <div className="space-y-6 shell-gutter pb-6">
         <section className="grid grid-cols-2 gap-3">
           <div className="rounded-card border border-white/5 bg-ink-850 p-4 shadow-card">
-            <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+            <p className="font-display uppercase tracking-display text-muted text-[0.65rem]">
               Teams
             </p>
             <p className="mt-1 font-display uppercase tracking-display text-white text-3xl">
@@ -35,7 +35,7 @@ export default async function CoachHomePage() {
             </p>
           </div>
           <div className="rounded-card border border-white/5 bg-ink-850 p-4 shadow-card">
-            <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+            <p className="font-display uppercase tracking-display text-muted text-[0.65rem]">
               Players
             </p>
             <p className="mt-1 font-display uppercase tracking-display text-white text-3xl">
@@ -49,7 +49,7 @@ export default async function CoachHomePage() {
             <h2 className="section-title">Your teams</h2>
             <Link
               href="/coach/teams"
-              className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
+              className="text-[0.7rem] font-display uppercase tracking-display text-brand-400 hover:text-brand"
             >
               Manage →
             </Link>
@@ -57,7 +57,7 @@ export default async function CoachHomePage() {
           {teamsCount === 0 ? (
             <Link
               href="/coach/teams/new"
-              className="block rounded-card border border-dashed border-mint/40 bg-mint/5 p-5 text-center hover:border-mint"
+              className="block rounded-card border border-dashed border-brand/40 bg-brand/5 p-5 text-center hover:border-brand"
             >
               <p className="font-display uppercase tracking-display text-white text-sm">
                 Create your first team
@@ -69,7 +69,7 @@ export default async function CoachHomePage() {
           ) : (
             <Link
               href="/coach/teams"
-              className="block rounded-card border border-white/5 bg-ink-850 p-4 shadow-card hover:border-mint/40"
+              className="block rounded-card border border-white/5 bg-ink-850 p-4 shadow-card hover:border-brand/40"
             >
               <p className="text-sm text-white">
                 {teamsCount} team{teamsCount === 1 ? "" : "s"} · {membersCount}{" "}
@@ -84,7 +84,7 @@ export default async function CoachHomePage() {
 
         <section>
           <div className="rounded-md border border-white/10 bg-ink-900/50 p-4 text-xs text-muted-strong">
-            <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+            <p className="font-display uppercase tracking-display text-muted text-[0.65rem]">
               Data privacy
             </p>
             <p className="mt-2">

@@ -11,11 +11,11 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const base =
   "inline-flex items-center justify-center font-display uppercase tracking-display rounded-full transition-colors " +
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 " +
   "disabled:opacity-50 disabled:cursor-not-allowed";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-mint text-ink-950 hover:bg-mint-400 active:bg-mint-600",
+  primary: "bg-brand text-ink-950 hover:bg-brand-400 active:bg-brand-600",
   secondary: "bg-ink-800 text-white hover:bg-ink-700",
   ghost: "bg-transparent text-muted-strong hover:text-white",
 };

@@ -9,3 +9,8 @@ tsconfig.tsbuildinfo
 .vercel
 next-env.d.ts
 .env*
+
+# Raw Mixamo exports for the 3D coach (~30MB). The built model
+# public/models/coach.glb is committed instead, and scripts/build-coach-glb.mjs
+# falls back to it when these are absent. Keep the sources outside git.
+src/animations/

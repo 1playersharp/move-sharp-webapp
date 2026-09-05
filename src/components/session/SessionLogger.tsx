@@ -4,11 +4,16 @@ import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/Button";
 import { completeSession } from "@/app/actions/sessions";
 import { cn } from "@/lib/cn";
+import { ExerciseDemo } from "@/components/exercise/ExerciseDemo";
+import { hasExerciseDemo } from "@/lib/exercise/demo";
+import type { MotionSpec } from "@/lib/exercise/motion-spec";
 
 type Item = {
   id: string;
+  slug: string;
   name: string;
   category: string;
+  spec?: MotionSpec | null;
   prescription: string;
   notes?: string;
   pbMetricKey?: string | null;
@@ -34,10 +39,20 @@ export function SessionLogger({ sessionId, items }: Props) {
   const [notes, setNotes] = useState("");
   const [feltAfter, setFeltAfter] = useState<number | null>(null);
   const [pbValues, setPbValues] = useState<Record<string, string>>({});
+  // Demos are mounted only while open — each one is its own WebGL context.
+  const [openDemos, setOpenDemos] = useState<Set<string>>(new Set());
   const [pending, startTransition] = useTransition();
 
   const toggle = (id: string) =>
     setChecked((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+
+  const toggleDemo = (id: string) =>
+    setOpenDemos((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
@@ -74,14 +89,16 @@ export function SessionLogger({ sessionId, items }: Props) {
           {items.map((item) => {
             const isDone = checked.has(item.id);
             const showPb = isDone && item.pbMetricKey;
+            const demoOpen = openDemos.has(item.id);
+            const canDemo = hasExerciseDemo(item.slug, item.spec);
             return (
               <li key={item.id}>
                 <div
                   className={cn(
                     "rounded-card border transition-colors",
                     isDone
-                      ? "border-mint bg-mint/10"
-                      : "border-white/5 bg-ink-850 hover:border-mint/30",
+                      ? "border-completion bg-completion/10"
+                      : "border-white/5 bg-ink-850 hover:border-completion/30",
                   )}
                 >
                   <button
@@ -94,7 +111,7 @@ export function SessionLogger({ sessionId, items }: Props) {
                       <span
                         className={cn(
                           "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border",
-                          isDone ? "border-mint bg-mint text-ink-950" : "border-white/20 bg-ink-800",
+                          isDone ? "border-completion bg-completion text-ink-950" : "border-white/20 bg-ink-800",
                         )}
                         aria-hidden="true"
                       >
@@ -117,9 +134,30 @@ export function SessionLogger({ sessionId, items }: Props) {
                     </div>
                   </button>
 
+                  {canDemo ? (
+                    <div className="border-t border-white/5 px-4 py-2">
+                      <button
+                        type="button"
+                        onClick={() => toggleDemo(item.id)}
+                        aria-expanded={demoOpen}
+                        className="text-[0.7rem] font-display uppercase tracking-display text-brand-400 hover:text-brand"
+                      >
+                        {demoOpen ? "Hide the move" : "Show me the move"}
+                      </button>
+                      {demoOpen ? (
+                        <ExerciseDemo
+                          slug={item.slug}
+                          name={item.name}
+                          spec={item.spec}
+                          className="mt-2"
+                        />
+                      ) : null}
+                    </div>
+                  ) : null}
+
                   {showPb ? (
                     <div className="border-t border-white/5 px-4 pb-3 pt-2">
-                      <label className="block text-[0.65rem] uppercase tracking-display font-display text-mint-400">
+                      <label className="block text-[0.65rem] uppercase tracking-display font-display text-achievement-400">
                         Log a PB? · {item.pbMetricLabel}
                       </label>
                       <input
@@ -134,7 +172,7 @@ export function SessionLogger({ sessionId, items }: Props) {
                           }))
                         }
                         placeholder={item.pbUnitHint ?? "value"}
-                        className="mt-1 h-9 w-full rounded-md bg-ink-800 px-3 text-sm text-white placeholder:text-muted border border-white/10 focus:border-mint focus:outline-none focus:ring-2 focus:ring-mint/30"
+                        className="mt-1 h-9 w-full rounded-md bg-ink-800 px-3 text-sm text-white placeholder:text-muted border border-white/10 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30"
                       />
                       <p className="mt-1 text-[0.65rem] text-muted">
                         Optional — only fill if you timed or measured this rep.
@@ -162,7 +200,7 @@ export function SessionLogger({ sessionId, items }: Props) {
                 className={cn(
                   "flex flex-col items-center rounded-md border py-2 text-center",
                   active
-                    ? "border-mint bg-mint text-ink-950"
+                    ? "border-brand bg-brand text-ink-950"
                     : "border-white/5 bg-ink-800 text-muted hover:bg-ink-700",
                 )}
               >
@@ -185,7 +223,7 @@ export function SessionLogger({ sessionId, items }: Props) {
           maxLength={500}
           rows={3}
           placeholder="Anything worth remembering — what worked, what didn't."
-          className="w-full rounded-xl bg-ink-800 p-3 text-sm text-white placeholder:text-muted border border-white/5 focus:border-mint focus:outline-none focus:ring-2 focus:ring-mint/30"
+          className="w-full rounded-xl bg-ink-800 p-3 text-sm text-white placeholder:text-muted border border-white/5 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30"
         />
         <p className="mt-1 text-right text-[0.65rem] text-muted">{notes.length}/500</p>
       </section>

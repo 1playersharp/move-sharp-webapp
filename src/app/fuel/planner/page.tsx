@@ -49,14 +49,14 @@ export default async function PlannerPage() {
         subtitle="Pin recipes to the next seven days."
       />
 
-      <div className="space-y-4 px-5 pb-6">
+      <div className="space-y-4 shell-gutter pb-6">
         <div className="flex items-baseline justify-between">
           <p className="text-xs text-muted">
             {entries.length} meal{entries.length === 1 ? "" : "s"} planned
           </p>
           <Link
             href="/fuel/recipes"
-            className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
+            className="text-[0.7rem] font-display uppercase tracking-display text-brand-400 hover:text-brand"
           >
             Browse recipes →
           </Link>
@@ -71,14 +71,14 @@ export default async function PlannerPage() {
                 <div className="rounded-card border border-white/5 bg-ink-850 shadow-card">
                   <div
                     className={`flex items-baseline justify-between border-b border-white/5 px-4 py-3 ${
-                      isToday ? "bg-mint/5" : ""
+                      isToday ? "bg-brand/5" : ""
                     }`}
                   >
                     <div>
                       <p className="font-display uppercase tracking-display text-white text-base">
                         {dayShort(d)}
                         {isToday ? (
-                          <span className="ml-2 rounded-full bg-mint/20 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-mint-400">
+                          <span className="ml-2 rounded-full bg-ink-800 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-muted">
                             Today
                           </span>
                         ) : null}
@@ -93,14 +93,14 @@ export default async function PlannerPage() {
                         <li key={slot} className="px-4 py-3">
                           <div className="flex items-start justify-between gap-3">
                             <div className="min-w-0 flex-1">
-                              <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+                              <p className="font-display uppercase tracking-display text-muted text-[0.65rem]">
                                 {SLOT_LABEL[slot]}
                               </p>
                               {entry ? (
                                 <div className="mt-1">
                                   <Link
                                     href={`/fuel/recipes/${entry.recipe.slug}`}
-                                    className="text-sm text-white hover:text-mint"
+                                    className="text-sm text-white hover:text-brand"
                                   >
                                     {entry.recipe.name}
                                   </Link>
@@ -116,7 +116,7 @@ export default async function PlannerPage() {
                                 <>
                                   <Link
                                     href={`/fuel/planner/add?date=${dKey}&slot=${slot}`}
-                                    className="rounded-full border border-white/10 px-2.5 py-1 font-display uppercase tracking-display text-[0.6rem] text-muted hover:border-mint hover:text-mint"
+                                    className="rounded-full border border-white/10 px-2.5 py-1 font-display uppercase tracking-display text-[0.6rem] text-muted hover:border-brand hover:text-brand"
                                   >
                                     Swap
                                   </Link>
@@ -124,7 +124,7 @@ export default async function PlannerPage() {
                                     <input type="hidden" name="id" value={entry.id} />
                                     <button
                                       type="submit"
-                                      className="rounded-full border border-white/10 px-2.5 py-1 font-display uppercase tracking-display text-[0.6rem] text-muted hover:border-red-500/50 hover:text-red-300"
+                                      className="rounded-full border border-white/10 px-2.5 py-1 font-display uppercase tracking-display text-[0.6rem] text-muted hover:border-caution-500/50 hover:text-caution-300"
                                     >
                                       Remove
                                     </button>
@@ -133,7 +133,7 @@ export default async function PlannerPage() {
                               ) : (
                                 <Link
                                   href={`/fuel/planner/add?date=${dKey}&slot=${slot}`}
-                                  className="rounded-full bg-mint px-2.5 py-1 font-display uppercase tracking-display text-[0.6rem] text-ink-950 hover:bg-mint-400"
+                                  className="rounded-full bg-brand px-2.5 py-1 font-display uppercase tracking-display text-[0.6rem] text-ink-950 hover:bg-brand-400"
                                 >
                                   + Pin
                                 </Link>

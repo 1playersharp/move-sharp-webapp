@@ -47,12 +47,12 @@ export function BestsView({ summaries }: Props) {
         return (
           <section key={group}>
             <h2 className="section-title mb-3">{PB_GROUP_LABEL[group]}</h2>
-            <ul className="space-y-2">
+            <ul className="grid gap-2 md:grid-cols-2 xl:grid-cols-3">
               {items.map((s) => (
                 <li key={s.metric.key}>
                   <Link
                     href={`/progress/${s.metric.key}`}
-                    className="group flex items-center justify-between gap-3 rounded-card border border-white/5 bg-ink-850 p-4 shadow-card transition-colors hover:border-mint/30"
+                    className="group flex items-center justify-between gap-3 rounded-card border border-white/5 bg-ink-850 p-4 shadow-card transition-colors hover:border-brand/30"
                   >
                     <div className="min-w-0">
                       <p className="font-display uppercase tracking-display text-white text-sm leading-tight">
@@ -66,7 +66,7 @@ export function BestsView({ summaries }: Props) {
                     </div>
                     <div className="shrink-0 text-right">
                       {s.best ? (
-                        <span className="font-display uppercase tracking-display text-mint-400 text-lg">
+                        <span className="font-display uppercase tracking-display text-achievement-400 text-lg">
                           {formatMetricValue(s.best.value, s.metric.unit)}
                         </span>
                       ) : (

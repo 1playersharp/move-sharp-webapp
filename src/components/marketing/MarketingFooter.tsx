@@ -11,7 +11,7 @@ export function MarketingFooter() {
         <div>
           <Link
             href="/"
-            className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 rounded"
+            className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 rounded"
           >
             <WordMark className="text-xl" />
           </Link>
@@ -22,27 +22,27 @@ export function MarketingFooter() {
 
         <nav aria-label="Footer" className="grid grid-cols-2 gap-x-10 gap-y-4 text-sm sm:grid-cols-3">
           <div>
-            <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+            <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
               Product
             </p>
             <ul className="mt-3 space-y-2 text-white/75">
-              <li><Link href="/preview" className="hover:text-mint focus-visible:text-mint focus-visible:outline-none">See a session</Link></li>
-              <li><Link href="/for-parents" className="hover:text-mint focus-visible:text-mint focus-visible:outline-none">For parents</Link></li>
-              <li><Link href="/sign-up/manager" className="hover:text-mint focus-visible:text-mint focus-visible:outline-none">For coaches</Link></li>
-              <li><Link href="/sign-in" className="hover:text-mint focus-visible:text-mint focus-visible:outline-none">Sign in</Link></li>
+              <li><Link href="/preview" className="hover:text-brand focus-visible:text-brand focus-visible:outline-none">See a session</Link></li>
+              <li><Link href="/for-parents" className="hover:text-brand focus-visible:text-brand focus-visible:outline-none">For parents</Link></li>
+              <li><Link href="/sign-up/manager" className="hover:text-brand focus-visible:text-brand focus-visible:outline-none">For coaches</Link></li>
+              <li><Link href="/sign-in" className="hover:text-brand focus-visible:text-brand focus-visible:outline-none">Sign in</Link></li>
             </ul>
           </div>
           <div>
-            <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+            <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
               Legal
             </p>
             <ul className="mt-3 space-y-2 text-white/75">
-              <li><Link href="/privacy" className="hover:text-mint focus-visible:text-mint focus-visible:outline-none">Privacy</Link></li>
-              <li><Link href="/terms" className="hover:text-mint focus-visible:text-mint focus-visible:outline-none">Terms</Link></li>
+              <li><Link href="/privacy" className="hover:text-brand focus-visible:text-brand focus-visible:outline-none">Privacy</Link></li>
+              <li><Link href="/terms" className="hover:text-brand focus-visible:text-brand focus-visible:outline-none">Terms</Link></li>
               <li>
                 <a
                   href="mailto:hello@movesharp.app"
-                  className="hover:text-mint focus-visible:text-mint focus-visible:outline-none"
+                  className="hover:text-brand focus-visible:text-brand focus-visible:outline-none"
                 >
                   Contact
                 </a>
@@ -50,7 +50,7 @@ export function MarketingFooter() {
             </ul>
           </div>
           <div className="col-span-2 sm:col-span-1">
-            <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+            <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
               Family
             </p>
             <ul className="mt-3 space-y-2 text-white/75">

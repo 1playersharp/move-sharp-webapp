@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
+import { Header } from "@/components/ui/Header";
 import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { categoryFromSlug, categoryMeta } from "@/lib/constants/exercise-categories";
@@ -26,25 +27,14 @@ export default async function CategoryExercisesPage({ params }: Props) {
 
   return (
     <AppShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <Link
-              href="/train/exercise"
-              className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
-            >
-              ← Exercise
-            </Link>
-            <h1 className="mt-2 font-display uppercase tracking-display text-white text-2xl leading-tight">
-              {meta.label}
-            </h1>
-            <p className="mt-1 text-sm text-muted">{meta.blurb}</p>
-          </div>
-          <ContextToggle context={context} />
-        </div>
-      </div>
+      <Header
+        back={{ href: "/train/exercise", label: "Exercise" }}
+        title={meta.label}
+        subtitle={meta.blurb}
+        right={<ContextToggle context={context} />}
+      />
 
-      <div className="space-y-2 px-5">
+      <div className="shell-gutter grid gap-2 md:grid-cols-2 xl:grid-cols-3">
         {exercises.length === 0 ? (
           <p className="text-sm text-muted">No exercises yet in this category.</p>
         ) : (
@@ -54,7 +44,7 @@ export default async function CategoryExercisesPage({ params }: Props) {
               <Link
                 key={e.id}
                 href={`/train/exercise/${meta.slug}/${e.slug}`}
-                className="group flex items-start justify-between gap-3 rounded-card border border-white/5 bg-ink-850 p-4 shadow-card transition-colors hover:border-mint/30"
+                className="group flex items-start justify-between gap-3 rounded-card border border-white/5 bg-ink-850 p-4 shadow-card transition-colors hover:border-brand/30"
               >
                 <div className="min-w-0">
                   <h3 className="font-display uppercase tracking-display text-white text-base leading-tight">
@@ -66,7 +56,7 @@ export default async function CategoryExercisesPage({ params }: Props) {
                     </p>
                   ) : null}
                   <p className="mt-2 text-[0.65rem] uppercase tracking-display font-display text-muted">
-                    <span className="text-mint-400">{ctxLabel}</span> · {equipment}
+                    <span className="text-muted-strong">{ctxLabel}</span> · {equipment}
                   </p>
                 </div>
                 <span aria-hidden="true" className="shrink-0 self-center text-lg text-muted group-hover:text-white">

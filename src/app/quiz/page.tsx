@@ -39,7 +39,7 @@ export default async function QuizPage({ searchParams }: Props) {
         subtitle="Ten quick questions. We build the 6-week block from your answers."
       />
 
-      <form action={submitQuiz} className="space-y-6 px-5 pb-16">
+      <form action={submitQuiz} className="space-y-6 shell-gutter pb-16">
         {error ? <ErrorText>{error}</ErrorText> : null}
 
         {QUIZ_QUESTIONS.map((q, i) => {
@@ -50,7 +50,7 @@ export default async function QuizPage({ searchParams }: Props) {
 
           return (
             <fieldset key={q.key} className="rounded-card border border-white/5 bg-ink-850 p-4 shadow-card">
-              <legend className="px-1 font-display uppercase tracking-display text-mint-400 text-xs">
+              <legend className="px-1 font-display uppercase tracking-display text-muted text-xs">
                 Q{i + 1} / {QUIZ_QUESTIONS.length}
               </legend>
               <p className="font-display uppercase tracking-display text-white text-base leading-tight">
@@ -65,7 +65,7 @@ export default async function QuizPage({ searchParams }: Props) {
                     <label
                       key={opt.key}
                       htmlFor={id}
-                      className="flex cursor-pointer items-start gap-3 rounded-md border border-white/5 bg-ink-900/60 p-3 hover:border-mint/30 has-[:checked]:border-mint has-[:checked]:bg-mint/10"
+                      className="flex cursor-pointer items-start gap-3 rounded-md border border-white/5 bg-ink-900/60 p-3 hover:border-brand/30 has-[:checked]:border-brand has-[:checked]:bg-brand/10"
                     >
                       <input
                         id={id}
@@ -74,7 +74,7 @@ export default async function QuizPage({ searchParams }: Props) {
                         value={opt.key}
                         defaultChecked={isDefault}
                         required
-                        className="mt-0.5 h-4 w-4 accent-mint"
+                        className="mt-0.5 h-4 w-4 accent-brand"
                       />
                       <span className="min-w-0">
                         <span className="block text-sm text-white">{opt.label}</span>

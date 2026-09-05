@@ -1,14 +1,16 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
+import { Header } from "@/components/ui/Header";
 import { Card, CardTitle } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { QualityChip } from "@/components/train/QualityChip";
 import { startSession } from "@/app/actions/sessions";
 import { DeleteProgrammeConfirm } from "@/components/train/DeleteProgrammeConfirm";
 import { contextLabel, equipmentForContext } from "@/lib/training-context";
-import { inferSessionExerciseSlugs } from "@/lib/programmes/session-exercises";
+import { categoryMeta } from "@/lib/constants/exercise-categories";
 
 const BAND_LABEL: Record<"U13_U15" | "U16_U18", string> = {
   U13_U15: "U13-15",
@@ -43,6 +45,28 @@ export default async function ProgrammeDetailPage({ params }: Props) {
     where: { programmeId: programme.id },
     select: { id: true, week: true, day: true },
   });
+  // Which sessions has this player already finished? Drives the page-level
+  // Start / Continue action below.
+  const completedSessions = await prisma.session.findMany({
+    where: {
+      playerId: user.player.id,
+      programmeId: programme.id,
+      completedAt: { not: null },
+    },
+    select: { sessionTemplateId: true },
+  });
+  const completedTemplateIds = new Set(
+    completedSessions
+      .map((s) => s.sessionTemplateId)
+      .filter((id): id is string => Boolean(id)),
+  );
+  const orderedTemplates = templates
+    .filter((t) => t.week != null && t.day != null)
+    .sort((a, b) => a.week! - b.week! || a.day! - b.day!);
+  const nextTemplate =
+    orderedTemplates.find((t) => !completedTemplateIds.has(t.id)) ?? null;
+  const anyCompleted = completedTemplateIds.size > 0;
+
   const templateKey = (week: number, day: number) => `w${week}d${day}`;
   const templateByKey = new Map(
     templates
@@ -66,19 +90,14 @@ export default async function ProgrammeDetailPage({ params }: Props) {
 
   const curriculum = (programme.curriculum ?? []) as unknown as CurriculumWeek[];
 
-  // Pull every exercise slug referenced anywhere in the curriculum in
-  // one query, then look up by slug in the render loop. Seeded sessions
-  // don't carry exerciseSlugs, so we infer from name+focus text and
-  // filter to the player's context.
+  // Pull every exercise slug referenced anywhere in the curriculum in one
+  // query, then look up by slug in the render loop. Sessions carry their
+  // exercise list explicitly (prisma/programmes), so nothing is inferred.
   const sessionSlugs = new Map<string, string[]>();
   const referencedSlugs = new Set<string>();
   for (const wk of curriculum) {
     for (let i = 0; i < wk.sessions.length; i++) {
-      const s = wk.sessions[i];
-      const slugs =
-        s.exerciseSlugs && s.exerciseSlugs.length > 0
-          ? s.exerciseSlugs
-          : inferSessionExerciseSlugs(s, context);
+      const slugs = wk.sessions[i].exerciseSlugs ?? [];
       sessionSlugs.set(`w${wk.week}s${i}`, slugs);
       slugs.forEach((slug) => referencedSlugs.add(slug));
     }
@@ -91,31 +110,34 @@ export default async function ProgrammeDetailPage({ params }: Props) {
           name: true,
           category: true,
           defaultPrescription: true,
+          contexts: true,
         },
       })
     : [];
-  const bankBySlug = new Map(bankExercises.map((e) => [e.slug, e]));
+  // Gym/home twins are both listed on the session; the player only sees the
+  // one matching their context. Filtering on the exercise's own contexts
+  // keeps this data-driven rather than a hardcoded list of twin slugs.
+  const bankBySlug = new Map(
+    bankExercises
+      .filter((e) => e.contexts.includes(context))
+      .map((e) => [e.slug, e]),
+  );
 
   return (
     <AppShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link href="/train" className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint">
-          ← Programmes
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
-          {programme.name}
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          {bandLabel} · {programme.weeks} weeks · {programme.sessionsPerWeek}×/wk
-        </p>
+      <Header
+        back={{ href: "/train", label: "Programmes" }}
+        title={programme.name}
+        subtitle={`${bandLabel} · ${programme.weeks} weeks · ${programme.sessionsPerWeek}×/wk`}
+      >
         <div className="mt-3 flex flex-wrap gap-1.5">
           {programme.qualities.map((q) => (
             <QualityChip key={q} quality={q} />
           ))}
         </div>
-      </div>
+      </Header>
 
-      <div className="space-y-4 px-5">
+      <div className="space-y-4 shell-gutter">
         {programme.intent ? (
           <Card>
             <CardTitle>Why this block</CardTitle>
@@ -128,8 +150,24 @@ export default async function ProgrammeDetailPage({ params }: Props) {
           <p className="mt-2 text-sm text-muted-strong">{equipment}</p>
         </Card>
 
+        {nextTemplate ? (
+          <form action={startSession}>
+            <input type="hidden" name="sessionTemplateId" value={nextTemplate.id} />
+            <Button type="submit" size="lg" className="w-full">
+              {anyCompleted ? "Continue programme" : "Start programme"}
+            </Button>
+            <p className="mt-2 text-center text-xs text-muted">
+              Next up: week {nextTemplate.week} · session {nextTemplate.day}
+            </p>
+          </form>
+        ) : isMaterialised ? (
+          <div className="rounded-md border border-completion/25 bg-completion/5 p-3 text-center text-xs text-completion-400">
+            Every session in this block is complete. Pick another from Train.
+          </div>
+        ) : null}
+
         {!isMaterialised ? (
-          <div className="rounded-md border border-yellow-500/20 bg-yellow-500/5 p-3 text-xs text-yellow-200">
+          <div className="rounded-md border border-white/10 bg-ink-800 p-3 text-xs text-muted-strong">
             Preview only — session logging for this block ships in a later phase.
           </div>
         ) : null}
@@ -144,7 +182,7 @@ export default async function ProgrammeDetailPage({ params }: Props) {
                 <li key={wk.week}>
                   <Card>
                     <div className="mb-3 flex items-baseline justify-between gap-2">
-                      <span className="font-display uppercase tracking-display text-mint-400 text-sm">
+                      <span className="font-display uppercase tracking-display text-muted text-sm">
                         Week {wk.week}
                       </span>
                       <span className="text-xs text-muted">{wk.sessions.length} sessions</span>
@@ -174,18 +212,18 @@ export default async function ProgrammeDetailPage({ params }: Props) {
                                       {rows.map((ex) => (
                                         <li key={ex.slug}>
                                           <Link
-                                            href={`/train/exercise/${ex.category}/${ex.slug}`}
-                                            className="group flex items-center justify-between gap-3 px-3 py-2 transition-colors hover:bg-mint/5"
+                                            href={`/train/exercise/${categoryMeta(ex.category).slug}/${ex.slug}`}
+                                            className="group flex items-center justify-between gap-3 px-3 py-2 transition-colors hover:bg-brand/5"
                                           >
-                                            <span className="min-w-0 flex-1 truncate text-[0.8rem] text-white group-hover:text-mint">
+                                            <span className="min-w-0 flex-1 truncate text-[0.8rem] text-white group-hover:text-brand">
                                               {ex.name}
                                             </span>
-                                            <span className="shrink-0 font-display uppercase tracking-display text-[0.65rem] tabular-nums text-mint-400">
+                                            <span className="shrink-0 font-display uppercase tracking-display text-[0.65rem] tabular-nums text-muted-strong">
                                               {ex.defaultPrescription}
                                             </span>
                                             <span
                                               aria-hidden="true"
-                                              className="shrink-0 text-muted group-hover:text-mint"
+                                              className="shrink-0 text-muted group-hover:text-brand"
                                             >
                                               ›
                                             </span>
@@ -201,7 +239,7 @@ export default async function ProgrammeDetailPage({ params }: Props) {
                                   <input type="hidden" name="sessionTemplateId" value={templateId} />
                                   <button
                                     type="submit"
-                                    className="rounded-full bg-mint px-3 py-1 font-display uppercase tracking-display text-[0.65rem] text-ink-950 hover:bg-mint-400"
+                                    className="rounded-full bg-brand px-3 py-1 font-display uppercase tracking-display text-[0.65rem] text-ink-950 hover:bg-brand-400"
                                   >
                                     Start
                                   </button>

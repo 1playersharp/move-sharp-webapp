@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CoachShell } from "@/components/layout/CoachShell";
+import { Header } from "@/components/ui/Header";
 import { Button } from "@/components/ui/Button";
 import { Field, Input, Label, ErrorText, HelpText } from "@/components/ui/Field";
 import { requireManager } from "@/lib/auth";
@@ -15,23 +16,13 @@ export default async function CoachNewTeamPage({ searchParams }: Props) {
 
   return (
     <CoachShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link
-          href="/coach/teams"
-          className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint focus-visible:text-mint"
-        >
-          ← Teams
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
-          Create a team
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          Give it a name. We'll generate an invite code you share with your
-          players.
-        </p>
-      </div>
+      <Header
+        back={{ href: "/coach/teams", label: "Teams" }}
+        title="Create a team"
+        subtitle="Give it a name. We'll generate an invite code you share with your players."
+      />
 
-      <form action={createTeam} className="space-y-5 px-5 pb-8">
+      <form action={createTeam} className="space-y-5 shell-gutter pb-8">
         {error ? <ErrorText>{error}</ErrorText> : null}
 
         <Field>
@@ -55,7 +46,7 @@ export default async function CoachNewTeamPage({ searchParams }: Props) {
           </Button>
           <Link
             href="/coach/teams"
-            className="inline-flex h-11 w-full items-center justify-center rounded-full border border-white/10 px-5 font-display uppercase tracking-display text-sm text-muted hover:text-white sm:w-auto"
+            className="inline-flex h-11 w-full items-center justify-center rounded-full border border-white/10 shell-gutter font-display uppercase tracking-display text-sm text-muted hover:text-white sm:w-auto"
           >
             Cancel
           </Link>

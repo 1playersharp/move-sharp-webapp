@@ -33,7 +33,7 @@ export function ContextToggle({ context, size = "sm", className }: Props) {
               className={cn(
                 "rounded-full font-display uppercase tracking-display transition-colors",
                 pad,
-                active ? "bg-mint text-ink-950" : "text-muted hover:text-white",
+                active ? "bg-brand text-ink-950" : "text-muted hover:text-white",
               )}
             >
               {value === "home" ? "Home" : "Gym"}

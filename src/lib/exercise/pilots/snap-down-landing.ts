@@ -20,8 +20,8 @@ export const snapDownLanding: MotionSpec = {
     spine: {
       rotationDeg: [
         { t: 0, value: [0, 0, 0], ease: "smooth" },
-        { t: 0.3, value: [22, 0, 0], ease: "smooth" },
-        { t: 0.7, value: [22, 0, 0], ease: "smooth" },
+        { t: 0.3, value: [-22, 0, 0], ease: "smooth" },
+        { t: 0.7, value: [-22, 0, 0], ease: "smooth" },
         { t: 1, value: [0, 0, 0], ease: "smooth" },
       ],
     },

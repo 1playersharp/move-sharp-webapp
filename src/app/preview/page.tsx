@@ -23,7 +23,7 @@ export default function PreviewPage() {
           </Link>
           <Link
             href="/sign-in"
-            className="text-sm text-mint-400 underline-offset-4 hover:text-mint hover:underline focus-visible:text-mint focus-visible:underline"
+            className="text-sm text-brand-400 underline-offset-4 hover:text-brand hover:underline focus-visible:text-brand focus-visible:underline"
           >
             Sign in
           </Link>
@@ -34,11 +34,11 @@ export default function PreviewPage() {
         <div className="mb-8">
           <Link
             href="/"
-            className="text-xs font-display uppercase tracking-display text-mint-400 hover:text-mint focus-visible:text-mint"
+            className="text-xs font-display uppercase tracking-display text-brand-400 hover:text-brand focus-visible:text-brand"
           >
             ← Back
           </Link>
-          <p className="mt-4 font-display uppercase tracking-display text-mint-400 text-xs">
+          <p className="mt-4 font-display uppercase tracking-display text-brand-400 text-xs">
             No account needed · preview
           </p>
           <h1 className="mt-2 font-display uppercase tracking-display text-white text-4xl leading-[1.05]">
@@ -49,25 +49,25 @@ export default function PreviewPage() {
           </p>
           <dl className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/70">
             <div className="flex items-center gap-2">
-              <dt className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+              <dt className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
                 Quality
               </dt>
               <dd>{session.quality}</dd>
             </div>
             <div className="flex items-center gap-2">
-              <dt className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+              <dt className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
                 Context
               </dt>
               <dd>{session.context}</dd>
             </div>
             <div className="flex items-center gap-2">
-              <dt className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+              <dt className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
                 Duration
               </dt>
               <dd>≈ {session.approxMinutes} min</dd>
             </div>
             <div className="flex items-center gap-2">
-              <dt className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+              <dt className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
                 Items
               </dt>
               <dd>{totalItems}</dd>
@@ -89,7 +89,7 @@ export default function PreviewPage() {
                 >
                   {block.heading}
                 </h2>
-                <span className="font-display uppercase tracking-display text-[0.65rem] text-mint-400">
+                <span className="font-display uppercase tracking-display text-[0.65rem] text-brand-400">
                   {block.items.length} {block.items.length === 1 ? "item" : "items"}
                 </span>
               </div>
@@ -111,16 +111,16 @@ export default function PreviewPage() {
                         </div>
                         <p className="mt-1 text-sm text-muted-strong">{item.cue}</p>
                       </div>
-                      <span className="shrink-0 font-display uppercase tracking-display text-mint-400 text-[0.7rem] tabular-nums">
+                      <span className="shrink-0 font-display uppercase tracking-display text-muted-strong text-[0.7rem] tabular-nums">
                         {item.prescription}
                       </span>
                     </div>
                     {item.pilotAvailable ? (
-                      <div className="mt-3 flex items-center gap-2 rounded-md border border-mint/20 bg-mint/5 px-3 py-2">
+                      <div className="mt-3 flex items-center gap-2 rounded-md border border-brand/20 bg-brand/5 px-3 py-2">
                         <svg
                           aria-hidden="true"
                           viewBox="0 0 24 24"
-                          className="h-4 w-4 shrink-0 text-mint"
+                          className="h-4 w-4 shrink-0 text-brand"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="1.75"
@@ -132,7 +132,7 @@ export default function PreviewPage() {
                           <path d="M13 8h4" />
                         </svg>
                         <p className="text-[0.7rem] text-white/80">
-                          <span className="font-display uppercase tracking-display text-mint-400">
+                          <span className="font-display uppercase tracking-display text-brand-400">
                             3D coach demo available
                           </span>{" "}
                           in the app — full rotation, real-time playback.
@@ -146,7 +146,7 @@ export default function PreviewPage() {
           ))}
         </div>
 
-        <div className="mt-12 rounded-card border border-mint/30 bg-mint/5 p-6 text-center">
+        <div className="mt-12 rounded-card border border-brand/30 bg-brand/5 p-6 text-center">
           <p className="font-display uppercase tracking-display text-white text-lg">
             Like the shape of this?
           </p>

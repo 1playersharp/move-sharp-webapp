@@ -11,21 +11,21 @@ export type Badge = {
 
 export function BadgesView({ badges }: { badges: Badge[] }) {
   return (
-    <ul className="grid grid-cols-2 gap-3">
+    <ul className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4">
       {badges.map((b) => (
         <li
           key={b.key}
           className={cn(
             "rounded-card border p-4 text-center",
             b.earned
-              ? "border-mint bg-mint/10"
+              ? "border-achievement bg-achievement/10"
               : "border-white/5 bg-ink-850 opacity-60",
           )}
         >
           <div
             className={cn(
               "mx-auto flex h-10 w-10 items-center justify-center rounded-full text-xl",
-              b.earned ? "bg-mint text-ink-950" : "bg-ink-800 text-muted",
+              b.earned ? "bg-achievement text-ink-950" : "bg-ink-800 text-muted",
             )}
             aria-hidden="true"
           >
@@ -36,7 +36,7 @@ export function BadgesView({ badges }: { badges: Badge[] }) {
           </p>
           <p className="mt-1 text-[0.65rem] text-muted">{b.criteria}</p>
           {b.earned && b.earnedAt ? (
-            <p className="mt-2 text-[0.6rem] uppercase tracking-display font-display text-mint-400">
+            <p className="mt-2 text-[0.6rem] uppercase tracking-display font-display text-achievement-400">
               Earned {b.earnedAt.toLocaleDateString()}
             </p>
           ) : null}

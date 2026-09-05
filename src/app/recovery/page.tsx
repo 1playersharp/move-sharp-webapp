@@ -14,8 +14,8 @@ export default async function RecoveryPage() {
         subtitle="Stay durable. Return safely."
       />
 
-      <div className="space-y-8 px-5 pb-6">
-        {/* Returning-from-injury entry point — mint-tinted card so it
+      <div className="space-y-8 shell-gutter pb-6">
+        {/* Returning-from-injury entry point — caution-tinted card so it
             reads as a distinct section from the general work above.
             Doesn't require any acknowledgment yet; the interstitial
             fires per-session, not per-visit-to-the-hub. */}
@@ -23,11 +23,11 @@ export default async function RecoveryPage() {
           <h2 className="section-title">Returning from injury</h2>
           <Link
             href="/recovery/returning-from-injury"
-            className="block rounded-card border border-red-500/25 bg-red-500/5 p-5 shadow-card hover:border-red-500/60"
+            className="block max-w-3xl rounded-card border border-caution-500/25 bg-caution-500/5 p-5 shadow-card hover:border-caution-500/60"
           >
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="font-display uppercase tracking-display text-red-300 text-xs">
+                <p className="font-display uppercase tracking-display text-caution-300 text-xs">
                   Physio-cleared only
                 </p>
                 <p className="mt-2 font-display uppercase tracking-display text-white text-lg leading-tight">
@@ -55,6 +55,7 @@ export default async function RecoveryPage() {
               No clearance needed — for everyone, every day.
             </p>
           </div>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {GENERAL_RECOVERY.map((block) => (
             <article
               key={block.heading}
@@ -78,7 +79,7 @@ export default async function RecoveryPage() {
                           {item.cue}
                         </p>
                       </div>
-                      <span className="shrink-0 font-display uppercase tracking-display text-mint-400 text-[0.65rem] tabular-nums">
+                      <span className="shrink-0 font-display uppercase tracking-display text-muted-strong text-[0.65rem] tabular-nums">
                         {item.prescription}
                       </span>
                     </div>
@@ -87,6 +88,7 @@ export default async function RecoveryPage() {
               </ul>
             </article>
           ))}
+          </div>
         </section>
       </div>
     </AppShell>

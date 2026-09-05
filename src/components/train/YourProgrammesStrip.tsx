@@ -12,7 +12,7 @@ export function YourProgrammesStrip({ programmes }: Props) {
         <h2 className="section-title">Your programmes</h2>
         <Link
           href="/quiz"
-          className="rounded-full bg-mint px-3 py-1 font-display uppercase tracking-display text-[0.65rem] text-ink-950 hover:bg-mint-400"
+          className="rounded-full bg-brand px-3 py-1 font-display uppercase tracking-display text-[0.65rem] text-ink-950 hover:bg-brand-400"
         >
           + Build one
         </Link>
@@ -21,7 +21,7 @@ export function YourProgrammesStrip({ programmes }: Props) {
       {programmes.length === 0 ? (
         <Link
           href="/quiz"
-          className="block rounded-card border border-dashed border-mint/40 bg-mint/5 p-4 text-center hover:border-mint"
+          className="block rounded-card border border-dashed border-brand/40 bg-brand/5 p-4 text-center hover:border-brand"
         >
           <p className="font-display uppercase tracking-display text-white text-sm">
             Build your own 6-week block
@@ -35,7 +35,7 @@ export function YourProgrammesStrip({ programmes }: Props) {
           {programmes.map((p) => (
             <div
               key={p.id}
-              className="group rounded-card border border-mint/40 bg-mint/5 shadow-card hover:border-mint"
+              className="group rounded-card border border-brand/40 bg-brand/5 shadow-card hover:border-brand"
             >
               <Link href={`/train/${p.slug}`} className="block p-4">
                 <div className="flex items-start justify-between gap-3">
@@ -44,7 +44,7 @@ export function YourProgrammesStrip({ programmes }: Props) {
                       <h3 className="font-display uppercase tracking-display text-white text-lg leading-tight">
                         {p.name}
                       </h3>
-                      <span className="rounded-full bg-mint/20 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-mint-400">
+                      <span className="rounded-full bg-ink-800 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-muted-strong">
                         Custom
                       </span>
                     </div>
@@ -62,7 +62,7 @@ export function YourProgrammesStrip({ programmes }: Props) {
                   ))}
                 </div>
               </Link>
-              <div className="flex justify-end border-t border-mint/20 px-3 py-2">
+              <div className="flex justify-end border-t border-brand/20 px-3 py-2">
                 <DeleteProgrammeConfirm
                   id={p.id}
                   programmeName={p.name}

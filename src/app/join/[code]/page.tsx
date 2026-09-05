@@ -31,7 +31,7 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
   if (authUser.manager) {
     return (
       <AppShell>
-        <div className="mx-auto max-w-md px-5 py-10">
+        <div className="mx-auto max-w-md shell-gutter py-10">
           <h1 className="font-display uppercase tracking-display text-white text-2xl">
             Join links are for players.
           </h1>
@@ -42,7 +42,7 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
           </p>
           <Link
             href="/coach"
-            className="mt-6 inline-flex h-11 items-center rounded-full bg-mint px-5 font-display uppercase tracking-display text-sm text-ink-950 hover:bg-mint-400"
+            className="mt-6 inline-flex h-11 items-center rounded-full bg-brand shell-gutter font-display uppercase tracking-display text-sm text-ink-950 hover:bg-brand-400"
           >
             Coach home
           </Link>
@@ -68,8 +68,8 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
   if (!team || error === "notfound") {
     return (
       <AppShell>
-        <div className="mx-auto max-w-md px-5 py-10">
-          <p className="font-display uppercase tracking-display text-red-300 text-xs">
+        <div className="mx-auto max-w-md shell-gutter py-10">
+          <p className="font-display uppercase tracking-display text-caution-300 text-xs">
             Not found
           </p>
           <h1 className="mt-2 font-display uppercase tracking-display text-white text-2xl">
@@ -81,7 +81,7 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
           </p>
           <Link
             href="/you/teams"
-            className="mt-6 inline-flex h-11 items-center rounded-full border border-white/20 px-5 font-display uppercase tracking-display text-sm text-white hover:border-white/60"
+            className="mt-6 inline-flex h-11 items-center rounded-full border border-white/20 shell-gutter font-display uppercase tracking-display text-sm text-white hover:border-white/60"
           >
             Back to your teams
           </Link>
@@ -104,8 +104,8 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-md px-5 py-10">
-        <p className="font-display uppercase tracking-display text-mint-400 text-xs">
+      <div className="mx-auto max-w-md shell-gutter py-10">
+        <p className="font-display uppercase tracking-display text-muted text-xs">
           Team invite
         </p>
         <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-[1.05]">
@@ -119,7 +119,7 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
         </p>
 
         <div className="mt-6 space-y-2 rounded-card border border-white/10 bg-ink-850 p-5">
-          <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+          <p className="font-display uppercase tracking-display text-muted text-[0.65rem]">
             What joining means
           </p>
           <p className="text-sm text-white/85">
@@ -130,8 +130,8 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
         </div>
 
         {isUnder16 ? (
-          <div className="mt-6 rounded-md border border-red-500/25 bg-red-500/5 p-4 text-sm text-white/90">
-            <p className="font-display uppercase tracking-display text-red-300 text-[0.7rem]">
+          <div className="mt-6 rounded-md border border-caution-500/25 bg-caution-500/5 p-4 text-sm text-white/90">
+            <p className="font-display uppercase tracking-display text-caution-300 text-[0.7rem]">
               Under 16
             </p>
             <p className="mt-2">
@@ -143,7 +143,7 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
         ) : null}
 
         {error === "parent" ? (
-          <p role="alert" className="mt-4 rounded-md border border-red-500/40 bg-red-500/10 px-3 py-2 text-xs text-red-200">
+          <p role="alert" className="mt-4 rounded-md border border-caution-500/40 bg-caution-500/10 px-3 py-2 text-xs text-caution-200">
             Tick the parent-ack box to continue.
           </p>
         ) : null}
@@ -156,7 +156,7 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
           Not the right team?{" "}
           <Link
             href="/you/teams"
-            className="text-mint-400 underline underline-offset-4 hover:text-mint"
+            className="text-brand-400 underline underline-offset-4 hover:text-brand"
           >
             Back to your teams
           </Link>

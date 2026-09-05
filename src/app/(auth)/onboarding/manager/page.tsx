@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { signOut } from "@/app/(auth)/actions";
 import { AuthShell } from "@/components/layout/AuthShell";
 import { Button } from "@/components/ui/Button";
 import { Field, Input, Label, ErrorText, HelpText } from "@/components/ui/Field";
@@ -20,10 +21,19 @@ export default async function ManagerOnboardingPage({ searchParams }: Props) {
   const { error } = await searchParams;
 
   return (
-    <AuthShell>
+    <AuthShell
+      home={null}
+      footer={
+        <form action={signOut}>
+          <button type="submit" className="text-xs text-muted hover:text-white">
+            Sign out
+          </button>
+        </form>
+      }
+    >
       <form action={completeManagerOnboarding} className="space-y-6">
         <div>
-          <p className="font-display uppercase tracking-display text-mint-400 text-xs">
+          <p className="font-display uppercase tracking-display text-brand-400 text-xs">
             Coach onboarding
           </p>
           <h1 className="section-title mt-2">Set up your coach profile</h1>

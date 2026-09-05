@@ -82,7 +82,7 @@ export default async function TrainPage({ searchParams }: Props) {
   return (
     <AppShell>
       {/* Photographic header strip — image dimmed with a dark gradient
-          wash so the title stays legible, mint accent line separates
+          wash so the title stays legible, brand accent line separates
           it from the content below. */}
       <div className="relative overflow-hidden">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0">
@@ -102,10 +102,10 @@ export default async function TrainPage({ searchParams }: Props) {
         </div>
         <div
           aria-hidden="true"
-          className="relative h-px w-full bg-gradient-to-r from-transparent via-mint/40 to-transparent"
+          className="relative h-px w-full bg-gradient-to-r from-transparent via-brand/40 to-transparent"
         />
       </div>
-      <div className="space-y-6 px-5 pt-6">
+      <div className="space-y-6 shell-gutter pt-6">
         {/* Compact variant only — continuity away from the dashboard.
             Mounted per-page rather than in AppShell so it can never
             appear during a live session. */}
@@ -124,8 +124,8 @@ export default async function TrainPage({ searchParams }: Props) {
           <div className="flex items-baseline justify-between gap-2">
             <h2 className="section-title">Filter by quality</h2>
             {recommendedQualities.length > 0 ? (
-              <span className="flex items-center gap-1.5 text-[0.65rem] font-display uppercase tracking-display text-mint-400">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-mint" />
+              <span className="flex items-center gap-1.5 text-[0.65rem] font-display uppercase tracking-display text-brand-400">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
                 Recommended for {positionLabel}
               </span>
             ) : null}
@@ -137,7 +137,7 @@ export default async function TrainPage({ searchParams }: Props) {
           />
           {recommendedQualities.length > 0 ? (
             <p className="text-xs text-muted">
-              {formatQualityList(recommendedQualities)} lead the demands for {positionLabel.toLowerCase()} — the mint-dotted chips.
+              {formatQualityList(recommendedQualities)} lead the demands for {positionLabel.toLowerCase()} — the chips marked with a dot.
             </p>
           ) : null}
         </section>
@@ -153,7 +153,7 @@ export default async function TrainPage({ searchParams }: Props) {
                     : "/train"
                 }
                 className={`rounded-full px-2.5 py-1 font-display uppercase tracking-display ${
-                  !showAll ? "bg-mint text-ink-950" : "text-muted"
+                  !showAll ? "bg-brand text-ink-950" : "text-muted"
                 }`}
               >
                 {bandLabel}
@@ -165,7 +165,7 @@ export default async function TrainPage({ searchParams }: Props) {
                     : "/train?band=all"
                 }
                 className={`rounded-full px-2.5 py-1 font-display uppercase tracking-display ${
-                  showAll ? "bg-mint text-ink-950" : "text-muted"
+                  showAll ? "bg-brand text-ink-950" : "text-muted"
                 }`}
               >
                 All
@@ -183,7 +183,7 @@ export default async function TrainPage({ searchParams }: Props) {
               }
             />
           ) : (
-            <div className="space-y-3">
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {programmes.map((p) => (
                 <ProgrammeCard key={p.id} programme={p} />
               ))}

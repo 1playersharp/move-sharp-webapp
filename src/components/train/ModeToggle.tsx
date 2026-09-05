@@ -25,7 +25,7 @@ export function ModeToggle({ mode, className }: Props) {
         className={cn(
           "flex items-center justify-center rounded-full py-2.5 text-sm font-display uppercase tracking-display transition-colors",
           mode === "programme"
-            ? "bg-mint text-ink-950 shadow"
+            ? "bg-brand text-ink-950 shadow"
             : "text-muted hover:text-white",
         )}
       >
@@ -38,7 +38,7 @@ export function ModeToggle({ mode, className }: Props) {
         className={cn(
           "flex items-center justify-center rounded-full py-2.5 text-sm font-display uppercase tracking-display transition-colors",
           mode === "exercise"
-            ? "bg-mint text-ink-950 shadow"
+            ? "bg-brand text-ink-950 shadow"
             : "text-muted hover:text-white",
         )}
       >

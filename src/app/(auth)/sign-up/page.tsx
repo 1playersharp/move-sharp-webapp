@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BackButton } from "@/components/ui/BackButton";
 import { AuthShell } from "@/components/layout/AuthShell";
 import { Button } from "@/components/ui/Button";
 import { Field, Input, Label, ErrorText, HelpText } from "@/components/ui/Field";
@@ -22,7 +23,7 @@ export default async function SignUpPage({ searchParams }: Props) {
           </p>
           <HelpText>
             Didn't get it? Check your junk folder, or{" "}
-            <Link href="/sign-up" className="text-mint-400 hover:text-mint">try again</Link>.
+            <Link href="/sign-up" className="text-brand-400 hover:text-brand">try again</Link>.
           </HelpText>
         </div>
       </AuthShell>
@@ -57,6 +58,7 @@ export default async function SignUpPage({ searchParams }: Props) {
             <HelpText>At least 8 characters.</HelpText>
           </Field>
           <Button type="submit" className="w-full">Create account</Button>
+            <BackButton />
         </form>
 
         <div className="space-y-2 rounded-xl border border-white/5 bg-ink-900/50 p-3">
@@ -70,11 +72,11 @@ export default async function SignUpPage({ searchParams }: Props) {
 
         <HelpText className="text-center">
           Already have an account?{" "}
-          <Link href="/sign-in" className="text-mint-400 hover:text-mint">Sign in</Link>
+          <Link href="/sign-in" className="text-brand-400 hover:text-brand">Sign in</Link>
         </HelpText>
         <HelpText className="text-center">
           Coach or manager?{" "}
-          <Link href="/sign-up/manager" className="text-mint-400 hover:text-mint">
+          <Link href="/sign-up/manager" className="text-brand-400 hover:text-brand">
             Create a coach account
           </Link>
         </HelpText>

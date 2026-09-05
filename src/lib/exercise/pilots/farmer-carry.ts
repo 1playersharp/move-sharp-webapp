@@ -24,7 +24,7 @@ export const farmerCarry: MotionSpec = {
     },
     // Tall spine, minimal lean.
     spine: {
-      rotationDeg: [{ t: 0, value: [2, 0, 0] }],
+      rotationDeg: [{ t: 0, value: [-2, 0, 0] }],
     },
     // Arms hang mostly straight; slight forward angle from the load pulling down.
     shoulderL: {

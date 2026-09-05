@@ -22,9 +22,20 @@ type Props = {
   active?: Quality | null;
   buildHref: (quality: Quality | null) => string;
   // Optional set of qualities recommended for the player's position —
-  // rendered with a mint tint + a small dot marker so they're easy to
+  // rendered with a brand tint + a small dot marker so they're easy to
   // spot without competing with the active state.
   recommendedFor?: Quality[];
+};
+
+// One hue per quality, carried as a top edge-bar so the grid is scannable at
+// a glance. Kept off fills and text, which belong to the semantic colours.
+const BAR_BY_QUALITY: Record<string, string> = {
+  speed: "bg-quality-speed",
+  power: "bg-quality-power",
+  strength: "bg-quality-strength",
+  agility: "bg-quality-agility",
+  endurance: "bg-quality-endurance",
+  robustness: "bg-quality-robustness",
 };
 
 export function QualityFilterGrid({ active, buildHref, recommendedFor }: Props) {
@@ -36,8 +47,8 @@ export function QualityFilterGrid({ active, buildHref, recommendedFor }: Props) 
         className={cn(
           "flex flex-col items-center rounded-md border px-2 py-2 text-center",
           !active
-            ? "border-mint bg-mint/15 text-mint-400"
-            : "border-white/5 bg-ink-850 text-muted hover:border-mint/30",
+            ? "border-brand bg-brand/15 text-brand-400"
+            : "border-white/5 bg-ink-850 text-muted hover:border-brand/30",
         )}
       >
         <span className="font-display uppercase tracking-display text-[0.7rem]">All</span>
@@ -50,18 +61,27 @@ export function QualityFilterGrid({ active, buildHref, recommendedFor }: Props) 
             key={q.key}
             href={buildHref(q.key)}
             className={cn(
-              "relative flex flex-col items-center rounded-md border px-2 py-2 text-center",
+              "relative flex flex-col items-center overflow-hidden rounded-md border px-2 py-2 text-center",
               isActive
-                ? "border-mint bg-mint/15 text-mint-400"
+                ? "border-brand bg-brand/15 text-brand-400"
                 : isRecommended
-                ? "border-mint/40 bg-mint/5 text-white hover:border-mint"
-                : "border-white/5 bg-ink-850 text-muted hover:border-mint/30",
+                ? "border-brand/40 bg-brand/5 text-white hover:border-brand"
+                : "border-white/5 bg-ink-850 text-muted hover:border-brand/30",
             )}
           >
+            {BAR_BY_QUALITY[q.key] ? (
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "absolute inset-x-0 top-0 h-[3px]",
+                  BAR_BY_QUALITY[q.key],
+                )}
+              />
+            ) : null}
             {isRecommended && !isActive ? (
               <span
                 aria-label="Recommended"
-                className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-mint"
+                className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-brand"
               />
             ) : null}
             <span className="font-display uppercase tracking-display text-[0.7rem]">

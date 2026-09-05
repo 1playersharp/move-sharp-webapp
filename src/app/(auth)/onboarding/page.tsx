@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { signOut } from "@/app/(auth)/actions";
 import { AuthShell } from "@/components/layout/AuthShell";
 import { Button } from "@/components/ui/Button";
 import { Field, Input, Label, ErrorText, HelpText } from "@/components/ui/Field";
@@ -22,7 +23,16 @@ export default async function OnboardingPage({ searchParams }: Props) {
   const { error } = await searchParams;
 
   return (
-    <AuthShell>
+    <AuthShell
+      home={null}
+      footer={
+        <form action={signOut}>
+          <button type="submit" className="text-xs text-muted hover:text-white">
+            Sign out
+          </button>
+        </form>
+      }
+    >
       <form action={completeOnboarding} className="space-y-6">
         <div>
           <h1 className="section-title">Set up your profile</h1>
@@ -50,7 +60,7 @@ export default async function OnboardingPage({ searchParams }: Props) {
             id="position"
             name="position"
             defaultValue=""
-            className="h-11 rounded-xl bg-ink-800 px-4 text-white border border-white/5 focus:border-mint focus:outline-none focus:ring-2 focus:ring-mint/30"
+            className="h-11 rounded-xl bg-ink-800 px-4 text-white border border-white/5 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30"
           >
             <option value="">Prefer not to say</option>
             {POSITIONS.map((p) => (
@@ -81,7 +91,7 @@ export default async function OnboardingPage({ searchParams }: Props) {
               <label
                 key={d.key}
                 htmlFor={`diet_${d.key}`}
-                className="flex cursor-pointer items-start gap-2 rounded-md border border-white/5 bg-ink-900/60 p-3 hover:border-mint/30 has-[:checked]:border-mint has-[:checked]:bg-mint/10"
+                className="flex cursor-pointer items-start gap-2 rounded-md border border-white/5 bg-ink-900/60 p-3 hover:border-brand/30 has-[:checked]:border-brand has-[:checked]:bg-brand/10"
               >
                 <input
                   id={`diet_${d.key}`}
@@ -89,7 +99,7 @@ export default async function OnboardingPage({ searchParams }: Props) {
                   type="radio"
                   value={d.key}
                   defaultChecked={d.key === "omnivore"}
-                  className="mt-0.5 h-4 w-4 accent-mint"
+                  className="mt-0.5 h-4 w-4 accent-brand"
                 />
                 <span className="min-w-0">
                   <span className="block text-sm text-white">{d.label}</span>
@@ -120,7 +130,7 @@ export default async function OnboardingPage({ searchParams }: Props) {
                   id={`allergy_${a.key}`}
                   name={`allergy_${a.key}`}
                   type="checkbox"
-                  className="mt-1 h-4 w-4 accent-mint"
+                  className="mt-1 h-4 w-4 accent-brand"
                 />
                 <span className="min-w-0">
                   <span className="block text-sm text-white">{a.label}</span>

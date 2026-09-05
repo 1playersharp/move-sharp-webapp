@@ -39,7 +39,7 @@ export function ReadinessCard({ today }: { today: ReadinessEntry | null }) {
                 {[1, 2, 3, 4, 5].map((n) => (
                   <label
                     key={n}
-                    className="cursor-pointer rounded-md border border-white/5 bg-ink-800 px-2 py-2 text-center text-sm text-muted-strong hover:bg-ink-700 has-[:checked]:border-mint has-[:checked]:bg-mint has-[:checked]:text-ink-950"
+                    className="cursor-pointer rounded-md border border-white/5 bg-ink-800 px-2 py-2 text-center text-sm text-muted-strong hover:bg-ink-700 has-[:checked]:border-brand has-[:checked]:bg-brand has-[:checked]:text-ink-950"
                   >
                     <input
                       type="radio"
@@ -68,7 +68,7 @@ export function ReadinessCard({ today }: { today: ReadinessEntry | null }) {
           <CardTitle>Ready</CardTitle>
           <CardSubtitle>Checked in today — {score}/100.</CardSubtitle>
         </div>
-        <div className="rounded-full bg-mint/15 px-3 py-1 text-mint-400 font-display tracking-display text-sm">
+        <div className="rounded-full bg-ink-800 px-3 py-1 text-muted-strong font-display tracking-display text-sm">
           {score}
         </div>
       </div>

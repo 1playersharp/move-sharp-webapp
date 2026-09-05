@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
+import { Header } from "@/components/ui/Header";
 import { Button } from "@/components/ui/Button";
 import { Field, Input, Label, ErrorText, HelpText } from "@/components/ui/Field";
 import { requirePlayer } from "@/lib/auth";
@@ -25,22 +26,13 @@ export default async function EditDietPage({ searchParams }: Props) {
 
   return (
     <AppShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link
-          href="/you"
-          className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint focus-visible:text-mint"
-        >
-          ← You
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
-          Diet and allergies
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          Filters your recipe browse and the planner suggestions.
-        </p>
-      </div>
+      <Header
+        back={{ href: "/you", label: "You" }}
+        title="Diet and allergies"
+        subtitle="Filters your recipe browse and the planner suggestions."
+      />
 
-      <form action={updateDiet} className="space-y-6 px-5 pb-8">
+      <form action={updateDiet} className="space-y-6 shell-gutter pb-8">
         {error ? <ErrorText>{error}</ErrorText> : null}
 
         <fieldset className="space-y-3 rounded-xl border border-white/5 bg-ink-900/50 p-4">
@@ -52,7 +44,7 @@ export default async function EditDietPage({ searchParams }: Props) {
               <label
                 key={d.key}
                 htmlFor={`diet_${d.key}`}
-                className="flex cursor-pointer items-start gap-2 rounded-md border border-white/5 bg-ink-900/60 p-3 hover:border-mint/30 has-[:checked]:border-mint has-[:checked]:bg-mint/10"
+                className="flex cursor-pointer items-start gap-2 rounded-md border border-white/5 bg-ink-900/60 p-3 hover:border-brand/30 has-[:checked]:border-brand has-[:checked]:bg-brand/10"
               >
                 <input
                   id={`diet_${d.key}`}
@@ -60,7 +52,7 @@ export default async function EditDietPage({ searchParams }: Props) {
                   type="radio"
                   value={d.key}
                   defaultChecked={d.key === p.dietPreference}
-                  className="mt-0.5 h-4 w-4 accent-mint"
+                  className="mt-0.5 h-4 w-4 accent-brand"
                 />
                 <span className="min-w-0">
                   <span className="block text-sm text-white">{d.label}</span>
@@ -98,7 +90,7 @@ export default async function EditDietPage({ searchParams }: Props) {
                   name={`allergy_${a.key}`}
                   type="checkbox"
                   defaultChecked={activeAllergies.has(a.key)}
-                  className="mt-1 h-4 w-4 accent-mint"
+                  className="mt-1 h-4 w-4 accent-brand"
                 />
                 <span className="min-w-0">
                   <span className="block text-sm text-white">{a.label}</span>
@@ -130,7 +122,7 @@ export default async function EditDietPage({ searchParams }: Props) {
           </Button>
           <Link
             href="/you"
-            className="inline-flex h-11 w-full items-center justify-center rounded-full border border-white/10 px-5 font-display uppercase tracking-display text-sm text-muted hover:text-white sm:w-auto"
+            className="inline-flex h-11 w-full items-center justify-center rounded-full border border-white/10 shell-gutter font-display uppercase tracking-display text-sm text-muted hover:text-white sm:w-auto"
           >
             Cancel
           </Link>

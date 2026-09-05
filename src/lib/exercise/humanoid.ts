@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import type { Pose, PosedRig } from "./rig";
 
 // Named joints the MotionSpec can drive. Rest pose = all rotations at 0,
 // pelvis at (0, 0.9, 0), arms hanging at sides, body facing -Z.
@@ -25,7 +26,7 @@ export type HumanoidRig = {
   dispose: () => void;
 };
 
-const BODY_COLOR = 0x2ecc94; // mint
+const BODY_COLOR = 0x38bdf8; // brand
 const LIMB_COLOR = 0xb6bfd0; // muted-strong
 
 export function buildHumanoid(): HumanoidRig {
@@ -163,5 +164,83 @@ export function buildHumanoid(): HumanoidRig {
     dispose() {
       for (const d of disposables) d.dispose();
     },
+  };
+}
+
+type RestPose = Record<JointName, { position: THREE.Vector3; rotation: THREE.Euler }>;
+
+function captureRestPose(rig: HumanoidRig): RestPose {
+  const rest: Partial<RestPose> = {};
+  for (const name in rig.joints) {
+    const joint = rig.joints[name as JointName];
+    rest[name as JointName] = {
+      position: joint.position.clone(),
+      rotation: joint.rotation.clone(),
+    };
+  }
+  return rest as RestPose;
+}
+
+const DEG = Math.PI / 180;
+
+// The stick figure as a PosedRig — the fallback when the avatar can't load.
+// The foot box is 0.05 tall, centred 0.02 below the ankle.
+const SOLE_BELOW_ANKLE = 0.045;
+// Roughly the half-thickness of a limb mesh, for floor contact.
+const LIMB_RADIUS = 0.08;
+
+export function createHumanoidRig(): PosedRig {
+  const rig = buildHumanoid();
+  const rest = captureRestPose(rig);
+  const root = new THREE.Group();
+  root.add(rig.root);
+  let groundOffset = 0;
+  const scratch = new THREE.Vector3();
+
+  return {
+    root,
+    applyPose(pose: Pose) {
+      root.position.set(pose.offset[0], pose.offset[1] + groundOffset, pose.offset[2]);
+      for (const name in rig.joints) {
+        const joint = name as JointName;
+        const rot = pose.rotationDeg[joint];
+        const restRot = rest[joint].rotation;
+        if (rot) {
+          rig.joints[joint].rotation.set(
+            restRot.x + rot[0] * DEG,
+            restRot.y + rot[1] * DEG,
+            restRot.z + rot[2] * DEG,
+            // YXZ so the heading (Y) is applied outermost and the lean (X)
+            // happens in the body's own frame — a runner leans into the
+            // direction they're travelling, not toward world -Z.
+            "YXZ",
+          );
+        } else {
+          rig.joints[joint].rotation.copy(restRot);
+        }
+        rig.joints[joint].position.copy(rest[joint].position);
+      }
+    },
+    attach(joint: JointName) {
+      return rig.joints[joint];
+    },
+    lowestPoint() {
+      root.updateMatrixWorld(true);
+      let lowest = Math.min(
+        scratch.setFromMatrixPosition(rig.joints.ankleL.matrixWorld).y,
+        scratch.setFromMatrixPosition(rig.joints.ankleR.matrixWorld).y,
+      ) - SOLE_BELOW_ANKLE;
+      // Floor movements rest on a forearm or a back, not a foot — so any
+      // joint can be the contact point.
+      for (const name in rig.joints) {
+        const y = scratch.setFromMatrixPosition(rig.joints[name as JointName].matrixWorld).y;
+        lowest = Math.min(lowest, y - LIMB_RADIUS);
+      }
+      return lowest;
+    },
+    setGroundOffset(y: number) {
+      groundOffset = y;
+    },
+    dispose: rig.dispose,
   };
 }
