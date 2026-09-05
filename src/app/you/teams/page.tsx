@@ -125,7 +125,7 @@ export default async function PlayerTeamsPage({ searchParams }: Props) {
                   key={m.id}
                   className="rounded-card border border-white/5 bg-ink-850 shadow-card"
                 >
-                  <div className="border-b border-white/5 shell-gutter py-4">
+                  <div className="border-b border-white/5 px-5 py-4">
                     <p className="font-display uppercase tracking-display text-white text-lg">
                       {m.team.name}
                     </p>

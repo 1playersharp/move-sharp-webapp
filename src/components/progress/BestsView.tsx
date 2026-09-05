@@ -47,7 +47,7 @@ export function BestsView({ summaries }: Props) {
         return (
           <section key={group}>
             <h2 className="section-title mb-3">{PB_GROUP_LABEL[group]}</h2>
-            <ul className="space-y-2">
+            <ul className="grid gap-2 md:grid-cols-2 xl:grid-cols-3">
               {items.map((s) => (
                 <li key={s.metric.key}>
                   <Link

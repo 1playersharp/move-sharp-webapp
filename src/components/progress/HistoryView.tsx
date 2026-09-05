@@ -46,7 +46,7 @@ export function HistoryView({ rows }: { rows: TimelineRow[] }) {
   }
 
   return (
-    <ul className="space-y-2">
+    <ul className="max-w-2xl space-y-2">
       {rows.map((row) => {
         if (row.kind === "session") {
           return (

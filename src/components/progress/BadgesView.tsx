@@ -11,7 +11,7 @@ export type Badge = {
 
 export function BadgesView({ badges }: { badges: Badge[] }) {
   return (
-    <ul className="grid grid-cols-2 gap-3">
+    <ul className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4">
       {badges.map((b) => (
         <li
           key={b.key}

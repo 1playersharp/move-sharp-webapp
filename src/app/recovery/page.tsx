@@ -23,7 +23,7 @@ export default async function RecoveryPage() {
           <h2 className="section-title">Returning from injury</h2>
           <Link
             href="/recovery/returning-from-injury"
-            className="block rounded-card border border-red-500/25 bg-red-500/5 p-5 shadow-card hover:border-red-500/60"
+            className="block max-w-3xl rounded-card border border-red-500/25 bg-red-500/5 p-5 shadow-card hover:border-red-500/60"
           >
             <div className="flex items-start justify-between gap-3">
               <div>
@@ -55,12 +55,13 @@ export default async function RecoveryPage() {
               No clearance needed — for everyone, every day.
             </p>
           </div>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {GENERAL_RECOVERY.map((block) => (
             <article
               key={block.heading}
               className="rounded-card border border-white/5 bg-ink-850 shadow-card"
             >
-              <div className="border-b border-white/5 shell-gutter py-4">
+              <div className="border-b border-white/5 px-5 py-4">
                 <h3 className="font-display uppercase tracking-display text-white text-base">
                   {block.heading}
                 </h3>
@@ -68,7 +69,7 @@ export default async function RecoveryPage() {
               </div>
               <ul className="divide-y divide-white/5">
                 {block.items.map((item) => (
-                  <li key={item.name} className="shell-gutter py-3">
+                  <li key={item.name} className="px-5 py-3">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <p className="font-display uppercase tracking-display text-white text-sm">
@@ -87,6 +88,7 @@ export default async function RecoveryPage() {
               </ul>
             </article>
           ))}
+          </div>
         </section>
       </div>
     </AppShell>
