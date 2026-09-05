@@ -18,6 +18,7 @@ export const PB_METRICS: PbMetric[] = [
   { key: "sprint-40m", label: "40m Sprint", short: "40m", unit: "seconds", direction: "lower_better", group: "sprint" },
   { key: "flying-20m", label: "Flying 20m", short: "Fly 20m", unit: "seconds", direction: "lower_better", group: "sprint" },
   { key: "flying-10m", label: "Flying 10m", short: "Fly 10m", unit: "seconds", direction: "lower_better", group: "sprint" },
+  { key: "sprint-10m", label: "10m Sprint", short: "10m", unit: "seconds", direction: "lower_better", group: "sprint" },
   { key: "hill-sprint-30m", label: "Hill Sprint 30m", short: "Hill 30m", unit: "seconds", direction: "lower_better", group: "sprint" },
 
   { key: "vertical-jump", label: "Vertical Jump", short: "Vertical", unit: "centimeters", direction: "higher_better", group: "jump" },
