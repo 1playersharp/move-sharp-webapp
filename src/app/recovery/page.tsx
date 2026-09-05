@@ -14,7 +14,7 @@ export default async function RecoveryPage() {
         subtitle="Stay durable. Return safely."
       />
 
-      <div className="space-y-8 px-5 pb-6">
+      <div className="space-y-8 shell-gutter pb-6">
         {/* Returning-from-injury entry point — mint-tinted card so it
             reads as a distinct section from the general work above.
             Doesn't require any acknowledgment yet; the interstitial
@@ -60,7 +60,7 @@ export default async function RecoveryPage() {
               key={block.heading}
               className="rounded-card border border-white/5 bg-ink-850 shadow-card"
             >
-              <div className="border-b border-white/5 px-5 py-4">
+              <div className="border-b border-white/5 shell-gutter py-4">
                 <h3 className="font-display uppercase tracking-display text-white text-base">
                   {block.heading}
                 </h3>
@@ -68,7 +68,7 @@ export default async function RecoveryPage() {
               </div>
               <ul className="divide-y divide-white/5">
                 {block.items.map((item) => (
-                  <li key={item.name} className="px-5 py-3">
+                  <li key={item.name} className="shell-gutter py-3">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <p className="font-display uppercase tracking-display text-white text-sm">

@@ -108,7 +108,7 @@ export default async function ProgressPage({ searchParams }: Props) {
           </Link>
         }
       />
-      <div className="space-y-6 px-5">
+      <div className="space-y-6 shell-gutter">
         <ProgressTabs active={active} />
         {body}
       </div>

@@ -12,7 +12,7 @@ export default async function CoachYouPage() {
   return (
     <CoachShell>
       <Header title="You" subtitle={user.email ?? undefined} />
-      <div className="space-y-4 px-5 pb-6">
+      <div className="space-y-4 shell-gutter pb-6">
         <section className="rounded-card border border-white/5 bg-ink-850 p-5 shadow-card">
           <h2 className="font-display uppercase tracking-display text-white text-base">
             Coach profile

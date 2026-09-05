@@ -49,7 +49,7 @@ export default async function PlannerPage() {
         subtitle="Pin recipes to the next seven days."
       />
 
-      <div className="space-y-4 px-5 pb-6">
+      <div className="space-y-4 shell-gutter pb-6">
         <div className="flex items-baseline justify-between">
           <p className="text-xs text-muted">
             {entries.length} meal{entries.length === 1 ? "" : "s"} planned

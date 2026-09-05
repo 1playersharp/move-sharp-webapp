@@ -47,7 +47,7 @@ export default async function FuelPage() {
         subtitle="Rails, recipes, and enough to train hard."
       />
 
-      <div className="space-y-6 px-5 pb-6">
+      <div className="space-y-6 shell-gutter pb-6">
         {playerAllergies.length > 0 ? (
           <div className="rounded-md border border-mint/20 bg-mint/5 p-3 text-xs text-mint-400">
             Filtered by your allergies. Always double-check ingredients yourself

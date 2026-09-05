@@ -48,7 +48,7 @@ export default async function YouPage({ searchParams }: Props) {
     <AppShell>
       <Header title="You" subtitle={user.email ?? undefined} />
 
-      <div className="space-y-4 px-5 pb-6">
+      <div className="space-y-4 shell-gutter pb-6">
         {saved && savedLabel[saved] ? (
           <p
             role="status"

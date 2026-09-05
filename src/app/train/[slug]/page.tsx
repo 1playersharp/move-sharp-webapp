@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
+import { Header } from "@/components/ui/Header";
 import { Card, CardTitle } from "@/components/ui/Card";
 import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -101,24 +102,19 @@ export default async function ProgrammeDetailPage({ params }: Props) {
 
   return (
     <AppShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link href="/train" className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint">
-          ← Programmes
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
-          {programme.name}
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          {bandLabel} · {programme.weeks} weeks · {programme.sessionsPerWeek}×/wk
-        </p>
+      <Header
+        back={{ href: "/train", label: "Programmes" }}
+        title={programme.name}
+        subtitle={`${bandLabel} · ${programme.weeks} weeks · ${programme.sessionsPerWeek}×/wk`}
+      >
         <div className="mt-3 flex flex-wrap gap-1.5">
           {programme.qualities.map((q) => (
             <QualityChip key={q} quality={q} />
           ))}
         </div>
-      </div>
+      </Header>
 
-      <div className="space-y-4 px-5">
+      <div className="space-y-4 shell-gutter">
         {programme.intent ? (
           <Card>
             <CardTitle>Why this block</CardTitle>

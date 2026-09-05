@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CoachShell } from "@/components/layout/CoachShell";
+import { Header } from "@/components/ui/Header";
 import { requireManager } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ageBandFromDOB, ageInYears } from "@/lib/age-band";
@@ -103,22 +103,13 @@ export default async function CoachPlayerViewPage({ params }: Props) {
 
   return (
     <CoachShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link
-          href={`/coach/teams/${teamId}`}
-          className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint focus-visible:text-mint"
-        >
-          ← {membership.team.name} roster
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
-          {p.name}
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          {[band, positionLabel, `Age ${age}`, p.club].filter(Boolean).join(" · ")}
-        </p>
-      </div>
+      <Header
+        back={{ href: `/coach/teams/${teamId}`, label: `${membership.team.name} roster` }}
+        title={p.name}
+        subtitle={[band, positionLabel, `Age ${age}`, p.club].filter(Boolean).join(" · ")}
+      />
 
-      <div className="space-y-5 px-5 pb-6">
+      <div className="space-y-5 shell-gutter pb-6">
         {/* Sessions */}
         <ConsentSection
           heading="Sessions"
@@ -211,7 +202,7 @@ function ConsentSection({
 }) {
   return (
     <section className="rounded-card border border-white/5 bg-ink-850 shadow-card">
-      <div className="flex items-baseline justify-between border-b border-white/5 px-5 py-3">
+      <div className="flex items-baseline justify-between border-b border-white/5 shell-gutter py-3">
         <h2 className="font-display uppercase tracking-display text-white text-base">
           {heading}
         </h2>
@@ -225,7 +216,7 @@ function ConsentSection({
           </span>
         )}
       </div>
-      <div className="px-5 py-3">
+      <div className="shell-gutter py-3">
         {shared ? children : (
           <p className="py-2 text-xs text-muted-strong">
             The player hasn't turned this on. Ask them if you need

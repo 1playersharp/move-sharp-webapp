@@ -27,7 +27,7 @@ export default async function ExerciseCategoriesPage() {
         subtitle="Browse by exercise category."
         right={<ContextToggle context={context} />}
       />
-      <div className="space-y-6 px-5">
+      <div className="space-y-6 shell-gutter">
         <ModeToggle mode="exercise" />
 
         <div className="space-y-3">

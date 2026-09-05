@@ -105,7 +105,7 @@ export default async function TrainPage({ searchParams }: Props) {
           className="relative h-px w-full bg-gradient-to-r from-transparent via-mint/40 to-transparent"
         />
       </div>
-      <div className="space-y-6 px-5 pt-6">
+      <div className="space-y-6 shell-gutter pt-6">
         {/* Compact variant only — continuity away from the dashboard.
             Mounted per-page rather than in AppShell so it can never
             appear during a live session. */}

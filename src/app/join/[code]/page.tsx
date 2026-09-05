@@ -31,7 +31,7 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
   if (authUser.manager) {
     return (
       <AppShell>
-        <div className="mx-auto max-w-md px-5 py-10">
+        <div className="mx-auto max-w-md shell-gutter py-10">
           <h1 className="font-display uppercase tracking-display text-white text-2xl">
             Join links are for players.
           </h1>
@@ -42,7 +42,7 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
           </p>
           <Link
             href="/coach"
-            className="mt-6 inline-flex h-11 items-center rounded-full bg-mint px-5 font-display uppercase tracking-display text-sm text-ink-950 hover:bg-mint-400"
+            className="mt-6 inline-flex h-11 items-center rounded-full bg-mint shell-gutter font-display uppercase tracking-display text-sm text-ink-950 hover:bg-mint-400"
           >
             Coach home
           </Link>
@@ -68,7 +68,7 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
   if (!team || error === "notfound") {
     return (
       <AppShell>
-        <div className="mx-auto max-w-md px-5 py-10">
+        <div className="mx-auto max-w-md shell-gutter py-10">
           <p className="font-display uppercase tracking-display text-red-300 text-xs">
             Not found
           </p>
@@ -81,7 +81,7 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
           </p>
           <Link
             href="/you/teams"
-            className="mt-6 inline-flex h-11 items-center rounded-full border border-white/20 px-5 font-display uppercase tracking-display text-sm text-white hover:border-white/60"
+            className="mt-6 inline-flex h-11 items-center rounded-full border border-white/20 shell-gutter font-display uppercase tracking-display text-sm text-white hover:border-white/60"
           >
             Back to your teams
           </Link>
@@ -104,7 +104,7 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-md px-5 py-10">
+      <div className="mx-auto max-w-md shell-gutter py-10">
         <p className="font-display uppercase tracking-display text-mint-400 text-xs">
           Team invite
         </p>

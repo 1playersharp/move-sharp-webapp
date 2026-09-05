@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
+import { Header } from "@/components/ui/Header";
 import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { categoryFromSlug, categoryMeta } from "@/lib/constants/exercise-categories";
@@ -26,25 +27,14 @@ export default async function CategoryExercisesPage({ params }: Props) {
 
   return (
     <AppShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <Link
-              href="/train/exercise"
-              className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
-            >
-              ← Exercise
-            </Link>
-            <h1 className="mt-2 font-display uppercase tracking-display text-white text-2xl leading-tight">
-              {meta.label}
-            </h1>
-            <p className="mt-1 text-sm text-muted">{meta.blurb}</p>
-          </div>
-          <ContextToggle context={context} />
-        </div>
-      </div>
+      <Header
+        back={{ href: "/train/exercise", label: "Exercise" }}
+        title={meta.label}
+        subtitle={meta.blurb}
+        right={<ContextToggle context={context} />}
+      />
 
-      <div className="space-y-2 px-5">
+      <div className="space-y-2 shell-gutter">
         {exercises.length === 0 ? (
           <p className="text-sm text-muted">No exercises yet in this category.</p>
         ) : (

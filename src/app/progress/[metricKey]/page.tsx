@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
+import { Header } from "@/components/ui/Header";
 import { Card, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { requirePlayer } from "@/lib/auth";
@@ -40,19 +41,13 @@ export default async function MetricDetailPage({ params }: Props) {
 
   return (
     <AppShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link href="/progress" className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint">
-          ← Progress
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-2xl leading-tight">
-          {def.label}
-        </h1>
-        <p className="mt-1 text-xs text-muted">
-          {def.direction === "lower_better" ? "Lower is better" : "Higher is better"} · Unit: {def.unit}
-        </p>
-      </div>
+      <Header
+        back={{ href: "/progress", label: "Progress" }}
+        title={def.label}
+        subtitle={`${def.direction === "lower_better" ? "Lower is better" : "Higher is better"} · Unit: ${def.unit}`}
+      />
 
-      <div className="space-y-4 px-5">
+      <div className="space-y-4 shell-gutter">
         <Card>
           <CardTitle>Personal best</CardTitle>
           {best ? (

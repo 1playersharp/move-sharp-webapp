@@ -13,7 +13,7 @@ export default async function DeleteAccountPage({ searchParams }: Props) {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-lg px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-10">
+      <div className="mx-auto max-w-lg shell-gutter pt-[max(1rem,env(safe-area-inset-top))] pb-10">
         <Link
           href="/you"
           className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint focus-visible:text-mint"
@@ -23,7 +23,7 @@ export default async function DeleteAccountPage({ searchParams }: Props) {
         <p className="mt-3 font-display uppercase tracking-display text-red-300 text-xs">
           Danger zone
         </p>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
+        <h1 className="mt-2 font-display uppercase tracking-display text-white text-2xl md:text-3xl leading-tight">
           Delete your account.
         </h1>
         <p className="mt-3 text-sm text-white/85">

@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
+import { Header } from "@/components/ui/Header";
 import { Card, CardTitle } from "@/components/ui/Card";
 import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -32,19 +32,11 @@ export default async function RecipeDetailPage({ params }: Props) {
 
   return (
     <AppShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link
-          href="/fuel/recipes"
-          className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
-        >
-          ← Recipes
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
-          {recipe.name}
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          Serves {recipe.servings}
-        </p>
+      <Header
+        back={{ href: "/fuel/recipes", label: "Recipes" }}
+        title={recipe.name}
+        subtitle={`Serves ${recipe.servings}`}
+      >
         <div className="mt-3 flex flex-wrap gap-1.5">
           {recipe.fuelTags.map((t) => (
             <span
@@ -55,9 +47,9 @@ export default async function RecipeDetailPage({ params }: Props) {
             </span>
           ))}
         </div>
-      </div>
+      </Header>
 
-      <div className="space-y-4 px-5 pb-6">
+      <div className="space-y-4 shell-gutter pb-6">
         <Card>
           <CardTitle>Ingredients</CardTitle>
           <ul className="mt-3 space-y-2">

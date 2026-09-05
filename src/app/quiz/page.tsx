@@ -39,7 +39,7 @@ export default async function QuizPage({ searchParams }: Props) {
         subtitle="Ten quick questions. We build the 6-week block from your answers."
       />
 
-      <form action={submitQuiz} className="space-y-6 px-5 pb-16">
+      <form action={submitQuiz} className="space-y-6 shell-gutter pb-16">
         {error ? <ErrorText>{error}</ErrorText> : null}
 
         {QUIZ_QUESTIONS.map((q, i) => {

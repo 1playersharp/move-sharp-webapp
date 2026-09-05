@@ -11,7 +11,7 @@ export default async function ReturningFromInjuryHubPage() {
     <AppShell>
       <Header title="Return to training" subtitle="Pick your track." />
 
-      <div className="space-y-4 px-5 pb-6">
+      <div className="space-y-4 shell-gutter pb-6">
         {/* Reminder card — sits ABOVE the session list so the reader
             sees the disclaimer stance before choosing a session. */}
         <div className="rounded-md border border-red-500/25 bg-red-500/5 px-4 py-3 text-xs text-red-100">

@@ -33,7 +33,7 @@ export function BottomNav() {
         "pb-[max(0.5rem,env(safe-area-inset-bottom))]",
       )}
     >
-      <ul className="mx-auto flex max-w-xl items-stretch justify-around px-2 pt-2">
+      <ul className="shell-width flex items-stretch justify-around px-2 pt-2">
         {TABS.map((tab) => {
           const active =
             tab.href === "/" ? pathname === "/" : pathname.startsWith(tab.href);

@@ -45,7 +45,7 @@ export default async function LogPbPage({ searchParams }: Props) {
         title="Log a PB"
         subtitle="Direction-aware — sprint times count down, jumps count up."
       />
-      <div className="space-y-6 px-5">
+      <div className="space-y-6 shell-gutter">
         <Link
           href="/progress"
           className="inline-block text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"

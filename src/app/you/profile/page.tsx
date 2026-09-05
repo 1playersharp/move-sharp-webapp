@@ -26,22 +26,13 @@ export default async function EditProfilePage({ searchParams }: Props) {
 
   return (
     <AppShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link
-          href="/you"
-          className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint focus-visible:text-mint"
-        >
-          ← You
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
-          Profile
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          Name, date of birth, position, club.
-        </p>
-      </div>
+      <Header
+        back={{ href: "/you", label: "You" }}
+        title="Profile"
+        subtitle="Name, date of birth, position, club."
+      />
 
-      <form action={updateProfile} className="space-y-5 px-5 pb-8">
+      <form action={updateProfile} className="space-y-5 shell-gutter pb-8">
         {error ? <ErrorText>{error}</ErrorText> : null}
 
         <Field>
@@ -104,7 +95,7 @@ export default async function EditProfilePage({ searchParams }: Props) {
           </Button>
           <Link
             href="/you"
-            className="inline-flex h-11 w-full items-center justify-center rounded-full border border-white/10 px-5 font-display uppercase tracking-display text-sm text-muted hover:text-white sm:w-auto"
+            className="inline-flex h-11 w-full items-center justify-center rounded-full border border-white/10 shell-gutter font-display uppercase tracking-display text-sm text-muted hover:text-white sm:w-auto"
           >
             Cancel
           </Link>

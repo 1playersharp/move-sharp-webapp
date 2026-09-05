@@ -59,7 +59,7 @@ export default async function PlayerTeamsPage({ searchParams }: Props) {
     <AppShell>
       <Header title="Your teams" subtitle="Who sees what, per team." />
 
-      <div className="space-y-4 px-5 pb-6">
+      <div className="space-y-4 shell-gutter pb-6">
         {saved ? (
           <p role="status" className="rounded-md border border-mint/30 bg-mint/10 px-3 py-2 text-xs text-mint-400">
             Sharing preferences saved.
@@ -100,7 +100,7 @@ export default async function PlayerTeamsPage({ searchParams }: Props) {
             />
             <button
               type="submit"
-              className="inline-flex h-11 items-center justify-center rounded-full bg-mint px-5 font-display uppercase tracking-display text-sm text-ink-950 hover:bg-mint-400"
+              className="inline-flex h-11 items-center justify-center rounded-full bg-mint shell-gutter font-display uppercase tracking-display text-sm text-ink-950 hover:bg-mint-400"
             >
               Redeem
             </button>
@@ -125,7 +125,7 @@ export default async function PlayerTeamsPage({ searchParams }: Props) {
                   key={m.id}
                   className="rounded-card border border-white/5 bg-ink-850 shadow-card"
                 >
-                  <div className="border-b border-white/5 px-5 py-4">
+                  <div className="border-b border-white/5 shell-gutter py-4">
                     <p className="font-display uppercase tracking-display text-white text-lg">
                       {m.team.name}
                     </p>
@@ -137,7 +137,7 @@ export default async function PlayerTeamsPage({ searchParams }: Props) {
                     </p>
                   </div>
 
-                  <form action={updateMembershipConsent} className="px-5 py-4 space-y-3">
+                  <form action={updateMembershipConsent} className="shell-gutter py-4 space-y-3">
                     <input type="hidden" name="teamId" value={m.team.id} />
                     <p className="text-xs text-muted-strong">
                       Turn a field on to let your coach see it. Turn it off
@@ -174,7 +174,7 @@ export default async function PlayerTeamsPage({ searchParams }: Props) {
                     </button>
                   </form>
 
-                  <form action={leaveTeam} className="border-t border-white/5 px-5 py-3">
+                  <form action={leaveTeam} className="border-t border-white/5 shell-gutter py-3">
                     <input type="hidden" name="teamId" value={m.team.id} />
                     <button
                       type="submit"

@@ -30,7 +30,7 @@ export default async function CoachTeamsPage() {
         }
       />
 
-      <div className="space-y-3 px-5 pb-6">
+      <div className="space-y-3 shell-gutter pb-6">
         {teams.length === 0 ? (
           <Link
             href="/coach/teams/new"

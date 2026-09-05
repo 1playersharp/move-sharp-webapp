@@ -123,7 +123,7 @@ export default async function RecipesListPage({ searchParams }: Props) {
         }
       />
 
-      <div className="space-y-4 px-5 pb-6">
+      <div className="space-y-4 shell-gutter pb-6">
         <section className="space-y-2">
           <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
             Rail

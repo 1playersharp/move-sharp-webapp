@@ -28,6 +28,22 @@
   .section-title {
     @apply font-display uppercase tracking-display text-white text-xl;
   }
+
+  /* The single source of truth for how wide the app is.
+     Phone-first: a readable column on mobile, widening on larger screens
+     so the app doesn't sit as a narrow strip on a desktop monitor.
+
+     Both the shell and the fixed bottom nav use this, which is the point —
+     they are separate elements that must line up exactly, and hardcoding
+     the width in each is how they drift apart. */
+  .shell-width {
+    @apply mx-auto w-full max-w-xl md:max-w-3xl lg:max-w-4xl;
+  }
+
+  /* Horizontal page padding, widening with the shell. */
+  .shell-gutter {
+    @apply px-5 md:px-8;
+  }
 }
 
 /* Anchored marketing sections — the sticky MarketingNav is ~4rem tall,

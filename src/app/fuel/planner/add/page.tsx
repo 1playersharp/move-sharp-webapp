@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { MealSlot } from "@prisma/client";
 import { AppShell } from "@/components/layout/AppShell";
@@ -46,22 +45,13 @@ export default async function AddToPlannerPage({ searchParams }: Props) {
 
   return (
     <AppShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link
-          href="/fuel/planner"
-          className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
-        >
-          ← Planner
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
-          Pin a recipe
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          {SLOT_LABEL[slot]} · {dateLabel}
-        </p>
-      </div>
+      <Header
+        back={{ href: "/fuel/planner", label: "Planner" }}
+        title="Pin a recipe"
+        subtitle={`${SLOT_LABEL[slot]} · ${dateLabel}`}
+      />
 
-      <div className="space-y-3 px-5 pb-6">
+      <div className="space-y-3 shell-gutter pb-6">
         {recipes.length === 0 ? (
           <EmptyState
             title="No recipes match your filters"

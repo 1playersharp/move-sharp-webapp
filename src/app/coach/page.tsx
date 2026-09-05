@@ -24,7 +24,7 @@ export default async function CoachHomePage() {
         subtitle={user.manager.club ?? "Coach"}
       />
 
-      <div className="space-y-6 px-5 pb-6">
+      <div className="space-y-6 shell-gutter pb-6">
         <section className="grid grid-cols-2 gap-3">
           <div className="rounded-card border border-white/5 bg-ink-850 p-4 shadow-card">
             <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">

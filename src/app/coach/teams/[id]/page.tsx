@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CoachShell } from "@/components/layout/CoachShell";
+import { Header } from "@/components/ui/Header";
 import { requireManager } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ageBandFromDOB } from "@/lib/age-band";
@@ -59,23 +60,13 @@ export default async function CoachTeamDetailPage({ params, searchParams }: Prop
 
   return (
     <CoachShell>
-      <div className="px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4">
-        <Link
-          href="/coach/teams"
-          className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint focus-visible:text-mint"
-        >
-          ← Teams
-        </Link>
-        <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-tight">
-          {team.name}
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          {players.length} player{players.length === 1 ? "" : "s"} · created{" "}
-          {team.createdAt.toLocaleDateString()}
-        </p>
-      </div>
+      <Header
+        back={{ href: "/coach/teams", label: "Teams" }}
+        title={team.name}
+        subtitle={`${players.length} player${players.length === 1 ? "" : "s"} · created ${team.createdAt.toLocaleDateString()}`}
+      />
 
-      <div className="space-y-5 px-5 pb-6">
+      <div className="space-y-5 shell-gutter pb-6">
         {rotated ? (
           <p role="status" className="rounded-md border border-mint/30 bg-mint/10 px-3 py-2 text-xs text-mint-400">
             New invite code issued. The old one no longer works.

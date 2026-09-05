@@ -41,7 +41,7 @@ export default async function ReturningFromInjurySessionPage({ params }: Props) 
     <AppShell>
       <ReturningBanner />
 
-      <div className="mx-auto max-w-2xl px-5 pb-10 pt-6">
+      <div className="mx-auto max-w-2xl shell-gutter pb-10 pt-6">
         <Link
           href="/recovery/returning-from-injury"
           className="text-xs font-display uppercase tracking-display text-mint-400 hover:text-mint focus-visible:text-mint"
@@ -64,7 +64,7 @@ export default async function ReturningFromInjurySessionPage({ params }: Props) 
               aria-labelledby={`block-${blockIdx}`}
               className="rounded-card border border-white/5 bg-ink-850 shadow-card"
             >
-              <div className="flex items-baseline justify-between gap-2 border-b border-white/5 px-5 py-4">
+              <div className="flex items-baseline justify-between gap-2 border-b border-white/5 shell-gutter py-4">
                 <h2
                   id={`block-${blockIdx}`}
                   className="font-display uppercase tracking-display text-white text-lg"
@@ -75,12 +75,12 @@ export default async function ReturningFromInjurySessionPage({ params }: Props) 
                   {block.items.length} {block.items.length === 1 ? "item" : "items"}
                 </span>
               </div>
-              <p className="border-b border-white/5 px-5 py-3 text-sm text-muted-strong">
+              <p className="border-b border-white/5 shell-gutter py-3 text-sm text-muted-strong">
                 {block.intent}
               </p>
               <ol className="divide-y divide-white/5">
                 {block.items.map((item, itemIdx) => (
-                  <li key={item.name} className="px-5 py-4">
+                  <li key={item.name} className="shell-gutter py-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
