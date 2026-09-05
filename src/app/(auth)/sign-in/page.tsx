@@ -20,9 +20,7 @@ export default async function SignInPage({ searchParams }: Props) {
   const nextParam = next && next.startsWith("/") ? next : "/";
 
   return (
-    <AuthShell variant="glow"
-      footer={<BackButton />}
-    >
+    <AuthShell variant="glow">
       <div className="space-y-6">
         <div>
           <h1 className="section-title">Sign in</h1>
@@ -44,6 +42,7 @@ export default async function SignInPage({ searchParams }: Props) {
               <Input id="email" name="email" type="email" autoComplete="email" required />
             </Field>
             <Button type="submit" className="w-full">Email me a link</Button>
+            <BackButton />
             <p className="text-center text-xs text-muted">
               <Link href={`/sign-in${nextParam !== "/" ? `?next=${encodeURIComponent(nextParam)}` : ""}`} className="text-brand-400 hover:text-brand">
                 Use password instead
@@ -62,6 +61,7 @@ export default async function SignInPage({ searchParams }: Props) {
               <Input id="password" name="password" type="password" autoComplete="current-password" required />
             </Field>
             <Button type="submit" className="w-full">Sign in</Button>
+            <BackButton />
             <p className="text-center text-xs text-muted">
               <Link
                 href={`/sign-in?method=magic${nextParam !== "/" ? `&next=${encodeURIComponent(nextParam)}` : ""}`}

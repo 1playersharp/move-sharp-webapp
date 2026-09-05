@@ -14,16 +14,22 @@ import { Button } from "@/components/ui/Button";
 export function BackButton({
   fallback = "/",
   label = "Go back",
+  className = "w-full",
+  size = "md",
 }: {
   fallback?: string;
   label?: string;
+  className?: string;
+  /** Defaults to md so it matches the primary submit button it sits under. */
+  size?: "sm" | "md" | "lg";
 }) {
   const router = useRouter();
 
   return (
     <Button
       variant="secondary"
-      size="sm"
+      size={size}
+      className={className}
       onClick={() => {
         if (typeof window !== "undefined" && window.history.length > 1) {
           router.back();

@@ -14,9 +14,7 @@ export default async function ManagerSignUpPage({ searchParams }: Props) {
 
   if (pending === "1") {
     return (
-      <AuthShell
-      footer={<BackButton />}
-    >
+      <AuthShell>
         <div className="space-y-4">
           <h1 className="section-title">Check your email</h1>
           <p className="text-sm text-muted">
@@ -30,9 +28,7 @@ export default async function ManagerSignUpPage({ searchParams }: Props) {
   }
 
   return (
-    <AuthShell
-      footer={<BackButton />}
-    >
+    <AuthShell>
       <div className="space-y-6">
         <div>
           <p className="font-display uppercase tracking-display text-brand-400 text-xs">
@@ -68,6 +64,7 @@ export default async function ManagerSignUpPage({ searchParams }: Props) {
             <HelpText>At least 8 characters.</HelpText>
           </Field>
           <Button type="submit" className="w-full">Create coach account</Button>
+            <BackButton />
         </form>
 
         <div className="rounded-xl border border-white/5 bg-ink-900/50 p-3">

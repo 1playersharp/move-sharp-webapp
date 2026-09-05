@@ -14,10 +14,7 @@ export default async function SignUpPage({ searchParams }: Props) {
 
   if (pending === "1") {
     return (
-      <AuthShell
-        variant="hero"
-        footer={<BackButton />}
-      >
+      <AuthShell variant="hero">
         <div className="space-y-4">
           <h1 className="section-title">Check your email</h1>
           <p className="text-sm text-muted">
@@ -34,10 +31,7 @@ export default async function SignUpPage({ searchParams }: Props) {
   }
 
   return (
-    <AuthShell
-      variant="hero"
-      footer={<BackButton />}
-    >
+    <AuthShell variant="hero">
       <div className="space-y-6">
         <div>
           <h1 className="section-title">Create account</h1>
@@ -64,6 +58,7 @@ export default async function SignUpPage({ searchParams }: Props) {
             <HelpText>At least 8 characters.</HelpText>
           </Field>
           <Button type="submit" className="w-full">Create account</Button>
+            <BackButton />
         </form>
 
         <div className="space-y-2 rounded-xl border border-white/5 bg-ink-900/50 p-3">
