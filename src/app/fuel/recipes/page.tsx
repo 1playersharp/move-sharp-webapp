@@ -256,7 +256,7 @@ export default async function RecipesListPage({ searchParams }: Props) {
             }
           />
         ) : (
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
             {recipes.map((r) => (
               <RecipeCard key={r.slug} recipe={r} />
             ))}

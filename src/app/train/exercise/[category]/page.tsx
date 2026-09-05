@@ -34,7 +34,7 @@ export default async function CategoryExercisesPage({ params }: Props) {
         right={<ContextToggle context={context} />}
       />
 
-      <div className="space-y-2 shell-gutter">
+      <div className="shell-gutter grid gap-2 md:grid-cols-2 xl:grid-cols-3">
         {exercises.length === 0 ? (
           <p className="text-sm text-muted">No exercises yet in this category.</p>
         ) : (

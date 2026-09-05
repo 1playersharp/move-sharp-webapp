@@ -183,7 +183,7 @@ export default async function TrainPage({ searchParams }: Props) {
               }
             />
           ) : (
-            <div className="space-y-3">
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {programmes.map((p) => (
                 <ProgrammeCard key={p.id} programme={p} />
               ))}

@@ -30,7 +30,7 @@ export default async function ExerciseCategoriesPage() {
       <div className="space-y-6 shell-gutter">
         <ModeToggle mode="exercise" />
 
-        <div className="space-y-3">
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {EXERCISE_CATEGORIES.map((c) => {
             const count = countByCategory.get(c.key) ?? 0;
             return (

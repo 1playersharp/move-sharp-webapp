@@ -37,12 +37,12 @@
      they are separate elements that must line up exactly, and hardcoding
      the width in each is how they drift apart. */
   .shell-width {
-    @apply mx-auto w-full max-w-xl md:max-w-3xl lg:max-w-4xl;
+    @apply mx-auto w-full max-w-xl md:max-w-3xl lg:max-w-[75rem];
   }
 
-  /* Horizontal page padding, widening with the shell. */
+  /* Horizontal page padding, opening up as the shell does. */
   .shell-gutter {
-    @apply px-5 md:px-8;
+    @apply px-5 md:px-8 lg:px-12;
   }
 }
 
