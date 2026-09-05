@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BackButton } from "@/components/ui/BackButton";
 import { AuthShell } from "@/components/layout/AuthShell";
 import { Button } from "@/components/ui/Button";
 import { Field, Input, Label, ErrorText, HelpText } from "@/components/ui/Field";
@@ -14,11 +15,7 @@ export default async function ManagerSignUpPage({ searchParams }: Props) {
   if (pending === "1") {
     return (
       <AuthShell
-      footer={
-        <Link href="/" className="text-xs text-muted hover:text-white">
-          ← Back to MoveSharp
-        </Link>
-      }
+      footer={<BackButton />}
     >
         <div className="space-y-4">
           <h1 className="section-title">Check your email</h1>
@@ -34,11 +31,7 @@ export default async function ManagerSignUpPage({ searchParams }: Props) {
 
   return (
     <AuthShell
-      footer={
-        <Link href="/" className="text-xs text-muted hover:text-white">
-          ← Back to MoveSharp
-        </Link>
-      }
+      footer={<BackButton />}
     >
       <div className="space-y-6">
         <div>
