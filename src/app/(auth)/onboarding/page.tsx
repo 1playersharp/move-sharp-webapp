@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { signOut } from "@/app/(auth)/actions";
 import { AuthShell } from "@/components/layout/AuthShell";
 import { Button } from "@/components/ui/Button";
 import { Field, Input, Label, ErrorText, HelpText } from "@/components/ui/Field";
@@ -22,7 +23,16 @@ export default async function OnboardingPage({ searchParams }: Props) {
   const { error } = await searchParams;
 
   return (
-    <AuthShell>
+    <AuthShell
+      home={null}
+      footer={
+        <form action={signOut}>
+          <button type="submit" className="text-xs text-muted hover:text-white">
+            Sign out
+          </button>
+        </form>
+      }
+    >
       <form action={completeOnboarding} className="space-y-6">
         <div>
           <h1 className="section-title">Set up your profile</h1>

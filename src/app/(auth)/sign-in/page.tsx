@@ -19,7 +19,13 @@ export default async function SignInPage({ searchParams }: Props) {
   const nextParam = next && next.startsWith("/") ? next : "/";
 
   return (
-    <AuthShell variant="glow">
+    <AuthShell variant="glow"
+      footer={
+        <Link href="/" className="text-xs text-muted hover:text-white">
+          ← Back to MoveSharp
+        </Link>
+      }
+    >
       <div className="space-y-6">
         <div>
           <h1 className="section-title">Sign in</h1>

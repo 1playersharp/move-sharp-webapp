@@ -13,7 +13,13 @@ export default async function ManagerSignUpPage({ searchParams }: Props) {
 
   if (pending === "1") {
     return (
-      <AuthShell>
+      <AuthShell
+      footer={
+        <Link href="/" className="text-xs text-muted hover:text-white">
+          ← Back to MoveSharp
+        </Link>
+      }
+    >
         <div className="space-y-4">
           <h1 className="section-title">Check your email</h1>
           <p className="text-sm text-muted">
@@ -27,7 +33,13 @@ export default async function ManagerSignUpPage({ searchParams }: Props) {
   }
 
   return (
-    <AuthShell>
+    <AuthShell
+      footer={
+        <Link href="/" className="text-xs text-muted hover:text-white">
+          ← Back to MoveSharp
+        </Link>
+      }
+    >
       <div className="space-y-6">
         <div>
           <p className="font-display uppercase tracking-display text-brand-400 text-xs">
