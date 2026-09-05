@@ -84,7 +84,7 @@ export default async function MetricDetailPage({ params }: Props) {
                     key={e.id}
                     className={`rounded-card border p-4 ${
                       e.isPersonalBest
-                        ? "border-brand bg-brand/10"
+                        ? "border-achievement bg-achievement/10"
                         : "border-white/5 bg-ink-850"
                     }`}
                   >
@@ -92,7 +92,7 @@ export default async function MetricDetailPage({ params }: Props) {
                       <p className="font-display uppercase tracking-display text-white text-lg">
                         {formatMetricValue(e.value, def.unit)}
                         {e.isPersonalBest ? (
-                          <span className="ml-2 font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
+                          <span className="ml-2 font-display uppercase tracking-display text-achievement-400 text-[0.65rem]">
                             PB
                           </span>
                         ) : null}

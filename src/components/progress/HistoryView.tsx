@@ -70,10 +70,20 @@ export function HistoryView({ rows }: { rows: TimelineRow[] }) {
           <li key={row.id}>
             <Link
               href={`/progress/${row.metricKey}`}
-              className="block rounded-card border border-brand/25 bg-brand/5 p-4"
+              className={
+                row.isPersonalBest
+                  ? "block rounded-card border border-achievement/25 bg-achievement/5 p-4"
+                  : "block rounded-card border border-white/5 bg-ink-850 p-4"
+              }
             >
               <div className="flex items-baseline justify-between gap-2">
-                <p className="font-display uppercase tracking-display text-brand-400 text-sm">
+                <p
+                  className={
+                    row.isPersonalBest
+                      ? "font-display uppercase tracking-display text-achievement-400 text-sm"
+                      : "font-display uppercase tracking-display text-muted-strong text-sm"
+                  }
+                >
                   {row.isPersonalBest ? "PB ·" : ""} {row.metricLabel}
                 </p>
                 <span className="text-[0.65rem] text-muted">{relativeDate(row.when)}</span>
