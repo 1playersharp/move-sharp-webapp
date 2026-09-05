@@ -25,7 +25,7 @@ export function JoinTeamForm({ code, isUnder16 }: Props) {
       {isUnder16 ? (
         <label
           htmlFor="parentAck"
-          className="flex cursor-pointer items-start gap-3 rounded-md border border-white/10 bg-ink-900/60 p-4 hover:border-mint/40 has-[:checked]:border-mint has-[:checked]:bg-mint/10"
+          className="flex cursor-pointer items-start gap-3 rounded-md border border-white/10 bg-ink-900/60 p-4 hover:border-brand/40 has-[:checked]:border-brand has-[:checked]:bg-brand/10"
         >
           <input
             id="parentAck"
@@ -33,7 +33,7 @@ export function JoinTeamForm({ code, isUnder16 }: Props) {
             type="checkbox"
             checked={parentAck}
             onChange={(e) => setParentAck(e.target.checked)}
-            className="mt-0.5 h-5 w-5 accent-mint"
+            className="mt-0.5 h-5 w-5 accent-brand"
           />
           <span className="text-sm text-white">
             A parent has read this with me and agrees to me joining this team.
@@ -44,10 +44,10 @@ export function JoinTeamForm({ code, isUnder16 }: Props) {
       <button
         type="submit"
         disabled={!canJoin}
-        className={`inline-flex h-12 w-full items-center justify-center rounded-full px-6 font-display uppercase tracking-display text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 ${
+        className={`inline-flex h-12 w-full items-center justify-center rounded-full px-6 font-display uppercase tracking-display text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 ${
           canJoin
-            ? "bg-mint text-ink-950 hover:bg-mint-400"
-            : "cursor-not-allowed bg-mint/20 text-mint-400/50"
+            ? "bg-brand text-ink-950 hover:bg-brand-400"
+            : "cursor-not-allowed bg-brand/20 text-brand-400/50"
         }`}
       >
         Join team

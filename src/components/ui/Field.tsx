@@ -23,7 +23,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       type={type}
       className={cn(
         "h-11 rounded-xl bg-ink-800 px-4 text-white placeholder:text-muted",
-        "border border-white/5 focus:border-mint focus:outline-none focus:ring-2 focus:ring-mint/30",
+        "border border-white/5 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30",
         "disabled:opacity-50",
         className,
       )}
@@ -42,7 +42,7 @@ export function ErrorText({ className, ...props }: React.HTMLAttributes<HTMLPara
     <p
       role="alert"
       className={cn(
-        "rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-300",
+        "rounded-md border border-caution-500/30 bg-caution-500/10 px-3 py-2 text-xs text-caution-300",
         className,
       )}
       {...props}

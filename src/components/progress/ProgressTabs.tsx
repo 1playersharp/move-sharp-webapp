@@ -25,7 +25,7 @@ export function ProgressTabs({ active }: Props) {
           className={cn(
             "flex items-center justify-center rounded-full py-2.5 text-sm font-display uppercase tracking-display transition-colors",
             active === t.key
-              ? "bg-mint text-ink-950 shadow"
+              ? "bg-brand text-ink-950 shadow"
               : "text-muted hover:text-white",
           )}
         >

@@ -36,8 +36,8 @@ export default async function CoachYouPage() {
             through teams → memberships → JoinConsent; the /coach/delete
             page shows the impact count before the typed confirm. */}
         <section className="pt-4">
-          <div className="rounded-md border border-red-500/25 bg-red-500/5 p-4">
-            <h2 className="font-display uppercase tracking-display text-red-300 text-xs">
+          <div className="rounded-md border border-caution-500/25 bg-caution-500/5 p-4">
+            <h2 className="font-display uppercase tracking-display text-caution-300 text-xs">
               Delete coach account
             </h2>
             <p className="mt-2 text-xs text-white/80">
@@ -47,7 +47,7 @@ export default async function CoachYouPage() {
             </p>
             <Link
               href="/coach/delete"
-              className="mt-3 inline-flex h-9 items-center rounded-full border border-red-500/40 bg-transparent px-4 font-display uppercase tracking-display text-xs text-red-300 hover:border-red-500 hover:text-red-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"
+              className="mt-3 inline-flex h-9 items-center rounded-full border border-caution-500/40 bg-transparent px-4 font-display uppercase tracking-display text-xs text-caution-300 hover:border-caution-500 hover:text-caution-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-caution-500 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"
             >
               Delete my coach account
             </Link>

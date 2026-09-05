@@ -24,7 +24,7 @@ export function RecoveryDisclaimer({ slug, sessionName, isUnder16 }: Props) {
 
   return (
     <div className="mx-auto max-w-2xl px-5 py-10 sm:py-14">
-      <p className="font-display uppercase tracking-display text-red-300 text-xs">
+      <p className="font-display uppercase tracking-display text-caution-300 text-xs">
         Returning from injury
       </p>
       <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-[1.1] sm:text-4xl">
@@ -34,7 +34,7 @@ export function RecoveryDisclaimer({ slug, sessionName, isUnder16 }: Props) {
         Before you enter <span className="text-white">{sessionName}</span>.
       </p>
 
-      <div className="mt-8 space-y-4 rounded-card border border-red-500/25 bg-red-500/5 p-5 text-sm text-white/90 leading-relaxed">
+      <div className="mt-8 space-y-4 rounded-card border border-caution-500/25 bg-caution-500/5 p-5 text-sm text-white/90 leading-relaxed">
         <p>
           MoveSharp is a training tool, not a rehabilitation tool. It cannot
           diagnose, treat, or determine whether you are ready to train again.
@@ -50,7 +50,7 @@ export function RecoveryDisclaimer({ slug, sessionName, isUnder16 }: Props) {
           professional who cleared you.
         </p>
         {isUnder16 ? (
-          <p className="rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-white">
+          <p className="rounded-md border border-caution-500/30 bg-caution-500/10 px-3 py-2 text-white">
             If you are under 16, a parent should read this page with you
             before you continue.
           </p>
@@ -62,7 +62,7 @@ export function RecoveryDisclaimer({ slug, sessionName, isUnder16 }: Props) {
 
         <label
           htmlFor="cleared"
-          className="flex cursor-pointer items-start gap-3 rounded-md border border-white/10 bg-ink-900/60 p-4 hover:border-mint/40 has-[:checked]:border-mint has-[:checked]:bg-mint/10"
+          className="flex cursor-pointer items-start gap-3 rounded-md border border-white/10 bg-ink-900/60 p-4 hover:border-brand/40 has-[:checked]:border-brand has-[:checked]:bg-brand/10"
         >
           <input
             id="cleared"
@@ -70,7 +70,7 @@ export function RecoveryDisclaimer({ slug, sessionName, isUnder16 }: Props) {
             type="checkbox"
             checked={cleared}
             onChange={(e) => setCleared(e.target.checked)}
-            className="mt-0.5 h-5 w-5 accent-mint"
+            className="mt-0.5 h-5 w-5 accent-brand"
           />
           <span className="text-sm text-white">
             I've been cleared by a qualified professional to return to
@@ -82,17 +82,17 @@ export function RecoveryDisclaimer({ slug, sessionName, isUnder16 }: Props) {
           <button
             type="submit"
             disabled={!cleared}
-            className={`inline-flex h-12 flex-1 items-center justify-center rounded-full px-6 font-display uppercase tracking-display text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 ${
+            className={`inline-flex h-12 flex-1 items-center justify-center rounded-full px-6 font-display uppercase tracking-display text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 ${
               cleared
-                ? "bg-mint text-ink-950 hover:bg-mint-400"
-                : "cursor-not-allowed bg-mint/20 text-mint-400/50"
+                ? "bg-brand text-ink-950 hover:bg-brand-400"
+                : "cursor-not-allowed bg-brand/20 text-brand-400/50"
             }`}
           >
             Enter session
           </button>
           <Link
             href="/"
-            className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 px-6 font-display uppercase tracking-display text-sm text-white hover:border-white/50 hover:text-mint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"
+            className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 px-6 font-display uppercase tracking-display text-sm text-white hover:border-white/50 hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"
           >
             Not cleared yet? Back to Home
           </Link>
@@ -103,7 +103,7 @@ export function RecoveryDisclaimer({ slug, sessionName, isUnder16 }: Props) {
         Report a concern:{" "}
         <a
           href="mailto:hello@movesharp.app"
-          className="text-mint-400 underline underline-offset-4 hover:text-mint"
+          className="text-brand-400 underline underline-offset-4 hover:text-brand"
         >
           hello@movesharp.app
         </a>

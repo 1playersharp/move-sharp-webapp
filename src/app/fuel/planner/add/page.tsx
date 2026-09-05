@@ -67,10 +67,10 @@ export default async function AddToPlannerPage({ searchParams }: Props) {
                   <input type="hidden" name="recipeId" value={r.id} />
                   <button
                     type="submit"
-                    className="group flex w-full items-start justify-between gap-3 rounded-card border border-white/5 bg-ink-850 p-3 text-left shadow-card hover:border-mint"
+                    className="group flex w-full items-start justify-between gap-3 rounded-card border border-white/5 bg-ink-850 p-3 text-left shadow-card hover:border-brand"
                   >
                     <div className="min-w-0 flex-1">
-                      <p className="font-display uppercase tracking-display text-white text-sm leading-tight group-hover:text-mint">
+                      <p className="font-display uppercase tracking-display text-white text-sm leading-tight group-hover:text-brand">
                         {r.name}
                       </p>
                       {r.fuelTags.length > 0 ? (
@@ -81,7 +81,7 @@ export default async function AddToPlannerPage({ searchParams }: Props) {
                             return (
                               <span
                                 key={t}
-                                className="rounded-full bg-mint/10 px-1.5 py-0.5 font-display uppercase tracking-display text-[0.55rem] text-mint-400"
+                                className="rounded-full bg-brand/10 px-1.5 py-0.5 font-display uppercase tracking-display text-[0.55rem] text-brand-400"
                               >
                                 {label}
                               </span>
@@ -92,7 +92,7 @@ export default async function AddToPlannerPage({ searchParams }: Props) {
                     </div>
                     <span
                       aria-hidden="true"
-                      className="shrink-0 rounded-full bg-mint/20 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-mint-400 group-hover:bg-mint group-hover:text-ink-950"
+                      className="shrink-0 rounded-full bg-brand/20 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-brand-400 group-hover:bg-brand group-hover:text-ink-950"
                     >
                       + Pin
                     </span>

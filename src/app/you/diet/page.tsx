@@ -44,7 +44,7 @@ export default async function EditDietPage({ searchParams }: Props) {
               <label
                 key={d.key}
                 htmlFor={`diet_${d.key}`}
-                className="flex cursor-pointer items-start gap-2 rounded-md border border-white/5 bg-ink-900/60 p-3 hover:border-mint/30 has-[:checked]:border-mint has-[:checked]:bg-mint/10"
+                className="flex cursor-pointer items-start gap-2 rounded-md border border-white/5 bg-ink-900/60 p-3 hover:border-brand/30 has-[:checked]:border-brand has-[:checked]:bg-brand/10"
               >
                 <input
                   id={`diet_${d.key}`}
@@ -52,7 +52,7 @@ export default async function EditDietPage({ searchParams }: Props) {
                   type="radio"
                   value={d.key}
                   defaultChecked={d.key === p.dietPreference}
-                  className="mt-0.5 h-4 w-4 accent-mint"
+                  className="mt-0.5 h-4 w-4 accent-brand"
                 />
                 <span className="min-w-0">
                   <span className="block text-sm text-white">{d.label}</span>
@@ -90,7 +90,7 @@ export default async function EditDietPage({ searchParams }: Props) {
                   name={`allergy_${a.key}`}
                   type="checkbox"
                   defaultChecked={activeAllergies.has(a.key)}
-                  className="mt-1 h-4 w-4 accent-mint"
+                  className="mt-1 h-4 w-4 accent-brand"
                 />
                 <span className="min-w-0">
                   <span className="block text-sm text-white">{a.label}</span>

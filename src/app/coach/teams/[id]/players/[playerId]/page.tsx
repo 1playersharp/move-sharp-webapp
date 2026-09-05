@@ -171,7 +171,7 @@ export default async function CoachPlayerViewPage({ params }: Props) {
                 return (
                   <li key={def.key} className="flex items-baseline justify-between py-2">
                     <span className="text-sm text-white">{def.label}</span>
-                    <span className="font-display uppercase tracking-display text-mint-400 text-sm tabular-nums">
+                    <span className="font-display uppercase tracking-display text-muted-strong text-sm tabular-nums">
                       {formatMetricValue(best.value, def.unit)}
                     </span>
                   </li>
@@ -207,7 +207,7 @@ function ConsentSection({
           {heading}
         </h2>
         {shared ? (
-          <span className="font-display uppercase tracking-display text-[0.6rem] text-mint-400">
+          <span className="font-display uppercase tracking-display text-[0.6rem] text-brand-400">
             Shared
           </span>
         ) : (

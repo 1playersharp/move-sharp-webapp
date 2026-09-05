@@ -16,11 +16,11 @@ export default async function DeleteAccountPage({ searchParams }: Props) {
       <div className="mx-auto max-w-lg shell-gutter pt-[max(1rem,env(safe-area-inset-top))] pb-10">
         <Link
           href="/you"
-          className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint focus-visible:text-mint"
+          className="text-[0.7rem] font-display uppercase tracking-display text-brand-400 hover:text-brand focus-visible:text-brand"
         >
           ← You
         </Link>
-        <p className="mt-3 font-display uppercase tracking-display text-red-300 text-xs">
+        <p className="mt-3 font-display uppercase tracking-display text-caution-300 text-xs">
           Danger zone
         </p>
         <h1 className="mt-2 font-display uppercase tracking-display text-white text-2xl md:text-3xl leading-tight">
@@ -37,14 +37,14 @@ export default async function DeleteAccountPage({ searchParams }: Props) {
         {error === "confirm" ? (
           <p
             role="alert"
-            className="mt-4 rounded-md border border-red-500/40 bg-red-500/10 px-3 py-2 text-xs text-red-200"
+            className="mt-4 rounded-md border border-caution-500/40 bg-caution-500/10 px-3 py-2 text-xs text-caution-200"
           >
             Type the word <span className="font-semibold">delete</span> to
             confirm.
           </p>
         ) : null}
 
-        <div className="mt-8 rounded-card border border-red-500/25 bg-red-500/5 p-5">
+        <div className="mt-8 rounded-card border border-caution-500/25 bg-caution-500/5 p-5">
           <DeleteAccountForm />
         </div>
 
@@ -52,7 +52,7 @@ export default async function DeleteAccountPage({ searchParams }: Props) {
           Changed your mind?{" "}
           <Link
             href="/you"
-            className="text-mint-400 underline underline-offset-4 hover:text-mint"
+            className="text-brand-400 underline underline-offset-4 hover:text-brand"
           >
             Back to You
           </Link>

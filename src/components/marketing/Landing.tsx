@@ -99,7 +99,7 @@ export function Landing() {
                     <li key={f.label}>
                       <a
                         href={f.href}
-                        className="text-white/70 underline-offset-4 hover:text-mint hover:underline focus-visible:text-mint focus-visible:underline"
+                        className="text-white/70 underline-offset-4 hover:text-brand hover:underline focus-visible:text-brand focus-visible:underline"
                       >
                         {f.label}
                       </a>
@@ -132,7 +132,7 @@ export function Landing() {
                 Already have an account?{" "}
                 <Link
                   href="/sign-in"
-                  className="text-mint-400 underline underline-offset-4 hover:text-mint"
+                  className="text-brand-400 underline underline-offset-4 hover:text-brand"
                 >
                   Sign in
                 </Link>
@@ -142,13 +142,13 @@ export function Landing() {
                   who'll be paying. Full-width mint outline card, not
                   bottom-of-page small print. */}
               <div
-                className="ms-fade-up flex items-start gap-3 rounded-md border border-mint/30 bg-mint/5 p-4"
+                className="ms-fade-up flex items-start gap-3 rounded-md border border-brand/30 bg-brand/5 p-4"
                 style={{ animationDelay: "860ms" }}
               >
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 24 24"
-                  className="mt-0.5 h-5 w-5 shrink-0 text-mint"
+                  className="mt-0.5 h-5 w-5 shrink-0 text-brand"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.75"
@@ -159,7 +159,7 @@ export function Landing() {
                   <path d="M9 12l2.2 2.2L15.5 10" />
                 </svg>
                 <p className="text-sm text-white">
-                  <span className="font-display uppercase tracking-display text-mint-400">
+                  <span className="font-display uppercase tracking-display text-brand-400">
                     Private by default.
                   </span>{" "}
                   Coaches only see what you share.
@@ -173,7 +173,7 @@ export function Landing() {
           <div className="ms-fade-up pt-10" style={{ animationDelay: "1000ms" }}>
             <a
               href="#whats-inside"
-              className="inline-flex items-center gap-2 text-xs font-display uppercase tracking-display text-white/60 hover:text-mint focus-visible:text-mint"
+              className="inline-flex items-center gap-2 text-xs font-display uppercase tracking-display text-white/60 hover:text-brand focus-visible:text-brand"
             >
               Keep scrolling
               <svg
@@ -245,7 +245,7 @@ function WhatsInsideSection() {
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <div className="max-w-2xl">
-          <p className="font-display uppercase tracking-display text-mint-400 text-xs">
+          <p className="font-display uppercase tracking-display text-brand-400 text-xs">
             What's inside
           </p>
           <h2
@@ -266,7 +266,7 @@ function WhatsInsideSection() {
               key={c.title}
               className="rounded-card border border-white/10 bg-ink-850 p-6 shadow-card"
             >
-              <h3 className="font-display uppercase tracking-display text-mint-400 text-sm">
+              <h3 className="font-display uppercase tracking-display text-brand-400 text-sm">
                 {c.title}
               </h3>
               <p className="mt-3 text-sm text-white/85 leading-relaxed">
@@ -316,7 +316,7 @@ function WhatYoullWorkOnSection() {
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <div className="max-w-2xl">
-          <p className="font-display uppercase tracking-display text-mint-400 text-xs">
+          <p className="font-display uppercase tracking-display text-brand-400 text-xs">
             What you'll work on
           </p>
           <h2
@@ -330,13 +330,13 @@ function WhatYoullWorkOnSection() {
           {WORK_ON.map((w, i) => (
             <li
               key={w.title}
-              className="border-l-2 border-mint/60 pl-4 sm:pl-6"
+              className="border-l-2 border-brand/60 pl-4 sm:pl-6"
             >
               <p className="font-display uppercase tracking-display text-white text-lg sm:text-xl">
-                <span className="text-mint-400 tabular-nums">
+                <span className="text-muted-strong tabular-nums">
                   0{i + 1}
                 </span>
-                <span aria-hidden="true" className="text-mint-400"> — </span>
+                <span aria-hidden="true" className="text-brand-400"> — </span>
                 {w.title}
               </p>
               <p className="mt-1.5 max-w-2xl text-base text-white/80">
@@ -396,7 +396,7 @@ function ForCoachesSection() {
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <div className="max-w-2xl">
-          <p className="font-display uppercase tracking-display text-mint-400 text-xs">
+          <p className="font-display uppercase tracking-display text-brand-400 text-xs">
             For coaches
           </p>
           <h2
@@ -418,7 +418,7 @@ function ForCoachesSection() {
               key={c.heading}
               className="rounded-card border border-white/10 bg-ink-850 p-6 shadow-card"
             >
-              <h3 className="font-display uppercase tracking-display text-mint-400 text-sm">
+              <h3 className="font-display uppercase tracking-display text-brand-400 text-sm">
                 {c.heading}
               </h3>
               <p className="mt-3 text-sm text-white/85 leading-relaxed">
@@ -428,7 +428,7 @@ function ForCoachesSection() {
           ))}
         </ul>
 
-        <div className="mt-8 flex flex-col items-start gap-4 rounded-card border border-mint/30 bg-mint/5 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col items-start gap-4 rounded-card border border-brand/30 bg-brand/5 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="font-display uppercase tracking-display text-white text-lg">
               Coaching a squad?
@@ -481,7 +481,7 @@ function ForParentsBriefSection() {
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <div className="max-w-2xl">
-          <p className="font-display uppercase tracking-display text-mint-400 text-xs">
+          <p className="font-display uppercase tracking-display text-brand-400 text-xs">
             For parents
           </p>
           <h2
@@ -499,9 +499,9 @@ function ForParentsBriefSection() {
           {PARENT_POINTS.map((p) => (
             <li
               key={p.heading}
-              className="rounded-card border border-mint/25 bg-mint/5 p-5"
+              className="rounded-card border border-brand/25 bg-brand/5 p-5"
             >
-              <h3 className="font-display uppercase tracking-display text-mint-400 text-xs">
+              <h3 className="font-display uppercase tracking-display text-brand-400 text-xs">
                 {p.heading}
               </h3>
               <p className="mt-2 text-sm text-white/85 leading-relaxed">
@@ -513,7 +513,7 @@ function ForParentsBriefSection() {
         <div className="mt-8">
           <a
             href="/for-parents"
-            className="inline-flex items-center gap-2 font-display uppercase tracking-display text-sm text-mint-400 underline-offset-4 hover:text-mint hover:underline focus-visible:text-mint focus-visible:underline"
+            className="inline-flex items-center gap-2 font-display uppercase tracking-display text-sm text-brand-400 underline-offset-4 hover:text-brand hover:underline focus-visible:text-brand focus-visible:underline"
           >
             Read the full parents' page
             <svg
@@ -572,7 +572,7 @@ function HowItWorksSection() {
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <div className="max-w-2xl">
-          <p className="font-display uppercase tracking-display text-mint-400 text-xs">
+          <p className="font-display uppercase tracking-display text-brand-400 text-xs">
             How it works
           </p>
           <h2
@@ -587,7 +587,7 @@ function HowItWorksSection() {
             <li key={s.title} className="flex gap-4">
               <span
                 aria-hidden="true"
-                className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-mint/10 font-display uppercase tracking-display text-mint text-lg tabular-nums"
+                className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand/10 font-display uppercase tracking-display text-brand text-lg tabular-nums"
               >
                 {i + 1}
               </span>
@@ -605,7 +605,7 @@ function HowItWorksSection() {
 
         {/* End-of-page CTA — repeats the primary action so someone
             who scrolled past the hero doesn't have to scroll back. */}
-        <div className="mt-14 flex flex-col items-start gap-4 rounded-card border border-mint/30 bg-mint/5 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col items-start gap-4 rounded-card border border-brand/30 bg-brand/5 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="font-display uppercase tracking-display text-white text-lg">
               Ready to level up your physical output?

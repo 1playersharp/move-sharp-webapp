@@ -52,7 +52,7 @@ export default async function MetricDetailPage({ params }: Props) {
           <CardTitle>Personal best</CardTitle>
           {best ? (
             <>
-              <p className="mt-2 font-display uppercase tracking-display text-mint-400 text-4xl leading-none">
+              <p className="mt-2 font-display uppercase tracking-display text-achievement-400 text-4xl leading-none">
                 {formatMetricValue(best.value, def.unit)}
               </p>
               <p className="mt-2 text-xs text-muted">
@@ -84,7 +84,7 @@ export default async function MetricDetailPage({ params }: Props) {
                     key={e.id}
                     className={`rounded-card border p-4 ${
                       e.isPersonalBest
-                        ? "border-mint bg-mint/10"
+                        ? "border-brand bg-brand/10"
                         : "border-white/5 bg-ink-850"
                     }`}
                   >
@@ -92,7 +92,7 @@ export default async function MetricDetailPage({ params }: Props) {
                       <p className="font-display uppercase tracking-display text-white text-lg">
                         {formatMetricValue(e.value, def.unit)}
                         {e.isPersonalBest ? (
-                          <span className="ml-2 font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+                          <span className="ml-2 font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
                             PB
                           </span>
                         ) : null}

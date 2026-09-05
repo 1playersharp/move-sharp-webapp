@@ -52,7 +52,7 @@ export default async function YouPage({ searchParams }: Props) {
         {saved && savedLabel[saved] ? (
           <p
             role="status"
-            className="rounded-md border border-mint/30 bg-mint/10 px-3 py-2 text-xs text-mint-400"
+            className="rounded-md border border-brand/30 bg-brand/10 px-3 py-2 text-xs text-brand-400"
           >
             {savedLabel[saved]}
           </p>
@@ -66,7 +66,7 @@ export default async function YouPage({ searchParams }: Props) {
             <h2 className="font-display uppercase tracking-display text-white text-base">
               Training context
             </h2>
-            <span className="font-display uppercase tracking-display text-[0.65rem] text-mint-400">
+            <span className="font-display uppercase tracking-display text-[0.65rem] text-brand-400">
               {player.trainingContext === "gym" ? "Gym" : "Home"}
             </span>
           </div>
@@ -115,13 +115,13 @@ export default async function YouPage({ searchParams }: Props) {
             manager can see. */}
         <Link
           href="/you/teams"
-          className="group block rounded-card border border-mint/25 bg-mint/5 p-5 shadow-card hover:border-mint/60"
+          className="group block rounded-card border border-brand/25 bg-brand/5 p-5 shadow-card hover:border-brand/60"
         >
           <div className="flex items-baseline justify-between gap-2">
             <h2 className="font-display uppercase tracking-display text-white text-base">
               Teams
             </h2>
-            <span className="font-display uppercase tracking-display text-[0.65rem] text-mint-400">
+            <span className="font-display uppercase tracking-display text-[0.65rem] text-brand-400">
               {teamCount === 0
                 ? "None joined"
                 : `${teamCount} team${teamCount === 1 ? "" : "s"}`}
@@ -146,8 +146,8 @@ export default async function YouPage({ searchParams }: Props) {
             the confirmation page. Delivers on the /for-parents
             promise of one-click deletion. */}
         <section className="pt-6">
-          <div className="rounded-md border border-red-500/25 bg-red-500/5 p-4">
-            <h2 className="font-display uppercase tracking-display text-red-300 text-xs">
+          <div className="rounded-md border border-caution-500/25 bg-caution-500/5 p-4">
+            <h2 className="font-display uppercase tracking-display text-caution-300 text-xs">
               Delete account
             </h2>
             <p className="mt-2 text-xs text-white/80">
@@ -157,7 +157,7 @@ export default async function YouPage({ searchParams }: Props) {
             </p>
             <Link
               href="/you/delete"
-              className="mt-3 inline-flex h-9 items-center rounded-full border border-red-500/40 bg-transparent px-4 font-display uppercase tracking-display text-xs text-red-300 hover:border-red-500 hover:text-red-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"
+              className="mt-3 inline-flex h-9 items-center rounded-full border border-caution-500/40 bg-transparent px-4 font-display uppercase tracking-display text-xs text-caution-300 hover:border-caution-500 hover:text-caution-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-caution-500 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"
             >
               Delete my account
             </Link>
@@ -180,7 +180,7 @@ function SettingsRow({
   return (
     <Link
       href={href}
-      className="group flex items-start justify-between gap-3 rounded-card border border-white/5 bg-ink-850 p-5 shadow-card hover:border-mint/40"
+      className="group flex items-start justify-between gap-3 rounded-card border border-white/5 bg-ink-850 p-5 shadow-card hover:border-brand/40"
     >
       <div className="min-w-0">
         <h2 className="font-display uppercase tracking-display text-white text-base">
@@ -190,7 +190,7 @@ function SettingsRow({
       </div>
       <span
         aria-hidden="true"
-        className="shrink-0 text-muted group-hover:text-mint"
+        className="shrink-0 text-muted group-hover:text-brand"
       >
         ›
       </span>

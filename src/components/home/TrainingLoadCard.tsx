@@ -34,13 +34,13 @@ export function TrainingLoadCard({ countsByDay }: Props) {
             <div key={i} className="flex flex-col items-center gap-1">
               <div className="flex h-14 w-full items-end rounded-md bg-ink-800">
                 <div
-                  className={`w-full rounded-md ${c === 0 ? "bg-white/5" : "bg-mint"}`}
+                  className={`w-full rounded-md ${c === 0 ? "bg-white/5" : "bg-brand"}`}
                   style={{ height: c === 0 ? "8%" : `${heightPct}%` }}
                 />
               </div>
               <span
                 className={`text-[0.65rem] ${
-                  isToday ? "text-mint" : "text-muted"
+                  isToday ? "text-brand" : "text-muted"
                 }`}
               >
                 {WEEKDAY_INITIAL[days[i].getUTCDay()]}

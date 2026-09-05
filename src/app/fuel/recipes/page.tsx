@@ -125,7 +125,7 @@ export default async function RecipesListPage({ searchParams }: Props) {
 
       <div className="space-y-4 shell-gutter pb-6">
         <section className="space-y-2">
-          <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+          <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
             Rail
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -133,8 +133,8 @@ export default async function RecipesListPage({ searchParams }: Props) {
               href={buildHref({ tag: null })}
               className={`rounded-full border px-3 py-1 font-display uppercase tracking-display text-[0.65rem] ${
                 activeTag === null
-                  ? "border-mint bg-mint text-ink-950"
-                  : "border-white/10 text-muted hover:border-mint hover:text-mint"
+                  ? "border-brand bg-brand text-ink-950"
+                  : "border-white/10 text-muted hover:border-brand hover:text-brand"
               }`}
             >
               All
@@ -145,8 +145,8 @@ export default async function RecipesListPage({ searchParams }: Props) {
                 href={buildHref({ tag: rail.tag })}
                 className={`rounded-full border px-3 py-1 font-display uppercase tracking-display text-[0.65rem] ${
                   activeTag === rail.tag
-                    ? "border-mint bg-mint text-ink-950"
-                    : "border-white/10 text-muted hover:border-mint hover:text-mint"
+                    ? "border-brand bg-brand text-ink-950"
+                    : "border-white/10 text-muted hover:border-brand hover:text-brand"
                 }`}
               >
                 {rail.title}
@@ -157,7 +157,7 @@ export default async function RecipesListPage({ searchParams }: Props) {
 
         {selectableDiets.length > 1 ? (
           <section className="space-y-2">
-            <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+            <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
               Diet {savedDiet !== "omnivore" ? `(saved: ${savedDiet})` : ""}
             </p>
             <div className="flex flex-wrap gap-1.5">
@@ -167,8 +167,8 @@ export default async function RecipesListPage({ searchParams }: Props) {
                   href={buildHref({ diet: d === savedDiet ? null : d })}
                   className={`rounded-full border px-3 py-1 font-display uppercase tracking-display text-[0.65rem] ${
                     effectiveDiet === d
-                      ? "border-mint bg-mint text-ink-950"
-                      : "border-white/10 text-muted hover:border-mint hover:text-mint"
+                      ? "border-brand bg-brand text-ink-950"
+                      : "border-white/10 text-muted hover:border-brand hover:text-brand"
                   }`}
                 >
                   {DIET_LABEL[d]}
@@ -180,13 +180,13 @@ export default async function RecipesListPage({ searchParams }: Props) {
 
         <section className="space-y-2">
           <div className="flex items-baseline justify-between gap-2">
-            <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+            <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
               Hide allergens
             </p>
             {extraHide.length > 0 ? (
               <Link
                 href={buildHref({ hide: null })}
-                className="text-[0.65rem] font-display uppercase tracking-display text-muted hover:text-mint"
+                className="text-[0.65rem] font-display uppercase tracking-display text-muted hover:text-brand"
               >
                 Clear
               </Link>
@@ -204,7 +204,7 @@ export default async function RecipesListPage({ searchParams }: Props) {
                   <span
                     key={a.key}
                     title="Saved from onboarding — edit in your profile"
-                    className="rounded-full border border-mint/30 bg-mint/10 px-3 py-1 font-display uppercase tracking-display text-[0.65rem] text-mint-400"
+                    className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 font-display uppercase tracking-display text-[0.65rem] text-brand-400"
                   >
                     {a.label}
                     <span aria-hidden="true" className="ml-1 opacity-60">•</span>
@@ -217,8 +217,8 @@ export default async function RecipesListPage({ searchParams }: Props) {
                   href={buildHref({ hide: toggleHide(a.key) })}
                   className={`rounded-full border px-3 py-1 font-display uppercase tracking-display text-[0.65rem] transition-colors ${
                     active
-                      ? "border-mint bg-mint text-ink-950"
-                      : "border-white/10 text-muted hover:border-mint hover:text-mint"
+                      ? "border-brand bg-brand text-ink-950"
+                      : "border-white/10 text-muted hover:border-brand hover:text-brand"
                   }`}
                 >
                   {a.label}
@@ -238,11 +238,11 @@ export default async function RecipesListPage({ searchParams }: Props) {
               .filter(Boolean)
               .join(" · ")}
             {" · "}
-            <span className="text-mint-400">{recipes.length} recipe{recipes.length === 1 ? "" : "s"} shown</span>
+            <span className="text-brand-400">{recipes.length} recipe{recipes.length === 1 ? "" : "s"} shown</span>
           </p>
         ) : (
           <p className="text-xs text-muted">
-            <span className="text-mint-400">{recipes.length} recipe{recipes.length === 1 ? "" : "s"} shown</span>
+            <span className="text-brand-400">{recipes.length} recipe{recipes.length === 1 ? "" : "s"} shown</span>
           </p>
         )}
 

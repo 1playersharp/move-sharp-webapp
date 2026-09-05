@@ -26,7 +26,7 @@ export type HumanoidRig = {
   dispose: () => void;
 };
 
-const BODY_COLOR = 0x2ecc94; // mint
+const BODY_COLOR = 0x38bdf8; // brand
 const LIMB_COLOR = 0xb6bfd0; // muted-strong
 
 export function buildHumanoid(): HumanoidRig {

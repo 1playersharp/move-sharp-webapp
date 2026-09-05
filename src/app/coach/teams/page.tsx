@@ -23,7 +23,7 @@ export default async function CoachTeamsPage() {
         right={
           <Link
             href="/coach/teams/new"
-            className="rounded-full bg-mint px-3 py-1 font-display uppercase tracking-display text-[0.65rem] text-ink-950 hover:bg-mint-400"
+            className="rounded-full bg-brand px-3 py-1 font-display uppercase tracking-display text-[0.65rem] text-ink-950 hover:bg-brand-400"
           >
             + New team
           </Link>
@@ -34,7 +34,7 @@ export default async function CoachTeamsPage() {
         {teams.length === 0 ? (
           <Link
             href="/coach/teams/new"
-            className="block rounded-card border border-dashed border-mint/40 bg-mint/5 p-6 text-center hover:border-mint"
+            className="block rounded-card border border-dashed border-brand/40 bg-brand/5 p-6 text-center hover:border-brand"
           >
             <p className="font-display uppercase tracking-display text-white text-base">
               Create your first team
@@ -50,10 +50,10 @@ export default async function CoachTeamsPage() {
               <li key={t.id}>
                 <Link
                   href={`/coach/teams/${t.id}`}
-                  className="group flex items-start justify-between gap-3 rounded-card border border-white/5 bg-ink-850 p-5 shadow-card hover:border-mint/40"
+                  className="group flex items-start justify-between gap-3 rounded-card border border-white/5 bg-ink-850 p-5 shadow-card hover:border-brand/40"
                 >
                   <div className="min-w-0">
-                    <p className="font-display uppercase tracking-display text-white text-lg leading-tight group-hover:text-mint">
+                    <p className="font-display uppercase tracking-display text-white text-lg leading-tight group-hover:text-brand">
                       {t.name}
                     </p>
                     <p className="mt-1 text-xs text-muted">
@@ -62,7 +62,7 @@ export default async function CoachTeamsPage() {
                       {t.createdAt.toLocaleDateString()}
                     </p>
                   </div>
-                  <span className="shrink-0 rounded-full border border-mint/30 bg-mint/5 px-2 py-1 font-display uppercase tracking-display text-[0.65rem] tabular-nums text-mint-400">
+                  <span className="shrink-0 rounded-full border border-brand/30 bg-brand/5 px-2 py-1 font-display uppercase tracking-display text-[0.65rem] tabular-nums text-muted-strong">
                     {t.inviteCode}
                   </span>
                 </Link>

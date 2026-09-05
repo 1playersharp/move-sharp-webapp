@@ -128,7 +128,7 @@ export default async function ProgrammeDetailPage({ params }: Props) {
         </Card>
 
         {!isMaterialised ? (
-          <div className="rounded-md border border-yellow-500/20 bg-yellow-500/5 p-3 text-xs text-yellow-200">
+          <div className="rounded-md border border-white/10 bg-ink-800 p-3 text-xs text-muted-strong">
             Preview only — session logging for this block ships in a later phase.
           </div>
         ) : null}
@@ -143,7 +143,7 @@ export default async function ProgrammeDetailPage({ params }: Props) {
                 <li key={wk.week}>
                   <Card>
                     <div className="mb-3 flex items-baseline justify-between gap-2">
-                      <span className="font-display uppercase tracking-display text-mint-400 text-sm">
+                      <span className="font-display uppercase tracking-display text-brand-400 text-sm">
                         Week {wk.week}
                       </span>
                       <span className="text-xs text-muted">{wk.sessions.length} sessions</span>
@@ -174,17 +174,17 @@ export default async function ProgrammeDetailPage({ params }: Props) {
                                         <li key={ex.slug}>
                                           <Link
                                             href={`/train/exercise/${categoryMeta(ex.category).slug}/${ex.slug}`}
-                                            className="group flex items-center justify-between gap-3 px-3 py-2 transition-colors hover:bg-mint/5"
+                                            className="group flex items-center justify-between gap-3 px-3 py-2 transition-colors hover:bg-brand/5"
                                           >
-                                            <span className="min-w-0 flex-1 truncate text-[0.8rem] text-white group-hover:text-mint">
+                                            <span className="min-w-0 flex-1 truncate text-[0.8rem] text-white group-hover:text-brand">
                                               {ex.name}
                                             </span>
-                                            <span className="shrink-0 font-display uppercase tracking-display text-[0.65rem] tabular-nums text-mint-400">
+                                            <span className="shrink-0 font-display uppercase tracking-display text-[0.65rem] tabular-nums text-muted-strong">
                                               {ex.defaultPrescription}
                                             </span>
                                             <span
                                               aria-hidden="true"
-                                              className="shrink-0 text-muted group-hover:text-mint"
+                                              className="shrink-0 text-muted group-hover:text-brand"
                                             >
                                               ›
                                             </span>
@@ -200,7 +200,7 @@ export default async function ProgrammeDetailPage({ params }: Props) {
                                   <input type="hidden" name="sessionTemplateId" value={templateId} />
                                   <button
                                     type="submit"
-                                    className="rounded-full bg-mint px-3 py-1 font-display uppercase tracking-display text-[0.65rem] text-ink-950 hover:bg-mint-400"
+                                    className="rounded-full bg-brand px-3 py-1 font-display uppercase tracking-display text-[0.65rem] text-ink-950 hover:bg-brand-400"
                                   >
                                     Start
                                   </button>

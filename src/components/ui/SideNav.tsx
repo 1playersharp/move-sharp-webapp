@@ -37,7 +37,7 @@ export function SideNav({ tabs, root }: { tabs: Tab[]; root: string }) {
                 className={cn(
                   "flex items-center gap-3 rounded-xl px-3 py-2.5 font-display uppercase tracking-display text-sm transition-colors",
                   active
-                    ? "bg-mint/10 text-mint"
+                    ? "bg-brand/10 text-brand"
                     : "text-muted hover:bg-white/5 hover:text-white",
                 )}
               >

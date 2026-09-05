@@ -10,7 +10,7 @@ export function QualityGrid() {
           <Link
             key={q.key}
             href={`/train?quality=${q.key}`}
-            className="group flex flex-col justify-between rounded-card border border-white/5 bg-ink-850 p-4 shadow-card transition-colors hover:border-mint/30"
+            className="group flex flex-col justify-between rounded-card border border-white/5 bg-ink-850 p-4 shadow-card transition-colors hover:border-brand/30"
           >
             <span className="font-display uppercase tracking-display text-white text-lg">
               {q.label}

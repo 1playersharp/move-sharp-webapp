@@ -49,7 +49,7 @@ export default async function FuelPage() {
 
       <div className="space-y-6 shell-gutter pb-6">
         {playerAllergies.length > 0 ? (
-          <div className="rounded-md border border-mint/20 bg-mint/5 p-3 text-xs text-mint-400">
+          <div className="rounded-md border border-brand/20 bg-brand/5 p-3 text-xs text-brand-400">
             Filtered by your allergies. Always double-check ingredients yourself
             — recipe tagging is a shortcut, not a replacement for reading the
             label.
@@ -59,7 +59,7 @@ export default async function FuelPage() {
         <div className="flex gap-2">
           <Link
             href="/fuel/planner"
-            className="group flex-1 rounded-card border border-mint/40 bg-mint/5 p-4 shadow-card hover:border-mint"
+            className="group flex-1 rounded-card border border-brand/40 bg-brand/5 p-4 shadow-card hover:border-brand"
           >
             <p className="font-display uppercase tracking-display text-white text-base leading-tight">
               Planner
@@ -70,7 +70,7 @@ export default async function FuelPage() {
           </Link>
           <Link
             href="/fuel/recipes"
-            className="group flex-1 rounded-card border border-white/5 bg-ink-850 p-4 shadow-card hover:border-mint"
+            className="group flex-1 rounded-card border border-white/5 bg-ink-850 p-4 shadow-card hover:border-brand"
           >
             <p className="font-display uppercase tracking-display text-white text-base leading-tight">
               Recipes
@@ -94,7 +94,7 @@ export default async function FuelPage() {
                 {items.length > 0 ? (
                   <Link
                     href={`/fuel/recipes?tag=${rail.tag}`}
-                    className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
+                    className="text-[0.7rem] font-display uppercase tracking-display text-brand-400 hover:text-brand"
                   >
                     See all →
                   </Link>

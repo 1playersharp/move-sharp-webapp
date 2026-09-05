@@ -44,11 +44,11 @@ export default async function ReturningFromInjurySessionPage({ params }: Props) 
       <div className="mx-auto max-w-2xl shell-gutter pb-10 pt-6">
         <Link
           href="/recovery/returning-from-injury"
-          className="text-xs font-display uppercase tracking-display text-mint-400 hover:text-mint focus-visible:text-mint"
+          className="text-xs font-display uppercase tracking-display text-brand-400 hover:text-brand focus-visible:text-brand"
         >
           ← All tracks
         </Link>
-        <p className="mt-3 font-display uppercase tracking-display text-red-300 text-xs">
+        <p className="mt-3 font-display uppercase tracking-display text-caution-300 text-xs">
           {session.injury}
         </p>
         <h1 className="mt-1 font-display uppercase tracking-display text-white text-3xl leading-[1.05] sm:text-4xl">
@@ -71,7 +71,7 @@ export default async function ReturningFromInjurySessionPage({ params }: Props) 
                 >
                   {block.heading}
                 </h2>
-                <span className="font-display uppercase tracking-display text-[0.65rem] text-mint-400">
+                <span className="font-display uppercase tracking-display text-[0.65rem] text-brand-400">
                   {block.items.length} {block.items.length === 1 ? "item" : "items"}
                 </span>
               </div>
@@ -93,7 +93,7 @@ export default async function ReturningFromInjurySessionPage({ params }: Props) 
                         </div>
                         <p className="mt-1 text-sm text-muted-strong">{item.cue}</p>
                       </div>
-                      <span className="shrink-0 font-display uppercase tracking-display text-mint-400 text-[0.7rem] tabular-nums">
+                      <span className="shrink-0 font-display uppercase tracking-display text-muted-strong text-[0.7rem] tabular-nums">
                         {item.prescription}
                       </span>
                     </div>
@@ -104,15 +104,15 @@ export default async function ReturningFromInjurySessionPage({ params }: Props) 
           ))}
         </div>
 
-        <div className="mt-10 rounded-md border border-red-500/25 bg-red-500/5 p-4 text-xs text-red-100">
-          <span className="font-display uppercase tracking-display text-red-300">
+        <div className="mt-10 rounded-md border border-caution-500/25 bg-caution-500/5 p-4 text-xs text-caution-100">
+          <span className="font-display uppercase tracking-display text-caution-300">
             Something not right?
           </span>{" "}
           Stop the session and contact the professional who cleared you.
           Report a concern:{" "}
           <a
             href="mailto:hello@movesharp.app"
-            className="text-mint-400 underline underline-offset-4 hover:text-mint"
+            className="text-brand-400 underline underline-offset-4 hover:text-brand"
           >
             hello@movesharp.app
           </a>

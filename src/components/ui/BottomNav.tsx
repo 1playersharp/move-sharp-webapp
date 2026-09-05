@@ -28,7 +28,7 @@ export function BottomNav() {
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "flex flex-col items-center gap-1 py-1.5 text-xs font-display uppercase tracking-display",
-                  active ? "text-mint" : "text-muted hover:text-white",
+                  active ? "text-brand" : "text-muted hover:text-white",
                 )}
               >
                 <span className="h-6 w-6">{tab.icon}</span>

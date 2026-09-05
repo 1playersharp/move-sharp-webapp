@@ -68,7 +68,7 @@ export default async function EditProfilePage({ searchParams }: Props) {
             id="position"
             name="position"
             defaultValue={p.position ?? ""}
-            className="h-11 rounded-xl bg-ink-800 px-4 text-white border border-white/5 focus:border-mint focus:outline-none focus:ring-2 focus:ring-mint/30"
+            className="h-11 rounded-xl bg-ink-800 px-4 text-white border border-white/5 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30"
           >
             <option value="">Prefer not to say</option>
             {POSITIONS.map((pos) => (

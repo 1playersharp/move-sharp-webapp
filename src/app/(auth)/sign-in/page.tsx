@@ -28,7 +28,7 @@ export default async function SignInPage({ searchParams }: Props) {
 
         {error ? <ErrorText>{error}</ErrorText> : null}
         {sent ? (
-          <p className="rounded-md border border-mint/30 bg-mint/10 px-3 py-2 text-xs text-mint-400">
+          <p className="rounded-md border border-brand/30 bg-brand/10 px-3 py-2 text-xs text-brand-400">
             Check your email for a sign-in link.
           </p>
         ) : null}
@@ -42,7 +42,7 @@ export default async function SignInPage({ searchParams }: Props) {
             </Field>
             <Button type="submit" className="w-full">Email me a link</Button>
             <p className="text-center text-xs text-muted">
-              <Link href={`/sign-in${nextParam !== "/" ? `?next=${encodeURIComponent(nextParam)}` : ""}`} className="text-mint-400 hover:text-mint">
+              <Link href={`/sign-in${nextParam !== "/" ? `?next=${encodeURIComponent(nextParam)}` : ""}`} className="text-brand-400 hover:text-brand">
                 Use password instead
               </Link>
             </p>
@@ -62,7 +62,7 @@ export default async function SignInPage({ searchParams }: Props) {
             <p className="text-center text-xs text-muted">
               <Link
                 href={`/sign-in?method=magic${nextParam !== "/" ? `&next=${encodeURIComponent(nextParam)}` : ""}`}
-                className="text-mint-400 hover:text-mint"
+                className="text-brand-400 hover:text-brand"
               >
                 Email me a magic link instead
               </Link>
@@ -72,7 +72,7 @@ export default async function SignInPage({ searchParams }: Props) {
 
         <HelpText className="text-center">
           Don't have an account?{" "}
-          <Link href="/sign-up" className="text-mint-400 hover:text-mint">Create one</Link>
+          <Link href="/sign-up" className="text-brand-400 hover:text-brand">Create one</Link>
         </HelpText>
       </div>
     </AuthShell>

@@ -44,7 +44,7 @@ export default async function CategoryExercisesPage({ params }: Props) {
               <Link
                 key={e.id}
                 href={`/train/exercise/${meta.slug}/${e.slug}`}
-                className="group flex items-start justify-between gap-3 rounded-card border border-white/5 bg-ink-850 p-4 shadow-card transition-colors hover:border-mint/30"
+                className="group flex items-start justify-between gap-3 rounded-card border border-white/5 bg-ink-850 p-4 shadow-card transition-colors hover:border-brand/30"
               >
                 <div className="min-w-0">
                   <h3 className="font-display uppercase tracking-display text-white text-base leading-tight">
@@ -56,7 +56,7 @@ export default async function CategoryExercisesPage({ params }: Props) {
                     </p>
                   ) : null}
                   <p className="mt-2 text-[0.65rem] uppercase tracking-display font-display text-muted">
-                    <span className="text-mint-400">{ctxLabel}</span> · {equipment}
+                    <span className="text-brand-400">{ctxLabel}</span> · {equipment}
                   </p>
                 </div>
                 <span aria-hidden="true" className="shrink-0 self-center text-lg text-muted group-hover:text-white">

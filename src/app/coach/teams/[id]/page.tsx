@@ -68,25 +68,25 @@ export default async function CoachTeamDetailPage({ params, searchParams }: Prop
 
       <div className="space-y-5 shell-gutter pb-6">
         {rotated ? (
-          <p role="status" className="rounded-md border border-mint/30 bg-mint/10 px-3 py-2 text-xs text-mint-400">
+          <p role="status" className="rounded-md border border-brand/30 bg-brand/10 px-3 py-2 text-xs text-brand-400">
             New invite code issued. The old one no longer works.
           </p>
         ) : null}
         {removed ? (
-          <p role="status" className="rounded-md border border-mint/30 bg-mint/10 px-3 py-2 text-xs text-mint-400">
+          <p role="status" className="rounded-md border border-brand/30 bg-brand/10 px-3 py-2 text-xs text-brand-400">
             Player removed from the roster.
           </p>
         ) : null}
         {error === "owner" ? (
-          <p role="alert" className="rounded-md border border-red-500/40 bg-red-500/10 px-3 py-2 text-xs text-red-200">
+          <p role="alert" className="rounded-md border border-caution-500/40 bg-caution-500/10 px-3 py-2 text-xs text-caution-200">
             You can't remove yourself from your own team from the roster.
           </p>
         ) : null}
 
         {/* Invite code — big, tabular-nums so it's easy to read aloud
             or copy. Rotate button next to it. */}
-        <section className="rounded-card border border-mint/25 bg-mint/5 p-5">
-          <p className="font-display uppercase tracking-display text-mint-400 text-[0.65rem]">
+        <section className="rounded-card border border-brand/25 bg-brand/5 p-5">
+          <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
             Invite code
           </p>
           <p className="mt-2 font-display uppercase tracking-display text-white text-4xl tabular-nums">
@@ -94,7 +94,7 @@ export default async function CoachTeamDetailPage({ params, searchParams }: Prop
           </p>
           <p className="mt-2 text-xs text-muted-strong">
             Players enter this code at{" "}
-            <span className="font-display uppercase tracking-display text-mint-400">
+            <span className="font-display uppercase tracking-display text-brand-400">
               /join/{team.inviteCode}
             </span>
             . Share the URL or read the code out — either works.
@@ -103,7 +103,7 @@ export default async function CoachTeamDetailPage({ params, searchParams }: Prop
             <input type="hidden" name="teamId" value={team.id} />
             <button
               type="submit"
-              className="inline-flex h-9 items-center rounded-full border border-white/20 px-4 font-display uppercase tracking-display text-xs text-white hover:border-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"
+              className="inline-flex h-9 items-center rounded-full border border-white/20 px-4 font-display uppercase tracking-display text-xs text-white hover:border-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"
             >
               Rotate code
             </button>
@@ -161,7 +161,7 @@ export default async function CoachTeamDetailPage({ params, searchParams }: Prop
                       <div className="flex shrink-0 flex-col gap-1.5">
                         <Link
                           href={`/coach/teams/${team.id}/players/${p?.id ?? m.user.id}`}
-                          className="rounded-full border border-white/10 px-3 py-1 text-center font-display uppercase tracking-display text-[0.6rem] text-white hover:border-mint hover:text-mint"
+                          className="rounded-full border border-white/10 px-3 py-1 text-center font-display uppercase tracking-display text-[0.6rem] text-white hover:border-brand hover:text-brand"
                         >
                           View
                         </Link>
@@ -170,7 +170,7 @@ export default async function CoachTeamDetailPage({ params, searchParams }: Prop
                           <input type="hidden" name="membershipId" value={m.id} />
                           <button
                             type="submit"
-                            className="w-full rounded-full border border-white/10 px-3 py-1 font-display uppercase tracking-display text-[0.6rem] text-muted hover:border-red-500/50 hover:text-red-300"
+                            className="w-full rounded-full border border-white/10 px-3 py-1 font-display uppercase tracking-display text-[0.6rem] text-muted hover:border-caution-500/50 hover:text-caution-300"
                           >
                             Remove
                           </button>

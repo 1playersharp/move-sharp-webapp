@@ -22,7 +22,7 @@ export default async function SignUpPage({ searchParams }: Props) {
           </p>
           <HelpText>
             Didn't get it? Check your junk folder, or{" "}
-            <Link href="/sign-up" className="text-mint-400 hover:text-mint">try again</Link>.
+            <Link href="/sign-up" className="text-brand-400 hover:text-brand">try again</Link>.
           </HelpText>
         </div>
       </AuthShell>
@@ -70,11 +70,11 @@ export default async function SignUpPage({ searchParams }: Props) {
 
         <HelpText className="text-center">
           Already have an account?{" "}
-          <Link href="/sign-in" className="text-mint-400 hover:text-mint">Sign in</Link>
+          <Link href="/sign-in" className="text-brand-400 hover:text-brand">Sign in</Link>
         </HelpText>
         <HelpText className="text-center">
           Coach or manager?{" "}
-          <Link href="/sign-up/manager" className="text-mint-400 hover:text-mint">
+          <Link href="/sign-up/manager" className="text-brand-400 hover:text-brand">
             Create a coach account
           </Link>
         </HelpText>

@@ -93,7 +93,7 @@ export function PlayerHeader({
             />
             {/* The count repeats what the bar shows, so progress is never
                 carried by colour alone. */}
-            <span className="shrink-0 font-display uppercase tracking-display text-[0.7rem] tabular-nums text-mint-400">
+            <span className="shrink-0 font-display uppercase tracking-display text-[0.7rem] tabular-nums text-completion-400">
               {done} / {total}
             </span>
           </>
@@ -138,7 +138,7 @@ export function PlayerHeader({
               <p className="min-w-0 truncate text-sm text-white/90">
                 {programme.name}
               </p>
-              <p className="shrink-0 font-display uppercase tracking-display text-sm tabular-nums text-mint-400">
+              <p className="shrink-0 font-display uppercase tracking-display text-sm tabular-nums text-completion-400">
                 {done} / {total}
               </p>
             </div>
@@ -156,13 +156,13 @@ export function PlayerHeader({
           <div className="border-t border-white/10 p-3 md:w-64 md:shrink-0 md:border-l md:border-t-0 md:p-4">
             {complete ? (
               <>
-                <p className="font-display uppercase tracking-display text-[0.65rem] text-mint-400">
+                <p className="font-display uppercase tracking-display text-[0.65rem] text-completion-400">
                   Programme complete
                 </p>
                 <p className="mt-1 text-sm text-white">Start your next block.</p>
                 <Link
                   href={chooseProgrammeHref}
-                  className="mt-3 inline-flex h-9 items-center rounded-full bg-mint px-4 font-display uppercase tracking-display text-xs text-ink-950 hover:bg-mint-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint focus-visible:ring-offset-2 focus-visible:ring-offset-ink-850"
+                  className="mt-3 inline-flex h-9 items-center rounded-full bg-brand px-4 font-display uppercase tracking-display text-xs text-ink-950 hover:bg-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-850"
                 >
                   Choose a programme
                 </Link>
@@ -170,7 +170,7 @@ export function PlayerHeader({
             ) : nextSession ? (
               <div className="flex items-end justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="font-display uppercase tracking-display text-[0.65rem] text-mint-400">
+                  <p className="font-display uppercase tracking-display text-[0.65rem] text-brand-400">
                     Next session
                   </p>
                   <p className="mt-1 truncate text-sm text-white">
@@ -196,7 +196,7 @@ export function PlayerHeader({
               </div>
             ) : (
               <>
-                <p className="font-display uppercase tracking-display text-[0.65rem] text-mint-400">
+                <p className="font-display uppercase tracking-display text-[0.65rem] text-brand-400">
                   Next session
                 </p>
                 <p className="mt-1 text-sm text-muted-strong">
@@ -215,7 +215,7 @@ export function PlayerHeader({
           </p>
           <Link
             href={chooseProgrammeHref}
-            className="mt-3 inline-flex h-9 shrink-0 items-center rounded-full bg-mint px-4 font-display uppercase tracking-display text-xs text-ink-950 hover:bg-mint-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint focus-visible:ring-offset-2 focus-visible:ring-offset-ink-850 md:mt-0"
+            className="mt-3 inline-flex h-9 shrink-0 items-center rounded-full bg-brand px-4 font-display uppercase tracking-display text-xs text-ink-950 hover:bg-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-850 md:mt-0"
           >
             Choose a programme
           </Link>
@@ -233,7 +233,7 @@ function StartControl({
   startAction?: (formData: FormData) => void | Promise<void>;
 }) {
   const classes =
-    "inline-flex h-9 shrink-0 items-center rounded-full bg-mint px-4 font-display uppercase tracking-display text-xs text-ink-950 hover:bg-mint-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint focus-visible:ring-offset-2 focus-visible:ring-offset-ink-850";
+    "inline-flex h-9 shrink-0 items-center rounded-full bg-brand px-4 font-display uppercase tracking-display text-xs text-ink-950 hover:bg-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-850";
 
   if (startAction && nextSession.templateId) {
     return (
@@ -281,7 +281,7 @@ function ProgressBar({
       className={cn("w-full overflow-hidden rounded-full bg-white/10", className)}
     >
       <div
-        className="h-full rounded-full bg-mint transition-[width]"
+        className="h-full rounded-full bg-completion transition-[width]"
         style={{ width: `${pct}%` }}
       />
     </div>

@@ -23,11 +23,11 @@ export default async function RecoveryPage() {
           <h2 className="section-title">Returning from injury</h2>
           <Link
             href="/recovery/returning-from-injury"
-            className="block max-w-3xl rounded-card border border-red-500/25 bg-red-500/5 p-5 shadow-card hover:border-red-500/60"
+            className="block max-w-3xl rounded-card border border-caution-500/25 bg-caution-500/5 p-5 shadow-card hover:border-caution-500/60"
           >
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="font-display uppercase tracking-display text-red-300 text-xs">
+                <p className="font-display uppercase tracking-display text-caution-300 text-xs">
                   Physio-cleared only
                 </p>
                 <p className="mt-2 font-display uppercase tracking-display text-white text-lg leading-tight">
@@ -79,7 +79,7 @@ export default async function RecoveryPage() {
                           {item.cue}
                         </p>
                       </div>
-                      <span className="shrink-0 font-display uppercase tracking-display text-mint-400 text-[0.65rem] tabular-nums">
+                      <span className="shrink-0 font-display uppercase tracking-display text-muted-strong text-[0.65rem] tabular-nums">
                         {item.prescription}
                       </span>
                     </div>

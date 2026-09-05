@@ -67,7 +67,7 @@ export function MarketingNav({ sentinelSelector = "#hero-sentinel" }: Props) {
       >
         <Link
           href="/"
-          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 rounded"
+          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 rounded"
           aria-label="MoveSharp home"
         >
           <WordMark className="text-lg" />
@@ -80,7 +80,7 @@ export function MarketingNav({ sentinelSelector = "#hero-sentinel" }: Props) {
             <li key={l.href}>
               <a
                 href={l.href}
-                className="text-sm text-white/70 hover:text-mint focus-visible:text-mint focus-visible:outline-none"
+                className="text-sm text-white/70 hover:text-brand focus-visible:text-brand focus-visible:outline-none"
               >
                 {l.label}
               </a>
@@ -91,13 +91,13 @@ export function MarketingNav({ sentinelSelector = "#hero-sentinel" }: Props) {
         <div className="flex items-center gap-3">
           <Link
             href="/sign-in"
-            className="text-sm text-white/80 hover:text-mint focus-visible:text-mint focus-visible:outline-none"
+            className="text-sm text-white/80 hover:text-brand focus-visible:text-brand focus-visible:outline-none"
           >
             Sign in
           </Link>
           <Link
             href="/sign-up"
-            className={`inline-flex h-9 items-center rounded-full bg-mint px-4 text-sm font-display uppercase tracking-display text-ink-950 transition-opacity duration-300 hover:bg-mint-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 motion-reduce:transition-none ${
+            className={`inline-flex h-9 items-center rounded-full bg-brand px-4 text-sm font-display uppercase tracking-display text-ink-950 transition-opacity duration-300 hover:bg-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 motion-reduce:transition-none ${
               heroPastFold
                 ? "pointer-events-auto opacity-100"
                 : "pointer-events-none opacity-0"

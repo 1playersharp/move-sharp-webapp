@@ -23,7 +23,7 @@ export default async function ManagerOnboardingPage({ searchParams }: Props) {
     <AuthShell>
       <form action={completeManagerOnboarding} className="space-y-6">
         <div>
-          <p className="font-display uppercase tracking-display text-mint-400 text-xs">
+          <p className="font-display uppercase tracking-display text-brand-400 text-xs">
             Coach onboarding
           </p>
           <h1 className="section-title mt-2">Set up your coach profile</h1>

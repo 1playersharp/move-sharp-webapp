@@ -41,7 +41,7 @@ export default async function RecipeDetailPage({ params }: Props) {
           {recipe.fuelTags.map((t) => (
             <span
               key={t}
-              className="rounded-full bg-mint/10 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-mint-400"
+              className="rounded-full bg-brand/10 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-brand-400"
             >
               {FUEL_TAG_LABEL[t]}
             </span>
@@ -81,7 +81,7 @@ export default async function RecipeDetailPage({ params }: Props) {
               {recipe.allergens.map((a) => (
                 <span
                   key={a}
-                  className="rounded-full border border-yellow-500/30 bg-yellow-500/5 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-yellow-200"
+                  className="rounded-full border border-caution-500/30 bg-caution-500/5 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-caution-200"
                 >
                   {ALLERGEN_LABEL[a]}
                 </span>

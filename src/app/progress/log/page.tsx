@@ -48,7 +48,7 @@ export default async function LogPbPage({ searchParams }: Props) {
       <div className="space-y-6 shell-gutter">
         <Link
           href="/progress"
-          className="inline-block text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
+          className="inline-block text-[0.7rem] font-display uppercase tracking-display text-brand-400 hover:text-brand"
         >
           ← Progress
         </Link>
@@ -65,7 +65,7 @@ export default async function LogPbPage({ searchParams }: Props) {
                     <li key={m.key}>
                       <Link
                         href={`/progress/log?metric=${m.key}`}
-                        className="flex items-center justify-between rounded-card border border-white/5 bg-ink-850 p-4 hover:border-mint/30"
+                        className="flex items-center justify-between rounded-card border border-white/5 bg-ink-850 p-4 hover:border-brand/30"
                       >
                         <span className="font-display uppercase tracking-display text-white text-sm">
                           {m.label}

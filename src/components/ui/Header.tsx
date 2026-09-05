@@ -36,7 +36,7 @@ export function Header({
       {back ? (
         <Link
           href={back.href}
-          className="text-[0.7rem] font-display uppercase tracking-display text-mint-400 hover:text-mint"
+          className="text-[0.7rem] font-display uppercase tracking-display text-brand-400 hover:text-brand"
         >
           ← {back.label}
         </Link>
@@ -64,7 +64,7 @@ export function WordMark({ className }: { className?: string }) {
       )}
     >
       <span className="text-white">MOVE</span>
-      <span className="text-mint">SHARP</span>
+      <span className="text-brand">SHARP</span>
     </span>
   );
 }
