@@ -34,6 +34,9 @@ export const flying20m: MotionSpec = pathDrill({
   slug: "flying-20m",
   name: "Flying 20m",
   repDurationSec: 2.4,
+  // A run-through ends downfield, so it cannot loop seamlessly. Hold the
+  // last frame for a beat before resetting, as the 10m sprint does.
+  restBetweenRepsSec: 0.8,
   cadence: 3.8,
   lean: 12,
   props: [

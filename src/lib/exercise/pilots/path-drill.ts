@@ -31,14 +31,16 @@ export type PathDrillOptions = {
   /** Steps per second. Sprinting is quicker than a shuttle's stutter steps. */
   cadence?: number;
   /**
-   * Degrees of forward torso lean while running.
+   * Degrees of forward torso lean while running, as a positive number.
    *
-   * PARKED — NOT YET CORRECT. Positive spine X tips the torso toward +Z,
-   * which is backwards (the rig's forward is -Z), so these drills currently
-   * lean the runner away from the direction of travel. The lean is also
-   * applied in world space rather than relative to the heading, so it points
-   * the wrong way entirely once a drill turns a corner. Both need fixing
-   * before these are re-mapped in pilots/index.ts.
+   * Emitted as negative spine X, because positive X tips the torso backwards
+   * (the rig extends +Y and faces -Z). The hand-authored 5-10-5 leans with
+   * -10 to -25 for the same reason.
+   *
+   * The lean does not need decomposing by heading: the rig applies joint
+   * rotations in YXZ order (see humanoid.ts), so the Y heading is outermost
+   * and X tips the body in its own frame — a runner leans into the direction
+   * of travel through a corner, not toward world -Z.
    */
   lean?: number;
   /** Samples per rep — more gives smoother facing through tight cuts. */
@@ -47,6 +49,10 @@ export type PathDrillOptions = {
 
 const TAU = Math.PI * 2;
 const RAD = 180 / Math.PI;
+
+function clamp(v: number, lo: number, hi: number): number {
+  return Math.min(hi, Math.max(lo, v));
+}
 
 function lerp(a: number, b: number, k: number): number {
   return a + (b - a) * k;
@@ -160,13 +166,18 @@ export function pathDrill({
 
   const headings = smoothHeadings(rawHeadings);
 
+  // The gait has to close: a looping drill whose last frame is mid-stride
+  // snaps back to the first on every rep. Round the requested cadence to the
+  // nearest whole number of steps over the rep so phase(1) == phase(0).
+  const gaitCycles = Math.max(1, Math.round(repDurationSec * cadence));
+
   // --- Pass 2: emit keyframes ----------------------------------------------
   for (let i = 0; i <= samples; i++) {
     const t = i / samples;
     const at = path[i];
 
     // Gait phase. Held positions stand still; a plant shortens the stride.
-    const phase = (t * repDurationSec * cadence) % 1;
+    const phase = (t * gaitCycles) % 1;
     const swing = at.holding ? 0 : Math.sin(phase * TAU);
     const damp = at.holding ? 0 : at.nearPlant ? 0.45 : 1;
 
@@ -174,10 +185,21 @@ export function pathDrill({
     const bob = at.holding ? 0 : Math.abs(Math.sin(phase * Math.PI)) * 0.035;
     const dip = at.nearPlant ? -0.12 : 0;
 
+    // Bank into the turn. Sign is opposite the heading change, matching the
+    // hand-authored 5-10-5 (heading rising -> negative Z at the plant).
+    const prev = headings[Math.max(0, i - 1)];
+    const next = headings[Math.min(samples, i + 1)];
+    const bank = at.holding ? 0 : clamp(-(next - prev) * 0.6, -18, 18);
+
     pelvis.push({ t, value: [at.x, bob + dip, at.z], ease: "smooth" });
     spine.push({
       t,
-      value: [at.holding ? 4 : lean + (at.nearPlant ? 10 : 0), headings[i], 0],
+      // Negative X leans forward; a plant adds a braking lean on top.
+      value: [
+        at.holding ? -4 : -(lean + (at.nearPlant ? 10 : 0)),
+        headings[i],
+        bank,
+      ],
       ease: "smooth",
     });
 

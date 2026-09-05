@@ -16,6 +16,11 @@ import {
 } from "./strength";
 import { rotationalThrow, woodchopGym, woodchopHome, mobilityFlow } from "./rotational";
 import {
+  sprint10m, flying20m, fallingStarts, lDrill, tDrill, angleCuts,
+  mirrorDrill, ballRollReaction,
+} from "./field-drills";
+import { verticalJumpTest, standingTripleJumpTest } from "./jump-tests";
+import {
   hip9090, halfKneelingHipFlexor, gluteBridge, bandedClam, kneeToWallAnkle,
   calfRaise, openBookRotation, catCow, wallAngel, footDoming, chinTuckNeck, birdDog,
 } from "./mobility";
@@ -23,11 +28,11 @@ import {
 // Phase 5 pilots kept for the sign-off sandbox — the original 4.
 export const PILOTS: MotionSpec[] = [gobletSquat, aSkip, broadJump, fiveTenFive];
 
-// Cone-and-path field drills (L-drill, T-drill, shuttles, sprint and jump
-// tests) are authored in ./field-drills.ts and ./jump-tests.ts but are
-// deliberately NOT mapped yet — parked until the avatar covers the gym and
-// core movements. Re-map the slugs here to bring them back; note the spine
-// lean sign in path-drill.ts needs the fix described in that file first.
+// Cone-and-path field drills and the jump tests are authored in
+// ./field-drills.ts and ./jump-tests.ts and mapped below. They were parked
+// while path-drill.ts leaned the runner backwards (positive spine X tips the
+// torso back); that sign is fixed, and the drills now also bank into their
+// cuts.
 
 // Full library-slug → MotionSpec map used by the exercise-mode detail
 // pages. Library exercises without an entry render a placeholder card.
@@ -47,6 +52,20 @@ export const MOTION_SPEC_BY_SLUG: Record<string, MotionSpec> = {
   "side-plank": sidePlank,
   "rotational-med-ball-throw": rotationalThrow,
   "mobility-flow": mobilityFlow,
+
+  // Cone-and-path field drills.
+  "sprint-10m-test": sprint10m,
+  "flying-20m": flying20m,
+  "falling-starts": fallingStarts,
+  "l-drill": lDrill,
+  "t-drill": tDrill,
+  "angle-cuts": angleCuts,
+  "mirror-drill": mirrorDrill,
+  "ball-roll-reaction": ballRollReaction,
+
+  // Jump tests.
+  "vertical-jump-test": verticalJumpTest,
+  "standing-triple-jump-test": standingTripleJumpTest,
 
   // Movement-prep mobility drills.
   "hip-90-90": hip9090,
@@ -103,6 +122,16 @@ export {
   woodchopGym,
   woodchopHome,
   mobilityFlow,
+  sprint10m,
+  flying20m,
+  fallingStarts,
+  lDrill,
+  tDrill,
+  angleCuts,
+  mirrorDrill,
+  ballRollReaction,
+  verticalJumpTest,
+  standingTripleJumpTest,
   hip9090,
   halfKneelingHipFlexor,
   gluteBridge,
