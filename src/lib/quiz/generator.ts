@@ -288,8 +288,13 @@ export function generateCustomProgramme(input: GeneratorInput): GeneratedProgram
     if (!byCategory.has(e.category)) byCategory.set(e.category, []);
     byCategory.get(e.category)!.push(e);
   }
-  // Mobility bucket (always available if seeded).
-  const mobility = eligible.find((e) => e.slug === "mobility-flow") ?? null;
+  // Mobility pool. This used to pin the single "mobility-flow" slug, which
+  // meant a programme that adds mobility added the *same* exercise to all 18
+  // sessions. The robustness category now carries region-specific drills
+  // (hips, ankles, T-spine, foot, neck), so rotate through them instead.
+  const mobilityPool = eligible.filter(
+    (e) => e.category === "robustness_resilience",
+  );
 
   const weights = computeWeights(answers);
   const spw = sessionsPerWeekFrom(answers);
@@ -336,8 +341,13 @@ export function generateCustomProgramme(input: GeneratorInput): GeneratedProgram
       const focus = focusFor(tw.intensity, cat, items);
 
       const exerciseSlugs = primaryPicks.map((e) => e.slug);
-      if (alwaysMobility && mobility && !exerciseSlugs.includes(mobility.slug)) {
-        exerciseSlugs.push(mobility.slug);
+      // Rotate the mobility pick by week and slot so it varies across the
+      // block rather than repeating one drill everywhere.
+      const mobilityPick = mobilityPool.length
+        ? mobilityPool[(wIdx * sessionSlots.length + slot) % mobilityPool.length]
+        : null;
+      if (alwaysMobility && mobilityPick && !exerciseSlugs.includes(mobilityPick.slug)) {
+        exerciseSlugs.push(mobilityPick.slug);
       }
 
       sessions.push({
@@ -348,9 +358,10 @@ export function generateCustomProgramme(input: GeneratorInput): GeneratedProgram
         exerciseSlugs,
       });
 
-      if (alwaysMobility && mobility) {
-        // Don't repeat mobility as its own session — inline into the focus text.
-        sessions[sessions.length - 1].focus += " + 10 min mobility flow to finish.";
+      if (alwaysMobility && mobilityPick) {
+        // Don't repeat mobility as its own session — inline into the focus
+        // text, naming the drill actually prescribed.
+        sessions[sessions.length - 1].focus += ` + ${mobilityPick.name} to finish.`;
       }
     }
 

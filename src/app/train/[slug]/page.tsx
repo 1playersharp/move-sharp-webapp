@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
 import { Header } from "@/components/ui/Header";
 import { Card, CardTitle } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 import { requirePlayer } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { QualityChip } from "@/components/train/QualityChip";
@@ -44,6 +45,28 @@ export default async function ProgrammeDetailPage({ params }: Props) {
     where: { programmeId: programme.id },
     select: { id: true, week: true, day: true },
   });
+  // Which sessions has this player already finished? Drives the page-level
+  // Start / Continue action below.
+  const completedSessions = await prisma.session.findMany({
+    where: {
+      playerId: user.player.id,
+      programmeId: programme.id,
+      completedAt: { not: null },
+    },
+    select: { sessionTemplateId: true },
+  });
+  const completedTemplateIds = new Set(
+    completedSessions
+      .map((s) => s.sessionTemplateId)
+      .filter((id): id is string => Boolean(id)),
+  );
+  const orderedTemplates = templates
+    .filter((t) => t.week != null && t.day != null)
+    .sort((a, b) => a.week! - b.week! || a.day! - b.day!);
+  const nextTemplate =
+    orderedTemplates.find((t) => !completedTemplateIds.has(t.id)) ?? null;
+  const anyCompleted = completedTemplateIds.size > 0;
+
   const templateKey = (week: number, day: number) => `w${week}d${day}`;
   const templateByKey = new Map(
     templates
@@ -126,6 +149,22 @@ export default async function ProgrammeDetailPage({ params }: Props) {
           <CardTitle>Equipment · {ctxLabel}</CardTitle>
           <p className="mt-2 text-sm text-muted-strong">{equipment}</p>
         </Card>
+
+        {nextTemplate ? (
+          <form action={startSession}>
+            <input type="hidden" name="sessionTemplateId" value={nextTemplate.id} />
+            <Button type="submit" size="lg" className="w-full">
+              {anyCompleted ? "Continue programme" : "Start programme"}
+            </Button>
+            <p className="mt-2 text-center text-xs text-muted">
+              Next up: week {nextTemplate.week} · session {nextTemplate.day}
+            </p>
+          </form>
+        ) : isMaterialised ? (
+          <div className="rounded-md border border-completion/25 bg-completion/5 p-3 text-center text-xs text-completion-400">
+            Every session in this block is complete. Pick another from Train.
+          </div>
+        ) : null}
 
         {!isMaterialised ? (
           <div className="rounded-md border border-white/10 bg-ink-800 p-3 text-xs text-muted-strong">
