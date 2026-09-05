@@ -82,7 +82,7 @@ export default async function TrainPage({ searchParams }: Props) {
   return (
     <AppShell>
       {/* Photographic header strip — image dimmed with a dark gradient
-          wash so the title stays legible, mint accent line separates
+          wash so the title stays legible, brand accent line separates
           it from the content below. */}
       <div className="relative overflow-hidden">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0">
@@ -137,7 +137,7 @@ export default async function TrainPage({ searchParams }: Props) {
           />
           {recommendedQualities.length > 0 ? (
             <p className="text-xs text-muted">
-              {formatQualityList(recommendedQualities)} lead the demands for {positionLabel.toLowerCase()} — the mint-dotted chips.
+              {formatQualityList(recommendedQualities)} lead the demands for {positionLabel.toLowerCase()} — the chips marked with a dot.
             </p>
           ) : null}
         </section>

@@ -15,7 +15,7 @@ export default async function RecoveryPage() {
       />
 
       <div className="space-y-8 shell-gutter pb-6">
-        {/* Returning-from-injury entry point — mint-tinted card so it
+        {/* Returning-from-injury entry point — caution-tinted card so it
             reads as a distinct section from the general work above.
             Doesn't require any acknowledgment yet; the interstitial
             fires per-session, not per-visit-to-the-hub. */}

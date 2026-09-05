@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn";
 // Player.avatarId (the column already existed; nothing rendered it
 // until now).
 //
-// Each preset is a flat geometric mark in the existing mint/ink palette
+// Each preset is a flat geometric mark in the existing brand/ink palette
 // — no new colours, no image assets to ship. Unknown or missing
 // avatarId falls back to the player's initial, so the card never
 // renders empty.

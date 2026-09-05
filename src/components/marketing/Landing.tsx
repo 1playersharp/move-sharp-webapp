@@ -139,7 +139,7 @@ export function Landing() {
               </p>
 
               {/* Promoted privacy line — the trust signal for the parent
-                  who'll be paying. Full-width mint outline card, not
+                  who'll be paying. Full-width brand outline card, not
                   bottom-of-page small print. */}
               <div
                 className="ms-fade-up flex items-start gap-3 rounded-md border border-brand/30 bg-brand/5 p-4"

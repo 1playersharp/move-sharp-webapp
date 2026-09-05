@@ -7,7 +7,7 @@ import { loadCoachModel } from "./coach-model";
 import type { PlaybackHandle } from "./playback";
 import { BOUNDS_PADDING, cameraFor, collectBones, expandByBones } from "./framing";
 
-// Standard mint tone for kit-style props (boxes, dumbbells, cones).
+// Standard brand tone for kit-style props (boxes, dumbbells, cones).
 const PROP_KIT = 0x38bdf8;
 const PROP_METAL = 0x8290a8;
 

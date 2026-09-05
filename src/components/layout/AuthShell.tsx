@@ -6,11 +6,11 @@ import heroImage from "@/images/victor-freitas-qZ-U9z4TQ6A-unsplash.jpg";
 type Variant =
   // Default — clean form, no atmosphere. Used by /onboarding.
   | "plain"
-  // Returning-user surface. Only a small mint radial glow behind the
+  // Returning-user surface. Only a small brand radial glow behind the
   // wordmark so the screen has life without demanding attention.
   | "glow"
   // Aspirational surface. Full-bleed training photograph → dark
-  // gradient wash → mint radial glow on top. Matches Landing so the
+  // gradient wash → brand radial glow on top. Matches Landing so the
   // Landing → sign-up flow reads as one narrative.
   | "hero";
 
@@ -50,7 +50,7 @@ export function AuthShell({
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 -top-24 h-[380px]
-                     bg-[radial-gradient(circle_at_50%_30%,rgba(74,222,168,0.16),transparent_60%)]"
+                     bg-[radial-gradient(circle_at_50%_30%,rgba(125,211,252,0.16),transparent_60%)]"
         />
       ) : null}
       <div className="relative mx-auto flex w-full max-w-sm flex-1 flex-col px-6 pt-[max(3rem,env(safe-area-inset-top))] pb-8">
