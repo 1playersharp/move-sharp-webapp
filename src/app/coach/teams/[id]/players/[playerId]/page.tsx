@@ -207,7 +207,7 @@ function ConsentSection({
           {heading}
         </h2>
         {shared ? (
-          <span className="font-display uppercase tracking-display text-[0.6rem] text-brand-400">
+          <span className="font-display uppercase tracking-display text-[0.6rem] text-muted-strong">
             Shared
           </span>
         ) : (

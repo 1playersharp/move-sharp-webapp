@@ -50,7 +50,7 @@ export default async function QuizPage({ searchParams }: Props) {
 
           return (
             <fieldset key={q.key} className="rounded-card border border-white/5 bg-ink-850 p-4 shadow-card">
-              <legend className="px-1 font-display uppercase tracking-display text-brand-400 text-xs">
+              <legend className="px-1 font-display uppercase tracking-display text-muted text-xs">
                 Q{i + 1} / {QUIZ_QUESTIONS.length}
               </legend>
               <p className="font-display uppercase tracking-display text-white text-base leading-tight">

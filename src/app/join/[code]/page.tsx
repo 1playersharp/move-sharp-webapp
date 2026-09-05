@@ -105,7 +105,7 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
   return (
     <AppShell>
       <div className="mx-auto max-w-md shell-gutter py-10">
-        <p className="font-display uppercase tracking-display text-brand-400 text-xs">
+        <p className="font-display uppercase tracking-display text-muted text-xs">
           Team invite
         </p>
         <h1 className="mt-2 font-display uppercase tracking-display text-white text-3xl leading-[1.05]">
@@ -119,7 +119,7 @@ export default async function JoinTeamPage({ params, searchParams }: Props) {
         </p>
 
         <div className="mt-6 space-y-2 rounded-card border border-white/10 bg-ink-850 p-5">
-          <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
+          <p className="font-display uppercase tracking-display text-muted text-[0.65rem]">
             What joining means
           </p>
           <p className="text-sm text-white/85">

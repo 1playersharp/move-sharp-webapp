@@ -78,7 +78,7 @@ export default async function PlannerPage() {
                       <p className="font-display uppercase tracking-display text-white text-base">
                         {dayShort(d)}
                         {isToday ? (
-                          <span className="ml-2 rounded-full bg-brand/20 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-brand-400">
+                          <span className="ml-2 rounded-full bg-ink-800 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-muted">
                             Today
                           </span>
                         ) : null}
@@ -93,7 +93,7 @@ export default async function PlannerPage() {
                         <li key={slot} className="px-4 py-3">
                           <div className="flex items-start justify-between gap-3">
                             <div className="min-w-0 flex-1">
-                              <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
+                              <p className="font-display uppercase tracking-display text-muted text-[0.65rem]">
                                 {SLOT_LABEL[slot]}
                               </p>
                               {entry ? (

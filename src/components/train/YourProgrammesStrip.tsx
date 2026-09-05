@@ -44,7 +44,7 @@ export function YourProgrammesStrip({ programmes }: Props) {
                       <h3 className="font-display uppercase tracking-display text-white text-lg leading-tight">
                         {p.name}
                       </h3>
-                      <span className="rounded-full bg-brand/20 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-brand-400">
+                      <span className="rounded-full bg-ink-800 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-muted-strong">
                         Custom
                       </span>
                     </div>

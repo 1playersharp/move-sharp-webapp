@@ -46,7 +46,7 @@ export default async function ExerciseCategoriesPage() {
                   <p className="mt-1 text-xs text-muted">{c.blurb}</p>
                 </div>
                 <div className="shrink-0 self-center text-right">
-                  <span className="font-display uppercase tracking-display text-[0.65rem] text-brand-400">
+                  <span className="font-display uppercase tracking-display text-[0.65rem] text-muted">
                     {count} {count === 1 ? "exercise" : "exercises"}
                   </span>
                   <span aria-hidden="true" className="ml-1 text-muted group-hover:text-white">

@@ -61,12 +61,12 @@ export default async function PlayerTeamsPage({ searchParams }: Props) {
 
       <div className="space-y-4 shell-gutter pb-6">
         {saved ? (
-          <p role="status" className="rounded-md border border-brand/30 bg-brand/10 px-3 py-2 text-xs text-brand-400">
+          <p role="status" className="rounded-md border border-completion/30 bg-completion/10 px-3 py-2 text-xs text-completion-400">
             Sharing preferences saved.
           </p>
         ) : null}
         {joined === "1" ? (
-          <p role="status" className="rounded-md border border-brand/30 bg-brand/10 px-3 py-2 text-xs text-brand-400">
+          <p role="status" className="rounded-md border border-completion/30 bg-completion/10 px-3 py-2 text-xs text-completion-400">
             Joined. Your coach can see your name, position and age band. Nothing else until you switch it on below.
           </p>
         ) : null}
@@ -84,7 +84,7 @@ export default async function PlayerTeamsPage({ searchParams }: Props) {
         {/* Redeem an invite code — the entry point for a player who
             has a code from a coach but no invite link. */}
         <section className="rounded-card border border-brand/25 bg-brand/5 p-5">
-          <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
+          <p className="font-display uppercase tracking-display text-muted text-[0.65rem]">
             Got an invite code?
           </p>
           <form action="/join" method="get" className="mt-3 flex flex-col gap-2 sm:flex-row">

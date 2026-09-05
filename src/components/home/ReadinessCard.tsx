@@ -68,7 +68,7 @@ export function ReadinessCard({ today }: { today: ReadinessEntry | null }) {
           <CardTitle>Ready</CardTitle>
           <CardSubtitle>Checked in today — {score}/100.</CardSubtitle>
         </div>
-        <div className="rounded-full bg-brand/15 px-3 py-1 text-brand-400 font-display tracking-display text-sm">
+        <div className="rounded-full bg-ink-800 px-3 py-1 text-muted-strong font-display tracking-display text-sm">
           {score}
         </div>
       </div>

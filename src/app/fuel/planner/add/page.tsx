@@ -81,7 +81,7 @@ export default async function AddToPlannerPage({ searchParams }: Props) {
                             return (
                               <span
                                 key={t}
-                                className="rounded-full bg-brand/10 px-1.5 py-0.5 font-display uppercase tracking-display text-[0.55rem] text-brand-400"
+                                className="rounded-full bg-ink-800 px-1.5 py-0.5 font-display uppercase tracking-display text-[0.55rem] text-muted"
                               >
                                 {label}
                               </span>

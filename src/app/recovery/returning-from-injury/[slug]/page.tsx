@@ -71,7 +71,7 @@ export default async function ReturningFromInjurySessionPage({ params }: Props) 
                 >
                   {block.heading}
                 </h2>
-                <span className="font-display uppercase tracking-display text-[0.65rem] text-brand-400">
+                <span className="font-display uppercase tracking-display text-[0.65rem] text-muted">
                   {block.items.length} {block.items.length === 1 ? "item" : "items"}
                 </span>
               </div>

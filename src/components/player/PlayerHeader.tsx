@@ -170,7 +170,7 @@ export function PlayerHeader({
             ) : nextSession ? (
               <div className="flex items-end justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="font-display uppercase tracking-display text-[0.65rem] text-brand-400">
+                  <p className="font-display uppercase tracking-display text-[0.65rem] text-muted">
                     Next session
                   </p>
                   <p className="mt-1 truncate text-sm text-white">
@@ -196,7 +196,7 @@ export function PlayerHeader({
               </div>
             ) : (
               <>
-                <p className="font-display uppercase tracking-display text-[0.65rem] text-brand-400">
+                <p className="font-display uppercase tracking-display text-[0.65rem] text-muted">
                   Next session
                 </p>
                 <p className="mt-1 text-sm text-muted-strong">

@@ -27,7 +27,7 @@ export default async function CoachHomePage() {
       <div className="space-y-6 shell-gutter pb-6">
         <section className="grid grid-cols-2 gap-3">
           <div className="rounded-card border border-white/5 bg-ink-850 p-4 shadow-card">
-            <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
+            <p className="font-display uppercase tracking-display text-muted text-[0.65rem]">
               Teams
             </p>
             <p className="mt-1 font-display uppercase tracking-display text-white text-3xl">
@@ -35,7 +35,7 @@ export default async function CoachHomePage() {
             </p>
           </div>
           <div className="rounded-card border border-white/5 bg-ink-850 p-4 shadow-card">
-            <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
+            <p className="font-display uppercase tracking-display text-muted text-[0.65rem]">
               Players
             </p>
             <p className="mt-1 font-display uppercase tracking-display text-white text-3xl">
@@ -84,7 +84,7 @@ export default async function CoachHomePage() {
 
         <section>
           <div className="rounded-md border border-white/10 bg-ink-900/50 p-4 text-xs text-muted-strong">
-            <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
+            <p className="font-display uppercase tracking-display text-muted text-[0.65rem]">
               Data privacy
             </p>
             <p className="mt-2">

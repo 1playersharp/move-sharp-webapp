@@ -49,7 +49,7 @@ export default async function FuelPage() {
 
       <div className="space-y-6 shell-gutter pb-6">
         {playerAllergies.length > 0 ? (
-          <div className="rounded-md border border-brand/20 bg-brand/5 p-3 text-xs text-brand-400">
+          <div className="rounded-md border border-white/10 bg-ink-800 p-3 text-xs text-muted">
             Filtered by your allergies. Always double-check ingredients yourself
             — recipe tagging is a shortcut, not a replacement for reading the
             label.

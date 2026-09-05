@@ -56,7 +56,7 @@ export default async function CategoryExercisesPage({ params }: Props) {
                     </p>
                   ) : null}
                   <p className="mt-2 text-[0.65rem] uppercase tracking-display font-display text-muted">
-                    <span className="text-brand-400">{ctxLabel}</span> · {equipment}
+                    <span className="text-muted-strong">{ctxLabel}</span> · {equipment}
                   </p>
                 </div>
                 <span aria-hidden="true" className="shrink-0 self-center text-lg text-muted group-hover:text-white">

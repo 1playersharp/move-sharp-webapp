@@ -52,7 +52,7 @@ export default async function YouPage({ searchParams }: Props) {
         {saved && savedLabel[saved] ? (
           <p
             role="status"
-            className="rounded-md border border-brand/30 bg-brand/10 px-3 py-2 text-xs text-brand-400"
+            className="rounded-md border border-completion/30 bg-completion/10 px-3 py-2 text-xs text-completion-400"
           >
             {savedLabel[saved]}
           </p>
@@ -66,7 +66,7 @@ export default async function YouPage({ searchParams }: Props) {
             <h2 className="font-display uppercase tracking-display text-white text-base">
               Training context
             </h2>
-            <span className="font-display uppercase tracking-display text-[0.65rem] text-brand-400">
+            <span className="font-display uppercase tracking-display text-[0.65rem] text-muted-strong">
               {player.trainingContext === "gym" ? "Gym" : "Home"}
             </span>
           </div>
@@ -121,7 +121,7 @@ export default async function YouPage({ searchParams }: Props) {
             <h2 className="font-display uppercase tracking-display text-white text-base">
               Teams
             </h2>
-            <span className="font-display uppercase tracking-display text-[0.65rem] text-brand-400">
+            <span className="font-display uppercase tracking-display text-[0.65rem] text-muted-strong">
               {teamCount === 0
                 ? "None joined"
                 : `${teamCount} team${teamCount === 1 ? "" : "s"}`}

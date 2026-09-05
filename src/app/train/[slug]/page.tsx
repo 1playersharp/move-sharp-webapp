@@ -182,7 +182,7 @@ export default async function ProgrammeDetailPage({ params }: Props) {
                 <li key={wk.week}>
                   <Card>
                     <div className="mb-3 flex items-baseline justify-between gap-2">
-                      <span className="font-display uppercase tracking-display text-brand-400 text-sm">
+                      <span className="font-display uppercase tracking-display text-muted text-sm">
                         Week {wk.week}
                       </span>
                       <span className="text-xs text-muted">{wk.sessions.length} sessions</span>

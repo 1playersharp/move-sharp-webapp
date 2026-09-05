@@ -68,12 +68,12 @@ export default async function CoachTeamDetailPage({ params, searchParams }: Prop
 
       <div className="space-y-5 shell-gutter pb-6">
         {rotated ? (
-          <p role="status" className="rounded-md border border-brand/30 bg-brand/10 px-3 py-2 text-xs text-brand-400">
+          <p role="status" className="rounded-md border border-completion/30 bg-completion/10 px-3 py-2 text-xs text-completion-400">
             New invite code issued. The old one no longer works.
           </p>
         ) : null}
         {removed ? (
-          <p role="status" className="rounded-md border border-brand/30 bg-brand/10 px-3 py-2 text-xs text-brand-400">
+          <p role="status" className="rounded-md border border-completion/30 bg-completion/10 px-3 py-2 text-xs text-completion-400">
             Player removed from the roster.
           </p>
         ) : null}
@@ -86,7 +86,7 @@ export default async function CoachTeamDetailPage({ params, searchParams }: Prop
         {/* Invite code — big, tabular-nums so it's easy to read aloud
             or copy. Rotate button next to it. */}
         <section className="rounded-card border border-brand/25 bg-brand/5 p-5">
-          <p className="font-display uppercase tracking-display text-brand-400 text-[0.65rem]">
+          <p className="font-display uppercase tracking-display text-muted text-[0.65rem]">
             Invite code
           </p>
           <p className="mt-2 font-display uppercase tracking-display text-white text-4xl tabular-nums">
@@ -94,7 +94,7 @@ export default async function CoachTeamDetailPage({ params, searchParams }: Prop
           </p>
           <p className="mt-2 text-xs text-muted-strong">
             Players enter this code at{" "}
-            <span className="font-display uppercase tracking-display text-brand-400">
+            <span className="font-display uppercase tracking-display text-muted-strong">
               /join/{team.inviteCode}
             </span>
             . Share the URL or read the code out — either works.

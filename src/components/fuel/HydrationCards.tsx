@@ -47,7 +47,7 @@ export function HydrationCards() {
             key={c.when}
             className="rounded-card border border-white/5 bg-ink-850 p-4 shadow-card"
           >
-            <h3 className="font-display uppercase tracking-display text-brand-400 text-[0.7rem]">
+            <h3 className="font-display uppercase tracking-display text-muted text-[0.7rem]">
               {c.when}
             </h3>
             <p className="mt-2 text-sm text-white/90 leading-relaxed">

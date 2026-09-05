@@ -27,7 +27,7 @@ export function RecipeCard({ recipe }: Props) {
           {recipe.fuelTags.map((t) => (
             <span
               key={t}
-              className="rounded-full bg-brand/10 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-brand-400"
+              className="rounded-full bg-ink-800 px-2 py-0.5 font-display uppercase tracking-display text-[0.6rem] text-muted"
             >
               {FUEL_TAG_LABEL[t]}
             </span>
